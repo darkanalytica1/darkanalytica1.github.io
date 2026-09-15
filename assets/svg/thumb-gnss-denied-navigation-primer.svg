@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="True path, drifting inertial estimate and a corrected fused estimate">
 <title>True path, drifting inertial estimate and a corrected fused estimate</title>
 <style>
-text{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:9px;fill:#62686F}
+text{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:9px;fill:#5F6B7D}
 .f{animation:flow 3s linear infinite} @keyframes flow{to{stroke-dashoffset:-24}}
 .p{animation:pulse 4s ease-in-out infinite} @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
 .s{animation:sweep 6s linear infinite;transform-origin:0px 0px} @keyframes sweep{to{transform:rotate(360deg)}}
 .g{animation:grow 5s ease-in-out infinite;transform-box:fill-box;transform-origin:left bottom} @keyframes grow{0%{transform:scaleX(.2)}50%,100%{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
-<rect width="320" height="180" fill="#FBFAF7"/>
-<g stroke="#ECE9E2" stroke-width="1"><path d="M20 0V180"/><path d="M40 0V180"/><path d="M60 0V180"/><path d="M80 0V180"/><path d="M100 0V180"/><path d="M120 0V180"/><path d="M140 0V180"/><path d="M160 0V180"/><path d="M180 0V180"/><path d="M200 0V180"/><path d="M220 0V180"/><path d="M240 0V180"/><path d="M260 0V180"/><path d="M280 0V180"/><path d="M300 0V180"/><path d="M0 20H320"/><path d="M0 40H320"/><path d="M0 60H320"/><path d="M0 80H320"/><path d="M0 100H320"/><path d="M0 120H320"/><path d="M0 140H320"/><path d="M0 160H320"/></g>
+<rect width="320" height="180" fill="#F5F7FA"/>
+<g stroke="#E7EBF0" stroke-width="1"><path d="M20 0V180"/><path d="M40 0V180"/><path d="M60 0V180"/><path d="M80 0V180"/><path d="M100 0V180"/><path d="M120 0V180"/><path d="M140 0V180"/><path d="M160 0V180"/><path d="M180 0V180"/><path d="M200 0V180"/><path d="M220 0V180"/><path d="M240 0V180"/><path d="M260 0V180"/><path d="M280 0V180"/><path d="M300 0V180"/><path d="M0 20H320"/><path d="M0 40H320"/><path d="M0 60H320"/><path d="M0 80H320"/><path d="M0 100H320"/><path d="M0 120H320"/><path d="M0 140H320"/><path d="M0 160H320"/></g>
 
-<rect x="120" y="14" width="90" height="152" fill="#F6E9E6" opacity=".7"/><text x="128" y="28" fill="#A33A2B">GNSS denied</text>
-<path d="M20 120 C80 60 140 120 200 80 S280 60 304 50" fill="none" stroke="#1F3A5F" stroke-width="2"/>
-<path d="M20 120 C80 60 140 132 200 104" fill="none" stroke="#B8872B" stroke-width="1.6" stroke-dasharray="4 3"/>
-<ellipse cx="130" cy="96" rx="5" ry="3.5" fill="none" stroke="#5B7083" stroke-width="1.2"/><ellipse cx="160" cy="108" rx="9" ry="6.3" fill="none" stroke="#5B7083" stroke-width="1.2"/><ellipse cx="196" cy="100" rx="13" ry="9.1" fill="none" stroke="#5B7083" stroke-width="1.2"/><ellipse cx="236" cy="72" rx="6" ry="4.2" fill="none" stroke="#5B7083" stroke-width="1.2"/>
-<path id="n1" d="M20 120 C80 60 140 120 200 80 S280 60 304 50" fill="none" stroke="none"/><circle r="3.2" fill="#A33A2B"><animateMotion dur="6s" begin="0s" repeatCount="indefinite"><mpath href="#n1"/></animateMotion></circle>
+<rect x="120" y="14" width="90" height="152" fill="#F4EFE2" opacity=".7"/><text x="128" y="28" fill="#8A6A1F">GNSS denied</text>
+<path d="M20 120 C80 60 140 120 200 80 S280 60 304 50" fill="none" stroke="#0B2545" stroke-width="2"/>
+<path d="M20 120 C80 60 140 132 200 104" fill="none" stroke="#B7791F" stroke-width="1.6" stroke-dasharray="4 3"/>
+<ellipse cx="130" cy="96" rx="5" ry="3.5" fill="none" stroke="#3E5C76" stroke-width="1.2"/><ellipse cx="160" cy="108" rx="9" ry="6.3" fill="none" stroke="#3E5C76" stroke-width="1.2"/><ellipse cx="196" cy="100" rx="13" ry="9.1" fill="none" stroke="#3E5C76" stroke-width="1.2"/><ellipse cx="236" cy="72" rx="6" ry="4.2" fill="none" stroke="#3E5C76" stroke-width="1.2"/>
+<path id="n1" d="M20 120 C80 60 140 120 200 80 S280 60 304 50" fill="none" stroke="none"/><circle r="3.2" fill="#8A6A1F"><animateMotion dur="6s" begin="0s" repeatCount="indefinite"><mpath href="#n1"/></animateMotion></circle>
 <text x="12" y="172">INS drift · VIO · map matching</text></svg>

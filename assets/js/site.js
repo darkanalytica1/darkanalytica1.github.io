@@ -4,9 +4,9 @@
 (function () {
   'use strict';
   var NS = 'http://www.w3.org/2000/svg';
-  var C = { paper:'#F6F4EF', line:'#DAD6CC', ink:'#1B1F24', ink2:'#4A5058', ink3:'#62686F',
-    navy:'#1F3A5F', steel:'#5B7083', signal:'#A33A2B', ochre:'#B8872B', ochreText:'#8A6420', sage:'#5E7F68', sageText:'#4F6E59',
-    tNavy:'#E8EDF3', tSteel:'#EDF0F3', tSignal:'#F6E9E6', tOchre:'#F6EFDF', tSage:'#EAF0EB' };
+  var C = { page:'#F5F7FA', line:'#D8DEE6', ink:'#0E1726', ink2:'#3D4A5C', ink3:'#5F6B7D',
+    navy:'#0B2545', steel:'#3E5C76', brass:'#8A6A1F', warn:'#B7791F', warnText:'#80550F', teal:'#2F6F73', tealText:'#2F6F73', brassText:'#74581A',
+    tNavy:'#EDF1F6', tSteel:'#EEF2F5', tBrass:'#F4EFE2', tWarn:'#F8F0E1', tTeal:'#E9F2F2' };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function el(tag, attrs, parent, text) {
@@ -47,7 +47,7 @@
     var drone = el('g', {}, svg);
     el('path', { d:'M-9 0 H9 M0 -5 V5', stroke:C.ink, 'stroke-width':1.75, 'stroke-linecap':'round' }, drone);
     el('circle', { cx:0, cy:0, r:2.4, fill:C.ink }, drone);
-    var trackRing = el('circle', { r:13, fill:'none', stroke:C.signal, 'stroke-width':1.5, opacity:0 }, drone);
+    var trackRing = el('circle', { r:13, fill:'none', stroke:C.brass, 'stroke-width':1.5, opacity:0 }, drone);
 
     // sensors
     var sensors = [
@@ -69,14 +69,14 @@
     var dec = node(svg, 462, 136, 80, 60, 'Decision', 'operator');
     var e1 = el('path', { d:'M326 166 H360', stroke:C.line, 'stroke-width':1.5 }, svg);
     var e2 = el('path', { d:'M442 166 H462', stroke:C.line, 'stroke-width':1.5 }, svg);
-    var hand = el('circle', { r:4.5, fill:C.signal, opacity:0 }, svg);
-    var decMark = el('path', { d:'M490 214 l6 6 l12 -13', fill:'none', stroke:C.sage, 'stroke-width':2.2, 'stroke-linecap':'round', opacity:0 }, svg);
+    var hand = el('circle', { r:4.5, fill:C.brass, opacity:0 }, svg);
+    var decMark = el('path', { d:'M490 214 l6 6 l12 -13', fill:'none', stroke:C.teal, 'stroke-width':2.2, 'stroke-linecap':'round', opacity:0 }, svg);
 
     // latency timeline
     var ty = 318, tx0 = 30, tx1 = 530;
     txt(svg, tx0, ty - 14, 'LATENCY, DETECTION TO DECISION', { mono:true, size:11, fill:C.ink3, ls:'.08em' });
     el('rect', { x:tx0, y:ty, width:tx1 - tx0, height:12, rx:2, fill:C.tSteel }, svg);
-    var stages = [ ['Detect', 0.6, 3.3, C.steel], ['Fuse', 3.3, 4.2, C.navy], ['C2', 4.2, 5.4, C.signal], ['Decide', 5.4, 6.4, C.sage] ];
+    var stages = [ ['Detect', 0.6, 3.3, C.steel], ['Fuse', 3.3, 4.2, C.navy], ['C2', 4.2, 5.4, C.brass], ['Decide', 5.4, 6.4, C.teal] ];
     var sx = function (s) { return tx0 + (s - 0.6) / (6.4 - 0.6) * (tx1 - tx0); };
     stages.forEach(function (s) {
       s.bar = el('rect', { x:sx(s[1]), y:ty, width:0, height:12, fill:s[3], opacity:.85 }, svg);
@@ -102,17 +102,17 @@
         set(s.path, { stroke:(t >= s.hit && t < 8.3) ? C.steel : C.line });
       });
       var confirmed = hits >= 2 && t < 8.3;
-      set(fusion.r, { stroke:confirmed ? C.sage : (hits ? C.navy : C.line), 'stroke-width':confirmed ? 2 : 1.5 });
+      set(fusion.r, { stroke:confirmed ? C.teal : (hits ? C.navy : C.line), 'stroke-width':confirmed ? 2 : 1.5 });
       fState.textContent = confirmed ? 'confirmed · ' + hits + ' of 3 sensors' : (hits ? 'tentative · 1 of 3' : 'searching');
-      set(fState, { fill:confirmed ? C.sageText : C.ink3 });
+      set(fState, { fill:confirmed ? C.tealText : C.ink3 });
       set(trackRing, { opacity:confirmed ? 0.9 * fade : 0 });
       setLabel('f1state', confirmed ? 'Track: confirmed' : (hits ? 'Track: tentative' : 'Track: searching'));
       // hand-off fusion -> C2 -> decision
       var h1 = seg(t, 3.5, 4.2), h2 = seg(t, 4.6, 5.4);
       var hx = t < 4.4 ? lerp(326, 360, ease(h1)) : lerp(442, 462, ease(h2));
       set(hand, { cx:hx, cy:166, opacity:((t > 3.5 && t < 4.3) || (t > 4.6 && t < 5.5) ? 1 : 0) * fade });
-      set(e1, { stroke:t > 3.5 && t < 8.3 ? C.signal : C.line });
-      set(e2, { stroke:t > 4.6 && t < 8.3 ? C.signal : C.line });
+      set(e1, { stroke:t > 3.5 && t < 8.3 ? C.brass : C.line });
+      set(e2, { stroke:t > 4.6 && t < 8.3 ? C.brass : C.line });
       set(c2.r, { stroke:t > 4.2 && t < 8.3 ? C.navy : C.line });
       set(dec.r, { stroke:t > 5.4 && t < 8.3 ? C.navy : C.line });
       set(decMark, { opacity:ease(seg(t, 5.8, 6.4)) * fade });
@@ -130,14 +130,14 @@
     el('rect', { x:0, y:0, width:520, height:360, fill:'#fff' }, svg);
     var defs = el('defs', {}, svg);
     var pat = el('pattern', { id:'hatch', width:6, height:6, patternUnits:'userSpaceOnUse', patternTransform:'rotate(45)' }, defs);
-    el('rect', { width:6, height:6, fill:C.tOchre }, pat);
-    el('path', { d:'M0 0V6', stroke:C.ochre, 'stroke-width':1, opacity:.55 }, pat);
+    el('rect', { width:6, height:6, fill:C.tWarn }, pat);
+    el('path', { d:'M0 0V6', stroke:C.warn, 'stroke-width':1, opacity:.55 }, pat);
 
     var site = { x:250, y:196 };
     var S = [
       { id:'Radar', x:250, y:196, r:150, col:C.navy, dash:'6 5' },
       { id:'RF', x:330, y:238, r:105, col:C.steel, dash:'2 4', sector:[-150, -20] },
-      { id:'EO', x:196, y:226, r:70, col:C.sage, dash:'' }
+      { id:'EO', x:196, y:226, r:70, col:C.teal, dash:'' }
     ];
     // obstacle and radar shadow
     var ob = { x:300, y:118, w:34, h:26 };
@@ -164,31 +164,31 @@
           ' A' + s.r + ' ' + s.r + ' 0 0 1 ' + (s.x + s.r * Math.cos(a1)).toFixed(1) + ' ' + (s.y + s.r * Math.sin(a1)).toFixed(1) + ' Z',
           fill:C.tSteel, 'fill-opacity':.7, stroke:s.col, 'stroke-width':1.5, 'stroke-dasharray':s.dash }, svg);
       } else {
-        el('circle', { cx:s.x, cy:s.y, r:s.r, fill:s.id === 'Radar' ? C.tNavy : C.tSage, 'fill-opacity':s.id === 'Radar' ? .5 : .55, stroke:s.col, 'stroke-width':1.5, 'stroke-dasharray':s.dash }, svg);
+        el('circle', { cx:s.x, cy:s.y, r:s.r, fill:s.id === 'Radar' ? C.tNavy : C.tTeal, 'fill-opacity':s.id === 'Radar' ? .5 : .55, stroke:s.col, 'stroke-width':1.5, 'stroke-dasharray':s.dash }, svg);
       }
     });
-    var sh = el('path', { d:arc, fill:'url(#hatch)', stroke:C.ochre, 'stroke-width':1.2, 'stroke-dasharray':'3 3' }, svg);
+    var sh = el('path', { d:arc, fill:'url(#hatch)', stroke:C.warn, 'stroke-width':1.2, 'stroke-dasharray':'3 3' }, svg);
     el('rect', { x:ob.x, y:ob.y, width:ob.w, height:ob.h, rx:2, fill:'#fff', stroke:C.ink2, 'stroke-width':1.5 }, svg);
     txt(svg, ob.x + ob.w / 2, ob.y + ob.h + 14, 'building', { anchor:'middle', size:11, fill:C.ink2 });
-    txt(svg, 388, 108, 'LOS shadow', { size:11, mono:true, fill:C.ochreText });
-    txt(svg, 388, 122, '(radar dead zone)', { size:11, mono:true, fill:C.ochreText });
+    txt(svg, 388, 108, 'LOS shadow', { size:11, mono:true, fill:C.warnText });
+    txt(svg, 388, 122, '(radar dead zone)', { size:11, mono:true, fill:C.warnText });
     // site
     el('rect', { x:site.x - 9, y:site.y - 9, width:18, height:18, fill:'#fff', stroke:C.ink, 'stroke-width':1.75 }, svg);
     el('circle', { cx:site.x, cy:site.y, r:3, fill:C.navy }, svg);
     txt(svg, site.x - 22, site.y + 30, 'site / radar', { size:11, fill:C.ink2 });
     el('circle', { cx:S[1].x, cy:S[1].y, r:4, fill:C.steel }, svg);
-    el('circle', { cx:S[2].x, cy:S[2].y, r:4, fill:C.sage }, svg);
+    el('circle', { cx:S[2].x, cy:S[2].y, r:4, fill:C.teal }, svg);
     // legend
     var lg = el('g', { transform:'translate(18 22)' }, svg);
-    [['Radar', C.navy, '6 5'], ['Passive RF sector', C.steel, '2 4'], ['EO / IR', C.sage, '']].forEach(function (l, i) {
+    [['Radar', C.navy, '6 5'], ['Passive RF sector', C.steel, '2 4'], ['EO / IR', C.teal, '']].forEach(function (l, i) {
       el('path', { d:'M0 ' + (i * 18) + ' H22', stroke:l[1], 'stroke-width':2, 'stroke-dasharray':l[2] }, lg);
       txt(lg, 30, i * 18 + 4, l[0], { size:11, fill:C.ink2 });
     });
 
     var trk = el('path', { d:'M500 22 C440 60 400 64 350 84 C300 106 280 150 262 186', fill:'none', stroke:C.steel, 'stroke-width':1.2, 'stroke-dasharray':'2 5' }, svg);
     var TL = trk.getTotalLength();
-    var trail = el('path', { d:'', fill:'none', stroke:C.signal, 'stroke-width':2 }, svg);
-    var dr = el('circle', { r:5, fill:C.signal, stroke:'#fff', 'stroke-width':1.5 }, svg);
+    var trail = el('path', { d:'', fill:'none', stroke:C.brass, 'stroke-width':2 }, svg);
+    var dr = el('circle', { r:5, fill:C.brass, stroke:'#fff', 'stroke-width':1.5 }, svg);
     var badge = el('g', {}, svg);
     var bRect = el('rect', { x:0, y:-12, width:98, height:22, rx:3, fill:'#fff', stroke:C.line }, badge);
     var bTxt = txt(badge, 8, 3, '', { size:11, mono:true, fill:C.ink });
@@ -228,14 +228,14 @@
       var k = Math.floor(u * 120), d = '';
       for (var i = 0; i <= k; i++) d += (i ? 'L' : 'M') + samples[i][0].toFixed(1) + ' ' + samples[i][1].toFixed(1);
       set(trail, { d:d, opacity:.55 * fade });
-      set(dr, { cx:q.x, cy:q.y, fill:n === 0 ? C.ochre : C.signal, opacity:fade });
+      set(dr, { cx:q.x, cy:q.y, fill:n === 0 ? C.warn : C.brass, opacity:fade });
       var bx = Math.min(q.x + 12, 412), by = Math.max(q.y - 14, 24);
       set(badge, { transform:'translate(' + bx.toFixed(1) + ' ' + by.toFixed(1) + ')', opacity:fade });
       var inside = Math.hypot(q.x - S[0].x, q.y - S[0].y) <= S[0].r;
       var label = n === 0 ? (inside ? 'dead zone · 0' : 'outside · 0') : 'sensors · ' + n;
       bTxt.textContent = label;
-      set(bTxt, { fill:n === 0 ? C.ochreText : C.ink });
-      set(bRect, { stroke:n === 0 ? C.ochre : C.line, fill:n === 0 ? C.tOchre : '#fff' });
+      set(bTxt, { fill:n === 0 ? C.warnText : C.ink });
+      set(bRect, { stroke:n === 0 ? C.warn : C.line, fill:n === 0 ? C.tWarn : '#fff' });
       set(sh, { 'stroke-width':n === 0 && inside ? 2 : 1.2 });
       setLabel('f2state', 'Sensors on target: ' + n);
     };
@@ -249,14 +249,14 @@
     var yTrue = function (x) { return 150 + 42 * Math.sin((x - X0) / 80) + 14 * Math.sin((x - X0) / 31); };
     var spoof = [0.40, 0.66]; // fraction of path where GNSS is spoofed
     // spoof band
-    el('rect', { x:lerp(X0, X1, spoof[0]), y:24, width:(X1 - X0) * (spoof[1] - spoof[0]), height:236, fill:C.tSignal, opacity:.8 }, svg);
-    txt(svg, lerp(X0, X1, spoof[0]) + 8, 40, 'GNSS SPOOFED', { mono:true, size:11, fill:C.signal, ls:'.06em' });
+    el('rect', { x:lerp(X0, X1, spoof[0]), y:24, width:(X1 - X0) * (spoof[1] - spoof[0]), height:236, fill:C.tBrass, opacity:.8 }, svg);
+    txt(svg, lerp(X0, X1, spoof[0]) + 8, 40, 'GNSS SPOOFED', { mono:true, size:11, fill:C.brassText, ls:'.06em' });
     var d = '';
     for (var x = X0; x <= X1; x += 4) d += (x === X0 ? 'M' : 'L') + x + ' ' + yTrue(x).toFixed(1);
     el('path', { d:d, fill:'none', stroke:C.ink3, 'stroke-width':1.2, 'stroke-dasharray':'3 4' }, svg);
     // legend
     var lg = el('g', { transform:'translate(24 290)' }, svg);
-    var items = [['true path', C.ink3, 'line'], ['fused estimate', C.navy, 'line2'], ['GNSS accepted', C.sage, 'dot'], ['GNSS rejected', C.signal, 'x'], ['innovation gate', C.steel, 'ring']];
+    var items = [['true path', C.ink3, 'line'], ['fused estimate', C.navy, 'line2'], ['GNSS accepted', C.teal, 'dot'], ['GNSS rejected', C.brass, 'x'], ['innovation gate', C.steel, 'ring']];
     items.forEach(function (it, i) {
       var gx = (i % 3) * 160, gy = Math.floor(i / 3) * 22;
       var g = el('g', { transform:'translate(' + gx + ' ' + gy + ')' }, lg);
@@ -272,7 +272,7 @@
     var fixes = el('g', {}, svg);
     var ell = el('ellipse', { rx:8, ry:6, fill:C.tNavy, 'fill-opacity':.6, stroke:C.navy, 'stroke-width':1.2 }, svg);
     var gate = el('circle', { r:20, fill:'none', stroke:C.steel, 'stroke-width':1.2, 'stroke-dasharray':'3 2' }, svg);
-    var innov = el('path', { d:'', stroke:C.signal, 'stroke-width':1.2, 'stroke-dasharray':'2 2' }, svg);
+    var innov = el('path', { d:'', stroke:C.brass, 'stroke-width':1.2, 'stroke-dasharray':'2 2' }, svg);
     var veh = el('circle', { r:4.5, fill:C.navy, stroke:'#fff', 'stroke-width':1.5 }, svg);
     var sigmaT = txt(svg, 24, 272, '', { mono:true, size:11, fill:C.ink2 });
 
@@ -323,14 +323,14 @@
           el('path', { d:'M-4 -4 L4 4 M4 -4 L-4 4', 'stroke-width':1.8 }, g);
         }
         set(g, { transform:'translate(' + fx.toFixed(1) + ' ' + Math.min(fy, 256).toFixed(1) + ')', opacity:(u - fu < 0.25 ? 1 : 0.45) * fade });
-        set(g.firstChild, { fill:C.sage, opacity:rej ? 0 : 1 });
-        set(g.lastChild, { stroke:C.signal, opacity:rej ? 1 : 0 });
+        set(g.firstChild, { fill:C.teal, opacity:rej ? 0 : 1 });
+        set(g.lastChild, { stroke:C.brass, opacity:rej ? 1 : 0 });
         latest = { x:fx, y:Math.min(fy, 256), yP:yP }; latestRejected = rej;
       }
       if (latest && u - (latest.x - X0) / (X1 - X0) < 0.05) {
         set(innov, { d:'M' + latest.x.toFixed(1) + ' ' + latest.yP.toFixed(1) + ' L' + latest.x.toFixed(1) + ' ' + latest.y.toFixed(1), opacity:latestRejected ? fade : 0 });
       } else set(innov, { opacity:0 });
-      set(gate, { stroke:latestRejected ? C.signal : C.steel });
+      set(gate, { stroke:latestRejected ? C.brass : C.steel });
       setLabel('f3state', latestRejected ? 'GNSS: rejected, outside gate' : 'GNSS: accepted');
     };
   }
@@ -359,16 +359,16 @@
     txt(svg, ax + 14, ay + 128, 'Corroboration', { weight:600, size:13, fill:C.ink });
     var ticks = [];
     for (var i = 0; i < 3; i++) ticks.push(el('rect', { x:ax + 14 + i * 26, y:ay + 140, width:20, height:12, rx:2, fill:C.tSteel, stroke:C.line }, svg));
-    var flag = txt(svg, ax + 98, ay + 151, '', { mono:true, size:11, fill:C.ochreText });
+    var flag = txt(svg, ax + 98, ay + 151, '', { mono:true, size:11, fill:C.warnText });
 
     ev.forEach(function (e) {
       e.n = el('rect', { x:20, y:e.y, width:170, height:44, rx:4, fill:'#fff', stroke:C.line, 'stroke-width':1.5 }, svg);
       txt(svg, 32, e.y + 27, e.t, { size:13, fill:C.ink });
-      e.chip = el('rect', { x:152, y:e.y + 13, width:28, height:18, rx:3, fill:e.ok ? C.tNavy : C.tOchre }, svg);
-      txt(svg, 166, e.y + 26, e.g, { anchor:'middle', mono:true, size:11, fill:e.ok ? C.navy : C.ochreText, weight:500 });
+      e.chip = el('rect', { x:152, y:e.y + 13, width:28, height:18, rx:3, fill:e.ok ? C.tNavy : C.tWarn }, svg);
+      txt(svg, 166, e.y + 26, e.g, { anchor:'middle', mono:true, size:11, fill:e.ok ? C.navy : C.warnText, weight:500 });
       e.p = el('path', { d:'M190 ' + (e.y + 22) + ' C206 ' + (e.y + 22) + ' 206 ' + (ay + ah / 2) + ' ' + ax + ' ' + (ay + ah / 2), fill:'none', stroke:C.line, 'stroke-width':1.5 }, svg);
       e.L = e.p.getTotalLength();
-      e.dot = el('circle', { r:4, fill:e.ok ? C.navy : C.ochre, opacity:0 }, svg);
+      e.dot = el('circle', { r:4, fill:e.ok ? C.navy : C.warn, opacity:0 }, svg);
     });
     txt(svg, 20, 296, 'Grades: source reliability A-F, information credibility 1-6', { size:11, fill:C.ink3 });
 
@@ -376,18 +376,18 @@
     var ox = 404, oy = 70, ow = 146, oh = 176;
     var out = el('rect', { x:ox, y:oy, width:ow, height:oh, rx:4, fill:'#fff', stroke:C.line, 'stroke-width':1.5 }, svg);
     el('path', { d:'M' + (ax + aw) + ' ' + (ay + ah / 2) + ' H' + ox, stroke:C.line, 'stroke-width':1.5 }, svg);
-    var odot = el('circle', { r:4.5, fill:C.signal, opacity:0 }, svg);
+    var odot = el('circle', { r:4.5, fill:C.brass, opacity:0 }, svg);
     txt(svg, ox + 14, oy + 26, 'Judgement', { weight:600, size:13, fill:C.ink });
     txt(svg, ox + 14, oy + 46, 'Confidence', { mono:true, size:11, fill:C.ink3 });
-    var levels = [['LOW', C.signal], ['MODERATE', C.ochre], ['HIGH', C.sage]];
+    var levels = [['LOW', C.warn], ['MODERATE', C.steel], ['HIGH', C.teal]];
     var meterX = ox + 14, meterW = ow - 28;
     el('rect', { x:meterX, y:oy + 56, width:meterW, height:8, rx:2, fill:C.tSteel }, svg);
-    var meter = el('rect', { x:meterX, y:oy + 56, width:0, height:8, rx:2, fill:C.signal }, svg);
-    var confT = txt(svg, ox + 14, oy + 84, 'LOW', { mono:true, size:12, weight:500, fill:C.signal });
+    var meter = el('rect', { x:meterX, y:oy + 56, width:0, height:8, rx:2, fill:C.warn }, svg);
+    var confT = txt(svg, ox + 14, oy + 84, 'LOW', { mono:true, size:12, weight:500, fill:C.warnText });
     el('path', { d:'M' + (ox + 14) + ' ' + (oy + 100) + ' H' + (ox + ow - 14), stroke:C.line }, svg);
     txt(svg, ox + 14, oy + 120, 'Limits stated', { weight:600, size:13, fill:C.ink });
     var lim1 = txt(svg, ox + 14, oy + 140, 'L1  no ground truth', { mono:true, size:11, fill:C.ink2 });
-    var lim2 = txt(svg, ox + 14, oy + 158, 'L2  1 claim open', { mono:true, size:11, fill:C.ochreText });
+    var lim2 = txt(svg, ox + 14, oy + 158, 'L2  1 claim open', { mono:true, size:11, fill:C.warnText });
 
     return function render(t) {
       t = t % P;
@@ -398,18 +398,18 @@
         var q = e.p.getPointAtLength(ease(k) * e.L);
         set(e.dot, { cx:q.x, cy:q.y, opacity:(t > e.at && k < 1 ? 1 : 0) * fade });
         var arrived = t >= e.at + 1.0 && live;
-        set(e.n, { stroke:t > e.at && live ? (e.ok ? C.navy : C.ochre) : C.line });
-        set(e.p, { stroke:t > e.at && live ? (e.ok ? C.steel : C.ochre) : C.line, 'stroke-dasharray':e.ok ? '' : '4 3' });
+        set(e.n, { stroke:t > e.at && live ? (e.ok ? C.navy : C.warn) : C.line });
+        set(e.p, { stroke:t > e.at && live ? (e.ok ? C.steel : C.warn) : C.line, 'stroke-dasharray':e.ok ? '' : '4 3' });
         if (arrived) { if (e.ok) corrob++; else conflict = true; }
       });
-      ticks.forEach(function (r, i) { set(r, { fill:i < corrob ? C.tSage : C.tSteel, stroke:i < corrob ? C.sage : C.line }); });
-      flag.textContent = conflict ? '+1 not corroborated' : '';
+      ticks.forEach(function (r, i) { set(r, { fill:i < corrob ? C.tTeal : C.tSteel, stroke:i < corrob ? C.teal : C.line }); });
+      flag.textContent = conflict ? '+1 conflict' : '';
       var lvl = corrob >= 3 ? 1 : 0; // three corroborating sources with stated assumptions: moderate, never high
       var target = [0.28, 0.62][lvl] * (corrob ? 1 : 0.5);
       var mw = meterW * target;
       set(meter, { width:(mw * fade).toFixed(1), fill:levels[lvl][1] });
       confT.textContent = levels[lvl][0];
-      set(confT, { fill:lvl ? C.ochreText : C.signal });
+      set(confT, { fill:lvl ? C.steel : C.warnText });
       set(out, { stroke:t > 6.2 && live ? C.navy : C.line, 'stroke-width':t > 6.2 && live ? 2 : 1.5 });
       var k = seg(t, 5.8, 6.3);
       set(odot, { cx:lerp(ax + aw, ox, ease(k)), cy:ay + ah / 2, opacity:(t > 5.8 && k < 1 ? 1 : 0) * fade });

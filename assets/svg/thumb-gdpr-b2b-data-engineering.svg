@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Data pipeline with provenance gate, suppression and erasure">
 <title>Data pipeline with provenance gate, suppression and erasure</title>
 <style>
-text{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:9px;fill:#62686F}
+text{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:9px;fill:#5F6B7D}
 .f{animation:flow 3s linear infinite} @keyframes flow{to{stroke-dashoffset:-24}}
 .p{animation:pulse 4s ease-in-out infinite} @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
 .s{animation:sweep 6s linear infinite;transform-origin:0px 0px} @keyframes sweep{to{transform:rotate(360deg)}}
 .g{animation:grow 5s ease-in-out infinite;transform-box:fill-box;transform-origin:left bottom} @keyframes grow{0%{transform:scaleX(.2)}50%,100%{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
-<rect width="320" height="180" fill="#FBFAF7"/>
-<g stroke="#ECE9E2" stroke-width="1"><path d="M20 0V180"/><path d="M40 0V180"/><path d="M60 0V180"/><path d="M80 0V180"/><path d="M100 0V180"/><path d="M120 0V180"/><path d="M140 0V180"/><path d="M160 0V180"/><path d="M180 0V180"/><path d="M200 0V180"/><path d="M220 0V180"/><path d="M240 0V180"/><path d="M260 0V180"/><path d="M280 0V180"/><path d="M300 0V180"/><path d="M0 20H320"/><path d="M0 40H320"/><path d="M0 60H320"/><path d="M0 80H320"/><path d="M0 100H320"/><path d="M0 120H320"/><path d="M0 140H320"/><path d="M0 160H320"/></g>
+<rect width="320" height="180" fill="#F5F7FA"/>
+<g stroke="#E7EBF0" stroke-width="1"><path d="M20 0V180"/><path d="M40 0V180"/><path d="M60 0V180"/><path d="M80 0V180"/><path d="M100 0V180"/><path d="M120 0V180"/><path d="M140 0V180"/><path d="M160 0V180"/><path d="M180 0V180"/><path d="M200 0V180"/><path d="M220 0V180"/><path d="M240 0V180"/><path d="M260 0V180"/><path d="M280 0V180"/><path d="M300 0V180"/><path d="M0 20H320"/><path d="M0 40H320"/><path d="M0 60H320"/><path d="M0 80H320"/><path d="M0 100H320"/><path d="M0 120H320"/><path d="M0 140H320"/><path d="M0 160H320"/></g>
 
-<path d="M20 90H300" stroke="#5B7083" stroke-width="2" stroke-dasharray="5 5" class="f"/>
-<rect x="22" y="72" width="54" height="36" rx="4" fill="#fff" stroke="#5B7083" stroke-width="1.6"/><text x="49" y="94" text-anchor="middle">ingest</text><rect x="98" y="72" width="54" height="36" rx="4" fill="#fff" stroke="#1F3A5F" stroke-width="1.6"/><text x="125" y="94" text-anchor="middle">gate</text><rect x="174" y="72" width="54" height="36" rx="4" fill="#fff" stroke="#1F3A5F" stroke-width="1.6"/><text x="201" y="94" text-anchor="middle">suppress</text><rect x="250" y="72" width="54" height="36" rx="4" fill="#fff" stroke="#5B7083" stroke-width="1.6"/><text x="277" y="94" text-anchor="middle">store</text>
-<path id="g1" d="M20 90H300" fill="none" stroke="none"/><circle r="3.2" fill="#1F3A5F"><animateMotion dur="5s" begin="0s" repeatCount="indefinite"><mpath href="#g1"/></animateMotion></circle>
-<path d="M125 108 V140" stroke="#A33A2B" stroke-width="1.5"/><text x="96" y="154" fill="#A33A2B">no provenance</text>
-<rect x="238" y="126" width="72" height="22" rx="3" fill="#F6E9E6"/><text x="244" y="141" fill="#A33A2B">tombstone</text></svg>
+<path d="M20 90H300" stroke="#3E5C76" stroke-width="2" stroke-dasharray="5 5" class="f"/>
+<rect x="22" y="72" width="54" height="36" rx="4" fill="#fff" stroke="#3E5C76" stroke-width="1.6"/><text x="49" y="94" text-anchor="middle">ingest</text><rect x="98" y="72" width="54" height="36" rx="4" fill="#fff" stroke="#0B2545" stroke-width="1.6"/><text x="125" y="94" text-anchor="middle">gate</text><rect x="174" y="72" width="54" height="36" rx="4" fill="#fff" stroke="#0B2545" stroke-width="1.6"/><text x="201" y="94" text-anchor="middle">suppress</text><rect x="250" y="72" width="54" height="36" rx="4" fill="#fff" stroke="#3E5C76" stroke-width="1.6"/><text x="277" y="94" text-anchor="middle">store</text>
+<path id="g1" d="M20 90H300" fill="none" stroke="none"/><circle r="3.2" fill="#0B2545"><animateMotion dur="5s" begin="0s" repeatCount="indefinite"><mpath href="#g1"/></animateMotion></circle>
+<path d="M125 108 V140" stroke="#8A6A1F" stroke-width="1.5"/><text x="96" y="154" fill="#8A6A1F">no provenance</text>
+<rect x="238" y="126" width="72" height="22" rx="3" fill="#F4EFE2"/><text x="244" y="141" fill="#8A6A1F">tombstone</text></svg>
