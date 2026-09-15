@@ -3,488 +3,276 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonard Dumitru · Intelligence, Defense, Security</title>
-<meta name="description" content="Market intelligence and business development for the defense and security sector. Open-source data engineering, defense go-to-market, and security literacy.">
+<title>Leonard Dumitru</title>
+<meta name="description" content="Leonard Dumitru. Defense product and capture for government, defense and intelligence technology. Counter-UAS, RF, AI, procurement. Open technical work and writing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#070a12; --bg2:#0b1020; --panel:#0e1424; --panel2:#111a2e;
-    --line:#1e2b47; --line2:#2a3c60;
-    --ink:#e8eefc; --dim:#93a2c4; --faint:#5f7099;
-    --accent:#4dd4ff; --accent2:#7c8cff; --amber:#ffcf6b; --green:#54e0a3; --red:#ff7b74;
+    --paper:#f4f5f7; --surface:#ffffff; --raise:#f8f9fb;
+    --ink:#141b26; --body:#2f3742; --muted:#5c6675; --faint:#8b94a2; --rule:#e2e6ec; --rule2:#d0d6df;
+    --accent:#2f4b7a;        /* steel navy */
+    --brass:#8a6d33;         /* restrained detail */
+    --serif:'Newsreader',Georgia,serif;
+    --sans:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
     --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-    --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    --maxw:1120px;
+    --w:1080px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
-    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
+  body{margin:0;background:var(--paper);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .wrap{max-width:var(--w);margin:0 auto;padding:0 32px}
   .mono{font-family:var(--mono)}
-  .kicker{
-    font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;
-    color:var(--accent);font-weight:500;
-  }
 
-  /* ---------- nav ---------- */
-  nav{
-    position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
-    background:rgba(7,10,18,.72);border-bottom:1px solid transparent;transition:border-color .3s;
-  }
-  nav.scrolled{border-bottom-color:var(--line)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{font-weight:800;letter-spacing:-.01em;font-size:15px;display:flex;align-items:center;gap:10px}
-  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
-  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--dim)}
-  .nav-links a{transition:color .2s}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-cta{
-    font-family:var(--mono);font-size:13px;border:1px solid var(--line2);
-    padding:8px 16px;border-radius:8px;color:var(--ink);transition:.2s;
-  }
-  .nav-cta:hover{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;color:var(--accent)}
-  @media(max-width:680px){.nav-links{display:none}}
+  /* masthead */
+  header.top{border-bottom:1px solid var(--rule);background:rgba(244,245,247,.9);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50}
+  .top-in{max-width:var(--w);margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between}
+  .mark{display:flex;align-items:center;gap:12px}
+  .mark svg{display:block}
+  .mark .name{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);letter-spacing:.01em}
+  .topnav{display:flex;gap:30px;font-size:13px;font-family:var(--mono);color:var(--muted)}
+  .topnav a{transition:color .15s}
+  .topnav a:hover{color:var(--ink)}
+  @media(max-width:720px){.topnav{display:none}}
 
-  /* ---------- hero ---------- */
-  .hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
-  #radar{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
-  .hero-veil{
-    position:absolute;inset:0;
-    background:
-      radial-gradient(120% 90% at 18% 40%, rgba(7,10,18,.35), rgba(7,10,18,.86) 60%, var(--bg) 100%),
-      linear-gradient(180deg, transparent 60%, var(--bg) 100%);
-  }
-  .hero-in{position:relative;z-index:2;width:100%;padding:80px 24px}
-  .hero h1{
-    font-size:clamp(40px,7vw,84px);line-height:1.02;letter-spacing:-.03em;font-weight:800;
-    margin:18px 0 0;
-  }
-  .hero h1 .g{
-    background:linear-gradient(100deg,var(--accent),var(--accent2) 55%,var(--amber));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .lead{font-size:clamp(18px,2.3vw,23px);color:var(--ink);max-width:640px;margin:26px 0 0;font-weight:500}
-  .sub{font-size:16px;color:var(--dim);max-width:600px;margin:16px 0 0}
-  .cta-row{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
-  .btn{
-    font-family:var(--mono);font-size:14px;font-weight:500;padding:13px 22px;border-radius:10px;
-    display:inline-flex;align-items:center;gap:9px;transition:.22s;border:1px solid transparent;
-  }
-  .btn-p{background:var(--accent);color:#04121a;font-weight:700}
-  .btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px var(--accent)}
-  .btn-g{border-color:var(--line2);color:var(--ink)}
-  .btn-g:hover{border-color:var(--accent);color:var(--accent)}
-  .stat-strip{display:flex;gap:34px;margin-top:52px;flex-wrap:wrap}
-  .stat .n{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--ink)}
-  .stat .l{font-size:12px;color:var(--faint);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+  /* hero */
+  .hero{padding:76px 0 56px;border-bottom:1px solid var(--rule)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,6.5vw,68px);line-height:1.02;letter-spacing:-.01em;color:var(--ink);margin:18px 0 0}
+  .role{font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.4vw,24px);color:var(--muted);margin:12px 0 0;font-weight:400}
+  .hero .bio{max-width:640px;margin:26px 0 0;font-size:17px;color:var(--body)}
+  .hero .bio + .bio{margin-top:14px;color:var(--muted);font-size:15.5px}
 
-  /* ---------- section frame ---------- */
-  section.blk{padding:96px 0;position:relative}
-  .sec-head{max-width:660px;margin-bottom:52px}
-  .sec-head h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;font-weight:800;margin:12px 0 0;line-height:1.1}
-  .sec-head p{color:var(--dim);font-size:17px;margin:14px 0 0}
-  .divider{height:1px;background:linear-gradient(90deg,var(--line),transparent);border:0}
+  .herometa{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;margin:34px 0 0;font-family:var(--mono);font-size:13px;max-width:560px}
+  .herometa dt{color:var(--faint);text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding-top:2px}
+  .herometa dd{margin:0;color:var(--body)}
 
-  /* ---------- focus trio ---------- */
-  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  @media(max-width:820px){.trio{grid-template-columns:1fr}}
-  .fcard{
-    background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);
-    border-radius:16px;padding:28px;transition:.25s;position:relative;overflow:hidden;
-  }
-  .fcard:hover{border-color:var(--line2);transform:translateY(-3px)}
-  .fcard .ic{
-    width:42px;height:42px;border-radius:11px;display:grid;place-items:center;margin-bottom:18px;
-    background:rgba(77,212,255,.1);border:1px solid rgba(77,212,255,.25);font-size:20px;
-  }
-  .fcard h3{font-size:19px;margin:0 0 8px;letter-spacing:-.01em}
-  .fcard p{color:var(--dim);font-size:15px;margin:0}
+  .actions{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+  .btn{font-family:var(--mono);font-size:13px;padding:11px 20px;border:1px solid var(--rule2);border-radius:4px;color:var(--ink);background:var(--surface);transition:.15s}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 
-  /* ---------- projects ---------- */
-  .proj{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-  @media(max-width:820px){.proj{grid-template-columns:1fr}}
-  .pcard{
-    background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;
-    display:flex;flex-direction:column;transition:.25s;
-  }
-  .pcard:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 24px 60px -30px rgba(77,212,255,.5)}
-  .pcard .media{
-    background:#0a0f1c;border-bottom:1px solid var(--line);aspect-ratio:1000/292;overflow:hidden;
-    display:grid;place-items:center;
-  }
-  .pcard .media img{width:100%;height:100%;object-fit:contain;display:block}
-  .pbody{padding:24px 26px 26px}
-  .ptags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--faint);
-    border:1px solid var(--line);border-radius:999px;padding:4px 11px}
-  .tag.a{color:var(--accent);border-color:rgba(77,212,255,.35)}
-  .pcard h3{font-size:21px;margin:0 0 8px;letter-spacing:-.015em}
-  .pcard p{color:var(--dim);font-size:15px;margin:0 0 18px}
-  .plink{font-family:var(--mono);font-size:13px;color:var(--accent);display:inline-flex;align-items:center;gap:8px}
-  .plink .arw{transition:transform .2s}
-  .pcard:hover .plink .arw{transform:translateX(4px)}
+  /* section */
+  section.blk{padding:64px 0;border-bottom:1px solid var(--rule)}
+  .sechead{display:flex;align-items:baseline;gap:16px;margin-bottom:34px}
+  .sechead .no{font-family:var(--mono);font-size:12px;color:var(--brass);letter-spacing:.1em}
+  .sechead h2{font-family:var(--serif);font-weight:600;font-size:26px;color:var(--ink);margin:0;letter-spacing:-.01em}
+  .sechead .rule{flex:1;height:1px;background:var(--rule)}
 
-  /* ---------- capabilities row ---------- */
-  .caps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
-    border:1px solid var(--line);border-radius:16px;overflow:hidden}
-  @media(max-width:820px){.caps{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:480px){.caps{grid-template-columns:1fr}}
-  .cap{background:var(--bg2);padding:24px}
-  .cap .mono{font-size:12px;color:var(--accent);letter-spacing:.1em}
-  .cap ul{margin:12px 0 0;padding:0;list-style:none}
-  .cap li{color:var(--dim);font-size:14px;padding:5px 0 5px 18px;position:relative}
-  .cap li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--line2)}
+  /* focus */
+  .focus{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+  @media(max-width:760px){.focus{grid-template-columns:1fr}}
+  .fitem{background:var(--surface);padding:26px}
+  .fitem .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .fitem h3{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);margin:10px 0 8px}
+  .fitem p{margin:0;font-size:14.5px;color:var(--muted)}
 
-  /* ---------- cta band ---------- */
-  .band{
-    background:linear-gradient(120deg,var(--panel2),var(--bg2));border:1px solid var(--line);
-    border-radius:22px;padding:56px 44px;text-align:center;position:relative;overflow:hidden;
-  }
-  .band::before{content:'';position:absolute;inset:0;
-    background:radial-gradient(60% 120% at 50% 0%,rgba(77,212,255,.14),transparent 70%)}
-  .band h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.02em;margin:0 0 12px;position:relative}
-  .band p{color:var(--dim);max-width:520px;margin:0 auto 28px;position:relative}
-  .band .cta-row{justify-content:center}
+  /* work */
+  .work{display:grid;gap:0;border:1px solid var(--rule)}
+  .witem{display:grid;grid-template-columns:1fr auto;gap:8px 24px;padding:22px 24px;border-bottom:1px solid var(--rule);background:var(--surface);transition:background .15s;align-items:start}
+  .witem:last-child{border-bottom:0}
+  .witem:hover{background:var(--raise)}
+  .witem .t{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink)}
+  .witem .d{font-size:14.5px;color:var(--muted);margin-top:4px;max-width:640px}
+  .witem .tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .witem .tag{font-family:var(--mono);font-size:11px;color:var(--faint);border:1px solid var(--rule);border-radius:3px;padding:2px 8px}
+  .witem .go{font-family:var(--mono);font-size:12px;color:var(--accent);white-space:nowrap;align-self:center}
+  .witem:hover .go{text-decoration:underline}
 
-  footer{border-top:1px solid var(--line);padding:38px 0;margin-top:40px}
-  .foot-in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
-    color:var(--faint);font-size:13px;font-family:var(--mono)}
-  .foot-in a{color:var(--dim)}.foot-in a:hover{color:var(--accent)}
+  /* experience */
+  .exp{border-left:1px solid var(--rule2);margin-left:4px}
+  .role-item{position:relative;padding:0 0 30px 28px}
+  .role-item:last-child{padding-bottom:0}
+  .role-item::before{content:'';position:absolute;left:-4.5px;top:7px;width:8px;height:8px;border-radius:50%;background:var(--paper);border:1.5px solid var(--rule2)}
+  .role-item.now::before{background:var(--accent);border-color:var(--accent)}
+  .role-item .when{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .role-item h3{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);margin:4px 0 2px}
+  .role-item .org{font-size:14px;color:var(--accent);font-family:var(--mono)}
+  .role-item p{margin:9px 0 0;font-size:14.5px;color:var(--muted);max-width:660px}
 
-  /* ---------- credentials + experience ---------- */
-  .creds{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
-  .cred{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--panel);
-    border:1px solid var(--line2);border-radius:999px;padding:8px 15px;display:inline-flex;gap:9px;align-items:center}
-  .cred b{color:var(--accent);font-weight:700}
-  .exp{border-left:1px solid var(--line);margin-left:6px}
-  .role{position:relative;padding:0 0 34px 32px}
-  .role:last-child{padding-bottom:0}
-  .role::before{content:'';position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:50%;
-    background:var(--bg);border:2px solid var(--line2)}
-  .role.now::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent)}
-  .role .when{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.06em}
-  .role h3{font-size:19px;margin:5px 0 2px;letter-spacing:-.01em}
-  .role .org{color:var(--accent);font-size:14px;font-family:var(--mono)}
-  .role p{color:var(--dim);font-size:15px;margin:9px 0 0;max-width:720px}
-  .role .tag{margin-top:2px}
+  .creds{display:flex;flex-wrap:wrap;gap:10px}
+  .cred{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--surface);border:1px solid var(--rule2);border-radius:4px;padding:8px 14px}
+  .cred b{color:var(--accent);font-weight:500}
 
-  /* reveal */
-  .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  /* contact */
+  .contact p{font-size:17px;color:var(--body);max-width:560px}
+  .contact .lines{margin-top:22px;font-family:var(--mono);font-size:14px;display:grid;gap:8px}
+  .contact .lines a{color:var(--accent)}
+  .contact .lines span{color:var(--faint);display:inline-block;min-width:96px;text-transform:uppercase;font-size:11px;letter-spacing:.08em}
+
+  footer{padding:30px 0;color:var(--faint);font-family:var(--mono);font-size:12px}
+  .foot-in{max-width:var(--w);margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  .rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
   .rv.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){
-    .rv{opacity:1;transform:none;transition:none}
-    html{scroll-behavior:auto}
-  }
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="#top"><span class="dot"></span>Leonard Dumitru</a>
-    <div class="nav-links">
+<header class="top">
+  <div class="top-in">
+    <a class="mark" href="#top" aria-label="Leonard Dumitru">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <rect x="1" y="1" width="24" height="24" rx="3" stroke="#2f4b7a" stroke-width="1.3"/>
+        <path d="M13 5 L21 13 L13 21 L5 13 Z" stroke="#8a6d33" stroke-width="1.1"/>
+        <circle cx="13" cy="13" r="2.2" fill="#141b26"/>
+      </svg>
+      <span class="name">Leonard Dumitru</span>
+    </a>
+    <nav class="topnav">
       <a href="#focus">Focus</a>
       <a href="#work">Work</a>
       <a href="#experience">Experience</a>
-      <a href="#capabilities">Capabilities</a>
       <a href="#contact">Contact</a>
-    </div>
-    <a class="nav-cta" href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub ↗</a>
-  </div>
-</nav>
-
-<header class="hero" id="top">
-  <canvas id="radar"></canvas>
-  <div class="hero-veil"></div>
-  <div class="wrap hero-in">
-    <span class="kicker">Defense Product Owner · RF · C-UAS · AI · Government</span>
-    <h1>Leonard <span class="g">Dumitru</span></h1>
-    <p class="lead">Product Manager, Strategic Clients, for government, defense and intelligence technology at a UAV and mission-systems group in Romania. I own the government deal end to end, and the solution architecture behind it.</p>
-    <p class="sub">Background in OSINT and telecom-intelligence support to government agencies: subscriber and device attribution, RF and frequency monitoring, cell-site analysis and signaling exposure. GIAC OSINT and CEH v12 certified. This is the work that supports my CV.</p>
-    <div class="cta-row">
-      <a class="btn btn-p" href="#work">View the work →</a>
-      <a class="btn btn-g" href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">Download CV ↓</a>
-      <a class="btn btn-g" href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub ↗</a>
-    </div>
-    <div class="stat-strip">
-      <div class="stat"><div class="n">6</div><div class="l">open repositories</div></div>
-      <div class="stat"><div class="n">150+</div><div class="l">tests, all passing</div></div>
-      <div class="stat"><div class="n">0</div><div class="l">client data exposed</div></div>
-    </div>
+      <a href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub</a>
+    </nav>
   </div>
 </header>
 
 <main>
-
-<section class="blk" id="focus">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="kicker">What I work on</span>
-      <h2>Product, intelligence, and the domain in between.</h2>
-      <p>Three areas the repositories below document in concrete detail.</p>
-    </div>
-    <div class="trio">
-      <div class="fcard rv">
-        <div class="ic">🛰️</div>
-        <h3>Open-source intelligence</h3>
-        <p>National-scale data engines built only from public and official sources, with provenance, lawfulness and verification designed in from the first record.</p>
-      </div>
-      <div class="fcard rv">
-        <div class="ic">🎯</div>
-        <h3>Defense go-to-market</h3>
-        <p>How a capability gap becomes a requirement becomes a contract, and how to build product for a buyer that is really five separate people.</p>
-      </div>
-      <div class="fcard rv">
-        <div class="ic">🛡️</div>
-        <h3>Security literacy</h3>
-        <p>Offensive and defensive fundamentals, lawful testing, and the RF and electronics vocabulary to hold a conversation with the engineers who build the hardware.</p>
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow">Defense product · C-UAS · RF · AI · Government</span>
+      <h1>Leonard Dumitru</h1>
+      <div class="role">Product and capture for government, defense and intelligence technology.</div>
+      <p class="bio">Product Manager, Strategic Clients, at a UAV and mission-systems group in Romania. I own the government engagement end to end, from first contact to framework agreement, and the solution architecture behind it.</p>
+      <p class="bio">Background in open-source and telecom intelligence for government agencies: subscriber and device attribution, RF and frequency monitoring, cell-site analysis and signaling exposure. Prior decade owning product and revenue in regulated payments, telecom and advertising.</p>
+      <dl class="herometa">
+        <dt>Location</dt><dd>Bucharest, Romania · EU citizen</dd>
+        <dt>Focus</dt><dd>Counter-UAS, RF and EW, AI autonomy, defense procurement</dd>
+        <dt>Credentials</dt><dd>GIAC OSINT (GOSI) · CEH v12 · AWS · Certified DPO</dd>
+        <dt>Status</dt><dd>Open to defense and security roles and contract work</dd>
+      </dl>
+      <div class="actions">
+        <a class="btn primary" href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">Curriculum vitae</a>
+        <a class="btn" href="#work">Open work</a>
+        <a class="btn" href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="blk" id="work" style="padding-top:20px">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="kicker">Repositories</span>
-      <h2>Public work that backs up the CV.</h2>
-      <p>Field guides and working code on defense go-to-market, intelligence data engineering, and security. Each card links to the full repository. The code repositories ship with passing tests.</p>
-    </div>
-    <div class="proj">
-
-      <a class="pcard rv" href="https://github.com/darkanalytica1/defence-product-gtm" target="_blank" rel="noopener">
-        <div class="media"><img src="assets/defense.gif" alt="Defense procurement flow" loading="lazy"></div>
-        <div class="pbody">
-          <div class="ptags"><span class="tag a">Defense</span><span class="tag">Product</span><span class="tag">Go-to-market</span></div>
-          <h3>Defense Tech: Product &amp; GTM</h3>
-          <p>Why commercial product assumptions break in defense, the five-role buyer map, C2 and multi-domain literacy, and how deals are really decided upstream of the tender.</p>
-          <span class="plink">Read the field guide <span class="arw">→</span></span>
+  <section class="blk" id="focus">
+    <div class="wrap">
+      <div class="sechead rv"><span class="no">01</span><h2>Focus</h2><span class="rule"></span></div>
+      <div class="focus rv">
+        <div class="fitem">
+          <div class="k">Systems</div>
+          <h3>Unmanned &amp; counter-unmanned</h3>
+          <p>Sensing, tracking, classification and graduated response, from the sensor to the command decision, under legal authority.</p>
         </div>
-      </a>
-
-      <a class="pcard rv" href="https://github.com/darkanalytica1/ethical-hacking-cheatsheet" target="_blank" rel="noopener">
-        <div class="media"><img src="assets/sec.gif" alt="Security engagement loop" loading="lazy"></div>
-        <div class="pbody">
-          <div class="ptags"><span class="tag a">Security</span><span class="tag">Offensive</span><span class="tag">Defensive</span></div>
-          <h3>Ethical Hacking Cheatsheet</h3>
-          <p>Every attack paired with the defense that stops it, across recon, network, wireless, web and social engineering. Diagram-driven, authorised-testing framed.</p>
-          <span class="plink">Explore the sheets <span class="arw">→</span></span>
+        <div class="fitem">
+          <div class="k">Signals</div>
+          <h3>RF, EW &amp; telecom intelligence</h3>
+          <p>The electromagnetic layer: detection, direction finding, GNSS denial, and the cellular and signaling fabric it all rides on.</p>
         </div>
-      </a>
-
-      <a class="pcard rv" href="https://github.com/darkanalytica1/gdpr-b2b-data-engineering" target="_blank" rel="noopener">
-        <div class="media"><img src="assets/gdpr.gif" alt="Compliant data pipeline" loading="lazy"></div>
-        <div class="pbody">
-          <div class="ptags"><span class="tag a">Data</span><span class="tag">Compliance</span><span class="tag">Python</span></div>
-          <h3>GDPR B2B Data Engineering</h3>
-          <p>Lawfulness enforced in code: a provenance gate, hashed suppression, erasure tombstones that survive re-ingest. 62 tests. The reasoning and the machinery together.</p>
-          <span class="plink">See the pipeline <span class="arw">→</span></span>
+        <div class="fitem">
+          <div class="k">Delivery</div>
+          <h3>Capability &amp; procurement</h3>
+          <p>How a requirement becomes a contract, how autonomy is tested and trusted, and how it is sustained over a life measured in decades.</p>
         </div>
-      </a>
+      </div>
+    </div>
+  </section>
 
-      <a class="pcard rv" href="https://github.com/darkanalytica1/romanian-open-company-data" target="_blank" rel="noopener">
-        <div class="media"><img src="assets/data.gif" alt="Open data join pipeline" loading="lazy"></div>
-        <div class="pbody">
-          <div class="ptags"><span class="tag a">Intelligence</span><span class="tag">OSINT</span><span class="tag">Python</span></div>
-          <h3>Romanian Open Company Data</h3>
-          <p>A field guide and dependency-free toolkit for national company registers: identifier validation, entity matching, and clients for the official EU verification services. 47 tests.</p>
-          <span class="plink">Open the toolkit <span class="arw">→</span></span>
+  <section class="blk" id="work">
+    <div class="wrap">
+      <div class="sechead rv"><span class="no">02</span><h2>Open work</h2><span class="rule"></span></div>
+      <p class="rv" style="color:var(--muted);font-size:15px;max-width:640px;margin:0 0 26px">Public, open-source contributions. Field guides written from understanding and dependency-free reference code, each with passing tests. A way of giving back to the community and of showing the work behind the words.</p>
+      <div class="work rv">
+        <a class="witem" href="https://github.com/darkanalytica1/defence-product-gtm" target="_blank" rel="noopener">
+          <div><div class="t">Defense Tech: Product &amp; GTM</div><div class="d">A field guide to how the defense world buys: the five-role buyer map, requirement shaping, command-and-control literacy, and go-to-market for a market unlike any other.</div><div class="tags"><span class="tag">defense</span><span class="tag">procurement</span><span class="tag">product</span></div></div>
+          <div class="go">github →</div>
+        </a>
+        <a class="witem" href="https://github.com/darkanalytica1/ethical-hacking-cheatsheet" target="_blank" rel="noopener">
+          <div><div class="t">Security Testing Reference</div><div class="d">Offensive technique paired with the defense that stops it, across reconnaissance, network, wireless, web and social engineering. Framed for authorised testing only.</div><div class="tags"><span class="tag">security</span><span class="tag">offensive</span><span class="tag">defensive</span></div></div>
+          <div class="go">github →</div>
+        </a>
+        <a class="witem" href="https://github.com/darkanalytica1/romanian-open-company-data" target="_blank" rel="noopener">
+          <div><div class="t">Romanian Open Company Data</div><div class="d">A field guide and dependency-free toolkit for national company registers: identifier validation, entity resolution, and clients for the official EU verification services.</div><div class="tags"><span class="tag">osint</span><span class="tag">data</span><span class="tag">python</span></div></div>
+          <div class="go">github →</div>
+        </a>
+        <a class="witem" href="https://github.com/darkanalytica1/gdpr-b2b-data-engineering" target="_blank" rel="noopener">
+          <div><div class="t">Lawful Data Engineering</div><div class="d">Compliance enforced in code, not policy: a provenance gate, hashed suppression, erasure that survives re-ingest, and a worked legitimate-interest assessment.</div><div class="tags"><span class="tag">data</span><span class="tag">compliance</span><span class="tag">gdpr</span></div></div>
+          <div class="go">github →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk" id="experience">
+    <div class="wrap">
+      <div class="sechead rv"><span class="no">03</span><h2>Experience</h2><span class="rule"></span></div>
+      <div class="exp rv">
+        <div class="role-item now">
+          <div class="when">2026 to present</div>
+          <h3>Product Manager, Strategic Clients</h3>
+          <div class="org">Skyline Drones / La Orizont Group · Bucharest</div>
+          <p>UAV, sensing and mission-systems group serving government and defense. Own government and defense accounts from first contact to framework agreement, and architect the counter-drone detection and engagement layer: RF, radar and electro-optical sensor fusion, classification and tracking, graduated to legal authority.</p>
         </div>
-      </a>
+        <div class="role-item">
+          <div class="when">2025</div>
+          <h3>Platform Product Owner, Post-Merger Integration</h3>
+          <div class="org">AdStart Media · remote</div>
+          <p>Owned the product side of merging three companies into one platform, building the business-intelligence layer from scratch and validating every output against raw data.</p>
+        </div>
+        <div class="role-item">
+          <div class="when">2022 to 2025</div>
+          <h3>Founder / Product Owner</h3>
+          <div class="org">WebHunt.io · Bucharest</div>
+          <p>Built a B2B intelligence and go-to-market platform for government agencies: open-source collection, subscriber and device attribution, entity resolution and workflow orchestration under controlled sourcing.</p>
+        </div>
+        <div class="role-item">
+          <div class="when">2019 to 2021</div>
+          <h3>Senior Business Development Manager</h3>
+          <div class="org">Twispay / Capital Financial Services · Bucharest</div>
+          <p>Licensed EU payment institution. Acquired and onboarded major merchants end to end, and ran KYC, KYB and AML review with the compliance teams under PCI DSS, AML and GDPR.</p>
+        </div>
+      </div>
+      <div style="margin-top:34px" class="rv"><a class="btn" href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">Full curriculum vitae →</a></div>
+    </div>
+  </section>
 
+  <section class="blk" id="credentials">
+    <div class="wrap">
+      <div class="sechead rv"><span class="no">04</span><h2>Credentials</h2><span class="rule"></span></div>
+      <div class="creds rv">
+        <span class="cred"><b>GIAC</b> Open Source Intelligence (GOSI), 2024</span>
+        <span class="cred"><b>CEH</b> Certified Ethical Hacker v12, EC-Council</span>
+        <span class="cred"><b>AWS</b> Certified Cloud Practitioner</span>
+        <span class="cred"><b>DPO</b> Certified Data Protection Officer</span>
+        <span class="cred"><b>BSc</b> Economics &amp; Management</span>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="blk" id="experience" style="padding-top:20px">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="kicker">Experience &amp; credentials</span>
-      <h2>Commercial ownership, then defense and intelligence.</h2>
-      <p>Ten years owning revenue and product in regulated markets, now leading product and capture for government, defense and intelligence technology.</p>
-    </div>
-    <div class="creds rv">
-      <span class="cred"><b>GIAC</b> Open Source Intelligence (GOSI), 2024</span>
-      <span class="cred"><b>CEH</b> Certified Ethical Hacker v12, EC-Council</span>
-      <span class="cred"><b>AWS</b> Certified Cloud Practitioner</span>
-      <span class="cred"><b>DPO</b> Certified Data Protection Officer</span>
-    </div>
-    <div class="exp">
-      <div class="role now rv">
-        <div class="when">01/2026 - Present</div>
-        <h3>Product Manager, Strategic Clients (Product &amp; Capture Lead)</h3>
-        <div class="org">Skyline Drones / La Orizont Group · Bucharest / remote</div>
-        <p>UAV, sensing and mission-systems group serving government and defense. Own government and defense accounts end to end, from first contact to framework agreement or contract, and architect the counter-drone (C-UAS) detection and engagement systems: RF, radar and electro-optical or infrared sensor fusion, classification and tracking, graduated to legal authority.</p>
-      </div>
-      <div class="role rv">
-        <div class="when">04/2025 - 12/2025</div>
-        <h3>Platform Product Owner, Post-Merger Integration</h3>
-        <div class="org">AdStart Media · remote</div>
-        <p>Owned the product side of merging three companies into one platform, building the business-intelligence layer from scratch and validating every output in SQL against raw data.</p>
-      </div>
-      <div class="role rv">
-        <div class="when">12/2022 - 04/2025</div>
-        <h3>Founder / Product Owner</h3>
-        <div class="org">WebHunt.io · Bucharest / remote</div>
-        <p>Built a B2B intelligence and go-to-market platform for government agencies: OSINT, subscriber and device attribution, entity resolution and workflow orchestration under controlled sourcing and deterministic workflow rules. Sold and delivered to SaaS, cybersecurity, telecom and technology clients.</p>
-      </div>
-      <div class="role rv">
-        <div class="when">01/2023 - 09/2024</div>
-        <h3>COO, Telecom Advertising Products</h3>
-        <div class="org">Relario Voice AG · Bucharest / remote</div>
-        <p>Owned the commercial and operational product layer for a Swiss telecom company monetising voice traffic, defining the billable product and partner rules and diagnosing routing and partner-performance drops from source data.</p>
-      </div>
-      <div class="role rv">
-        <div class="when">09/2019 - 02/2021</div>
-        <h3>Senior Business Development Manager</h3>
-        <div class="org">Twispay / Capital Financial Services · Bucharest</div>
-        <p>Licensed EU payment institution, high-risk merchant segment. Acquired and onboarded 20+ major EU merchants end to end, and ran KYC / KYB due diligence and fraud and AML review with the compliance teams (PCI DSS, AML, GDPR).</p>
+  <section class="blk contact" id="contact">
+    <div class="wrap">
+      <div class="sechead rv"><span class="no">05</span><h2>Contact</h2><span class="rule"></span></div>
+      <p class="rv">Available for roles and contract work in defense, security and intelligence technology. The fastest way to reach me is email.</p>
+      <div class="lines rv">
+        <div><span>Email</span><a href="mailto:darkanalytica@gmail.com">darkanalytica@gmail.com</a></div>
+        <div><span>LinkedIn</span><a href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">linkedin.com/in/wh-systems</a></div>
+        <div><span>GitHub</span><a href="https://github.com/darkanalytica1" target="_blank" rel="noopener">github.com/darkanalytica1</a></div>
       </div>
     </div>
-    <div class="rv" style="margin-top:30px">
-      <a class="btn btn-g" href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">Full CV (PDF) ↓</a>
-    </div>
-  </div>
-</section>
-
-<section class="blk" id="capabilities" style="padding-top:20px">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="kicker">Capabilities</span>
-      <h2>Where commercial instinct meets technical depth.</h2>
-    </div>
-    <div class="caps rv">
-      <div class="cap">
-        <div class="mono">INTELLIGENCE</div>
-        <ul>
-          <li>Open-source collection</li>
-          <li>Entity resolution</li>
-          <li>Provenance &amp; sourcing</li>
-          <li>Signal from public data</li>
-        </ul>
-      </div>
-      <div class="cap">
-        <div class="mono">DEFENCE &amp; GTM</div>
-        <ul>
-          <li>Requirement shaping</li>
-          <li>Prime &amp; supply-chain routes</li>
-          <li>Product for defense</li>
-          <li>Long-cycle sales</li>
-        </ul>
-      </div>
-      <div class="cap">
-        <div class="mono">SECURITY</div>
-        <ul>
-          <li>Offensive fundamentals</li>
-          <li>Defensive hardening</li>
-          <li>Lawful, in-scope testing</li>
-          <li>RF &amp; electronics literacy</li>
-        </ul>
-      </div>
-      <div class="cap">
-        <div class="mono">ENGINEERING</div>
-        <ul>
-          <li>Python data pipelines</li>
-          <li>Compliance by construction</li>
-          <li>Tested, documented code</li>
-          <li>Clear technical writing</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="blk" id="contact" style="padding-top:20px">
-  <div class="wrap">
-    <div class="band rv">
-      <h2>Open to defense and security roles.</h2>
-      <p>Product and capture for government and defense technology. Available for full-time roles and contract work. Email is the fastest way to reach me.</p>
-      <div class="cta-row">
-        <a class="btn btn-p" href="mailto:darkanalytica@gmail.com">Get in touch →</a>
-        <a class="btn btn-g" href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">Download CV ↓</a>
-        <a class="btn btn-g" href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">LinkedIn ↗</a>
-      </div>
-    </div>
-  </div>
-</section>
-
+  </section>
 </main>
 
 <footer>
-  <div class="wrap foot-in">
+  <div class="foot-in">
     <span>© 2026 Leonard Dumitru</span>
-    <span><a href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">LinkedIn</a> · <a href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">CV</a> · <a href="mailto:darkanalytica@gmail.com">darkanalytica@gmail.com</a></span>
+    <span>Bucharest, Romania</span>
   </div>
 </footer>
 
 <script>
-// nav border on scroll
-const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>12),{passive:true});
-
-// scroll reveal
-const io=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
-},{threshold:.14});
-document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4*70)+'ms';io.observe(el)});
-
-// radar hero
-(function(){
-  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  const c=document.getElementById('radar'),x=c.getContext('2d');
-  let w,h,cx,cy,R,dpr,blips=[];
-  function size(){
-    dpr=Math.min(devicePixelRatio||1,2);
-    w=c.clientWidth;h=c.clientHeight;c.width=w*dpr;c.height=h*dpr;x.setTransform(dpr,0,0,dpr,0,0);
-    cx=w*0.72;cy=h*0.5;R=Math.max(w,h)*0.62;
-    blips=Array.from({length:7},()=>({a:Math.random()*Math.PI*2,r:0.25+Math.random()*0.72,p:0}));
-  }
-  size();addEventListener('resize',size);
-  const C={line:'rgba(77,212,255,',grid:'rgba(124,140,255,'};
-  let ang=0;
-  function ring(rr){x.beginPath();x.arc(cx,cy,R*rr,0,Math.PI*2);x.strokeStyle=C.line+'0.10)';x.lineWidth=1;x.stroke();}
-  function frame(){
-    x.clearRect(0,0,w,h);
-    // faint grid dots
-    x.fillStyle=C.grid+'0.06)';
-    for(let gx=0;gx<w;gx+=34)for(let gy=0;gy<h;gy+=34){x.fillRect(gx,gy,1,1);}
-    ring(0.35);ring(0.62);ring(0.9);
-    // cross
-    x.strokeStyle=C.line+'0.07)';x.beginPath();
-    x.moveTo(cx-R*0.9,cy);x.lineTo(cx+R*0.9,cy);x.moveTo(cx,cy-R*0.9);x.lineTo(cx,cy+R*0.9);x.stroke();
-    // sweep
-    const grad=x.createConicGradient?x.createConicGradient(ang,cx,cy):null;
-    if(grad){
-      grad.addColorStop(0,'rgba(77,212,255,0.22)');
-      grad.addColorStop(0.06,'rgba(77,212,255,0.02)');
-      grad.addColorStop(1,'rgba(77,212,255,0)');
-      x.fillStyle=grad;x.beginPath();x.moveTo(cx,cy);x.arc(cx,cy,R*0.9,0,Math.PI*2);x.closePath();x.fill();
-    }
-    // leading edge line
-    x.strokeStyle=C.line+'0.5)';x.lineWidth=1.5;x.beginPath();
-    x.moveTo(cx,cy);x.lineTo(cx+Math.cos(ang)*R*0.9,cy+Math.sin(ang)*R*0.9);x.stroke();
-    // blips light up as the sweep passes
-    blips.forEach(b=>{
-      let d=Math.abs(((ang-b.a)%(Math.PI*2)+Math.PI*2)%(Math.PI*2));
-      if(d<0.14)b.p=1;else b.p*=0.965;
-      if(b.p>0.02){
-        const bx=cx+Math.cos(b.a)*R*b.r,by=cy+Math.sin(b.a)*R*b.r;
-        x.fillStyle='rgba(84,224,163,'+(b.p*0.9)+')';
-        x.beginPath();x.arc(bx,by,3+b.p*2,0,Math.PI*2);x.fill();
-        x.fillStyle='rgba(84,224,163,'+(b.p*0.14)+')';
-        x.beginPath();x.arc(bx,by,12*b.p,0,Math.PI*2);x.fill();
-      }
-    });
-    if(!reduce){ang+=0.011;requestAnimationFrame(frame);}
-  }
-  if(reduce){ang=-0.7;frame();}else frame();
-})();
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
