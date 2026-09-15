@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="Register records validated by checksum">
 <title>Register records validated by checksum</title>
 <style>
-text{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:9px;fill:#5F6B7D}
+text{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:9px;fill:#5F6B7C}
 .f{animation:flow 3s linear infinite} @keyframes flow{to{stroke-dashoffset:-24}}
 .p{animation:pulse 4s ease-in-out infinite} @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
 .s{animation:sweep 6s linear infinite;transform-origin:0px 0px} @keyframes sweep{to{transform:rotate(360deg)}}

@@ -2,7 +2,7 @@
 :root{
   /* design system v2 · cool neutral page, navy/steel ink, single brass accent */
   --page:#F5F7FA; --surface:#FFFFFF; --line:#D8DEE6; --line-2:#E7EBF0;
-  --ink:#0E1726; --ink-2:#3D4A5C; --ink-3:#5F6B7D; /* ink-3 darkened from #6B7688 for 4.5:1 text contrast on page */
+  --ink:#0E1726; --ink-2:#3D4A5C; --ink-3:#5F6B7C; /* ink-3 darkened for 4.5:1 text contrast on page and tints */
   --navy:#0B2545; --navy-h:#173A63; --steel:#3E5C76; --brass:#8A6A1F; --brass-ink:#74581A;
   --teal:#2F6F73; --warn:#B7791F; --warn-ink:#80550F;
   --t-navy:#EDF1F6; --t-steel:#EEF2F5; --t-brass:#F4EFE2; --t-warn:#F8F0E1; --t-teal:#E9F2F2;

@@ -4,7 +4,7 @@
 (function () {
   'use strict';
   var NS = 'http://www.w3.org/2000/svg';
-  var C = { page:'#F5F7FA', line:'#D8DEE6', ink:'#0E1726', ink2:'#3D4A5C', ink3:'#5F6B7D',
+  var C = { page:'#F5F7FA', line:'#D8DEE6', ink:'#0E1726', ink2:'#3D4A5C', ink3:'#5F6B7C',
     navy:'#0B2545', steel:'#3E5C76', brass:'#8A6A1F', warn:'#B7791F', warnText:'#80550F', teal:'#2F6F73', tealText:'#2F6F73', brassText:'#74581A',
     tNavy:'#EDF1F6', tSteel:'#EEF2F5', tBrass:'#F4EFE2', tWarn:'#F8F0E1', tTeal:'#E9F2F2' };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
