@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Defense Technology Handbook</title>
+<meta name="description" content="A working handbook on capability delivery, government procurement, UAS and counter-UAS, electronic warfare, autonomy and defense supply chains. By Leonard Dumitru.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f4ee; --surface:#fffdf8; --raise:#fbf8f2;
+    --ink:#1b1d24; --body:#31343f; --muted:#63687a; --faint:#8b8f9e; --rule:#e4ddd0; --rule2:#d6cdbc;
+    --blue:#1f5fd0; --indigo:#4f46e5; --amber:#b45309; --red:#be2f2a; --green:#177a4a; --violet:#7c3aed;
+    --serif:'Newsreader',Georgia,'Times New Roman',serif;
+    --sans:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --w:720px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--body);font-family:var(--serif);font-size:17.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:var(--mono)}
+  b,strong{color:var(--ink);font-weight:600}
+
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--blue);z-index:100}
+  nav{position:sticky;top:0;z-index:60;background:rgba(247,244,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+  .nav-in{max-width:1160px;margin:0 auto;padding:0 26px;height:56px;display:flex;align-items:center;justify-content:space-between;font-family:var(--sans)}
+  .nav-in .b{font-weight:700;font-size:14.5px;color:var(--ink);letter-spacing:-.01em}
+  .nav-in .b span{color:var(--blue)}
+  .nav-in a.back{font-size:13px;color:var(--muted)}
+
+  .shell{max-width:1160px;margin:0 auto;padding:0 26px;display:grid;grid-template-columns:248px 1fr;gap:56px}
+  @media(max-width:1000px){.shell{grid-template-columns:1fr}}
+  .toc{position:sticky;top:80px;align-self:start;height:calc(100vh - 96px);overflow-y:auto;padding:34px 0;font-family:var(--sans)}
+  @media(max-width:1000px){.toc{display:none}}
+  .toc .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 12px}
+  .toc ol{list-style:none;margin:0 0 18px;padding:0;counter-reset:c}
+  .toc li{counter-increment:c}
+  .toc ol>li>a{display:flex;gap:10px;padding:5px 8px;border-radius:6px;color:var(--muted);font-size:13px;line-height:1.3}
+  .toc ol>li>a::before{content:counter(c);font-variant-numeric:tabular-nums;color:var(--faint);font-size:11px;min-width:15px;text-align:right}
+  .toc a:hover{background:var(--raise);color:var(--ink);text-decoration:none}
+  .toc a.on{color:var(--blue);font-weight:600}
+  .toc .ref a{display:block;padding:5px 8px;border-radius:6px;color:var(--muted);font-size:13px}
+  .toc .ref a:hover{background:var(--raise);color:var(--ink);text-decoration:none}
+
+  main{min-width:0;max-width:var(--w);padding:0 0 140px}
+  .doc-h{padding:60px 0 34px;border-bottom:2px solid var(--ink);margin-bottom:8px}
+  .doc-h .tag{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .doc-h h1{font-size:clamp(34px,5vw,50px);line-height:1.04;letter-spacing:-.02em;font-weight:700;color:var(--ink);margin:14px 0 0}
+  .doc-h .sub{font-size:19px;color:var(--muted);margin:18px 0 0;max-width:600px}
+  .doc-h .meta{font-family:var(--sans);font-size:12.5px;color:var(--faint);margin-top:22px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .doc-h .meta a{color:var(--muted)}
+  .doc-h .meta .d{color:var(--rule2)}
+
+  .abstract{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:22px 26px;margin:30px 0;font-size:16px}
+  .abstract .k{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+
+  section.ch{padding:52px 0 8px;border-top:1px solid var(--rule);margin-top:44px}
+  section.ch:first-of-type{border-top:0}
+  .ch .cnum{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:600}
+  .ch h2{font-size:clamp(27px,3.6vw,36px);letter-spacing:-.02em;font-weight:700;color:var(--ink);margin:8px 0 0;line-height:1.14}
+  .ch h3{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--ink);letter-spacing:-.01em;margin:38px 0 0}
+  .ch h4{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--ink);letter-spacing:.01em;margin:26px 0 0;text-transform:none}
+  .ch p{margin:14px 0}
+  .ch .lead{font-size:19px;color:var(--muted)}
+  ul.tight,ol.tight{margin:14px 0;padding-left:22px}
+  ul.tight li,ol.tight li{margin:6px 0}
+
+  /* concept 4-layer block */
+  .concept{border:1px solid var(--rule2);border-radius:10px;background:var(--surface);margin:26px 0;overflow:hidden}
+  .concept .ct{background:var(--raise);border-bottom:1px solid var(--rule);padding:12px 20px;font-family:var(--sans);font-weight:700;color:var(--ink);font-size:15px;display:flex;justify-content:space-between;align-items:baseline}
+  .concept .ct .abbr{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:500}
+  .concept .layer{padding:12px 20px;border-bottom:1px dashed var(--rule);font-size:15.5px}
+  .concept .layer:last-child{border-bottom:0}
+  .concept .layer .l{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:3px}
+  .concept .layer.def .l{color:var(--ink)}
+  .concept .layer.mech .l{color:var(--blue)}
+  .concept .layer.op .l{color:var(--green)}
+  .concept .layer.you{background:#f3f1fb}
+  .concept .layer.you .l{color:var(--violet)}
+
+  /* callout boxes */
+  .box{border-left:3px solid;border-radius:0 8px 8px 0;padding:12px 18px;margin:22px 0;font-size:15.5px}
+  .box .l{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px}
+  .box.mistake{border-color:var(--red);background:#fbf1f0}.box.mistake .l{color:var(--red)}
+  .box.role{border-color:var(--indigo);background:#eef0fd}.box.role .l{color:var(--indigo)}
+  .box.shield{border-color:#0f766e;background:#eaf6f4}.box.shield .l{color:#0f766e}
+  .box.li{border-color:var(--amber);background:#fbf5ea}.box.li .l{color:var(--amber)}
+  .box.key{border-color:var(--ink);background:var(--raise)}.box.key .l{color:var(--ink)}
+
+  /* equation */
+  .eq{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:14px 18px;margin:18px 0;font-family:var(--mono);font-size:15px;color:var(--ink);overflow-x:auto}
+  .eq .where{display:block;margin-top:8px;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:22px 0;font-family:var(--sans);font-size:14px}
+  caption{caption-side:top;text-align:left;font-family:var(--sans);font-size:12px;color:var(--faint);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{color:var(--ink);font-weight:700;border-bottom:1.5px solid var(--rule2);background:var(--raise)}
+  td b{font-weight:600}
+
+  /* figures */
+  figure{margin:30px 0;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:24px 22px 16px}
+  figure svg{width:100%;height:auto;display:block}
+  figcaption{font-family:var(--sans);font-size:12.5px;color:var(--muted);text-align:center;margin-top:14px}
+  figcaption .fno{color:var(--blue);font-weight:700}
+
+  /* glossary */
+  .gloss{display:grid;gap:14px;margin-top:20px}
+  .gentry{border:1px solid var(--rule);border-radius:10px;background:var(--surface);padding:16px 20px}
+  .gentry .term{font-family:var(--sans);font-weight:700;color:var(--ink);font-size:16px}
+  .gentry .term .full{font-weight:400;color:var(--muted);font-size:14px}
+  .gentry dl{margin:8px 0 0;font-size:14.5px}
+  .gentry dt{font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+  .gentry dd{margin:2px 0 0}
+  .gentry dd.mis{color:var(--red)}
+  .gentry dd.use{color:var(--indigo)}
+
+  footer{max-width:1160px;margin:0 auto;padding:36px 26px;border-top:1px solid var(--rule);color:var(--faint);font-family:var(--sans);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  footer a{color:var(--muted)}
+
+  /* svg light diagram classes */
+  .d-card{fill:#fffdf8;stroke:#d6cdbc;stroke-width:1.4}
+  .d-t{fill:#1b1d24;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;text-anchor:middle}
+  .d-s{fill:#63687a;font-family:'JetBrains Mono',monospace;font-size:10.5px;text-anchor:middle}
+  .d-w{stroke:#c8bfae;stroke-width:2.4;fill:none}
+  .d-flow{stroke:#1f5fd0;stroke-width:2.4;fill:none;stroke-dasharray:5 8;animation:march .85s linear infinite}
+  @keyframes march{to{stroke-dashoffset:-13}}
+  @media(prefers-reduced-motion:reduce){.d-flow{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-in">
+    <span class="b">Defense Technology <span>Handbook</span></span>
+    <a class="back" href="index.html">← Leonard Dumitru</a>
+  </div>
+</nav>
+
+<div class="shell">
+  <aside class="toc" id="toc">
+    <div class="k">Contents</div>
+    <ol>
+      <li><a href="#c1">Capability Delivery</a></li>
+      <li><a href="#c2">Government &amp; Defence Procurement</a></li>
+      <li><a href="#c3">UAS Architecture</a></li>
+      <li><a href="#c4">Counter-UAS</a></li>
+      <li><a href="#c5">Electronic Warfare &amp; RF</a></li>
+      <li><a href="#c6">Drone Cybersecurity</a></li>
+      <li><a href="#c7">Command &amp; Control</a></li>
+      <li><a href="#c8">Autonomy &amp; AI</a></li>
+      <li><a href="#c9">Testing &amp; Validation</a></li>
+      <li><a href="#c10">Supply Chain &amp; Sustainment</a></li>
+      <li><a href="#c11">Competitive Context</a></li>
+      <li><a href="#c12">Romanian Institutional Map</a></li>
+      <li><a href="#c13">Cellular &amp; Lawful Interception</a></li>
+    </ol>
+    <div class="k">Reference</div>
+    <div class="ref"><a href="#glossary">Glossary</a></div>
+  </aside>
+
+  <main>
+    <div class="doc-h">
+      <span class="tag">Working handbook · v1</span>
+      <h1>Defense Technology Handbook</h1>
+      <p class="sub">Capability delivery, procurement, unmanned and counter-unmanned systems, electronic warfare, autonomy, and the supply chain that sustains them.</p>
+      <div class="meta"><span>Leonard Dumitru</span><span class="d">·</span><a href="index.html">Portfolio</a><span class="d">·</span><a href="https://github.com/darkanalytica1">GitHub</a><span class="d">·</span><span>Living document, updated over time</span></div>
+    </div>
+
+    <div class="abstract">
+      <div class="k">How to read this</div>
+      This is a study document, not a brochure. Most concepts are given in four layers: <b>what it means</b>, <b>how it works</b>, <b>why the customer cares</b>, and <b>why it matters for my work</b>. Boxes flag common mistakes, notes for my own role, and points relevant to specific competitors. It is written to be read end to end, referenced during work, and mined for shorter pieces. Where a fact is time-sensitive or program-specific, it is marked to verify rather than stated as settled.
+    </div>
+
+    <!-- ============ CH1 ============ -->
+    <section class="ch" id="c1">
+      <div class="cnum">Chapter 1</div>
+      <h2>Capability Delivery</h2>
+      <p class="lead">The defense sector does not buy products. It buys the ability to achieve an effect, and that difference is the source of almost every misunderstanding a commercial newcomer has.</p>
+
+      <h3>1.1 Product vs system vs capability</h3>
+      <p>Three words that sound interchangeable and are not. Getting the distinction wrong is how good technology loses to worse technology that understood what was being bought.</p>
+      <div class="concept">
+        <div class="ct">Product, system, capability<span class="abbr">the ladder</span></div>
+        <div class="layer def"><span class="l">Definition</span>A <b>product</b> is a thing you can ship: a radar, a drone, an app. A <b>system</b> is products integrated to do a job: the radar plus the processor plus the display plus the software. A <b>capability</b> is the ability to achieve an operational effect, and it includes the system plus the people, training, doctrine, logistics, infrastructure and authority to use it.</div>
+        <div class="layer mech"><span class="l">Mechanism</span>Militaries reason in capability. A frequently used checklist is <b>DOTMLPF-P</b>: Doctrine, Organisation, Training, Materiel, Leadership, Personnel, Facilities, and Policy. Your product is one letter, Materiel. A capability gap is rarely closed by materiel alone.</div>
+        <div class="layer op"><span class="l">Operational relevance</span>A customer with a real gap is asking "can I do X, reliably, with the people and rules I have?" A vendor answering "here is a great product" has answered a different question, and it shows in evaluation.</div>
+        <div class="layer you"><span class="l">For my role</span>When I position Skyline / La Orizont work or read a Shield AI role, I frame it as capability: the drone plus the training pipeline, the sustainment, the C2 integration, the authority to fly. That framing is what separates a capture lead from a salesperson.</div>
+      </div>
+
+      <h3>1.2 Operational requirement vs procurement requirement</h3>
+      <p>The same need is written down twice, by different people, for different purposes, and the two documents rarely match perfectly.</p>
+      <ul class="tight">
+        <li>The <b>operational requirement</b> is what the user needs to do the job: detect a Group 1 drone at a useful range, in weather, day and night. It is written in the language of effect.</li>
+        <li>The <b>procurement requirement</b> is what the buyer can lawfully and defensibly compete: measurable, testable specifications, evaluation criteria, and contract terms. It is written in the language of acquisition.</li>
+      </ul>
+      <p>The translation between them is lossy and political. Requirements get rounded to what is testable, to what an incumbent can meet, and to what the budget allows. Understanding that translation is most of the art of capture.</p>
+      <div class="box mistake"><span class="l">Common mistake</span>Reading the tender as the requirement. The tender is the procurement requirement after months of shaping. The operational requirement, and the chance to influence it, existed long before the tender was public.</div>
+
+      <h3>1.3 Budget authority vs acquisition authority</h3>
+      <p>Two different people, sometimes two different institutions. One controls the money; the other controls the process by which money is spent. A program with an enthusiastic operational sponsor and no budget line is a study, not an opportunity. A program with budget but no acquisition route is stuck. You need to locate all three, sponsor, budget holder, and acquirer, before you have a real opportunity. This is developed further in <a href="#c2">Chapter 2</a>.</p>
+      <div class="box key"><span class="l">Key idea</span>Budget is not opportunity. A published budget line tells you money exists. It does not tell you the requirement is shaped, the acquisition route is chosen, or that you are positioned. Treat budget as necessary and far from sufficient.</div>
+
+      <h3>1.4 Integration and sustainment</h3>
+      <p>The initial delivery is usually the smaller half of both the customer's cost and the supplier's revenue. What follows, integration into existing systems and sustainment over a life measured in decades, is where programs are won, lost, and quietly renewed. A product that is cheap to buy and expensive to keep flying loses to one that costs more up front and less over its life. See <a href="#c10">Chapter 10</a>.</p>
+
+      <h3>1.5 Pilot-to-program transition</h3>
+      <p>Defense loves to try things. Trials, experiments, innovation funds and pilots are well funded and often lead nowhere, not because the technology failed, but because no route existed from experiment to a funded program of record. Money for trying and money for buying come from different places and follow different rules.</p>
+      <div class="box role"><span class="l">For my role</span>Before any pilot, I ask three questions: who would own this in service, which budget line would fund it, and what would have to be true for it to be adopted. If nobody can answer, it is paid research, which is legitimate, but it is not a pipeline, and I forecast it as such.</div>
+
+      <h3>1.6 Industrial participation</h3>
+      <p>Large defense purchases frequently carry obligations for the seller to invest in, manufacture in, or transfer technology to the buying country. This is called offset or industrial participation. For a Romanian context it can be decisive: local assembly, co-production, and sovereign sustainment are not afterthoughts, they are often scored in the competition and sometimes mandated. A foreign prime that partners credibly with local industry can beat a better product that arrives as a pure import.</p>
+      <div class="box li"><span class="l">LinkedIn angle</span>"A defense budget is not a sales opportunity." Open with the budget-vs-opportunity idea, one diagram of the acquisition funnel, five points on what actually has to be true. Strong, contrarian, and true.</div>
+    </section>
+
+    <!-- ============ CH2 ============ -->
+    <section class="ch" id="c2">
+      <div class="cnum">Chapter 2</div>
+      <h2>Government &amp; Defence Procurement</h2>
+      <p class="lead">How a need becomes a written requirement, becomes a competition, becomes a contract. If you understand only one chapter for capture work, understand this one.</p>
+
+      <h3>2.1 Requirement formation</h3>
+      <p>Nothing is bought until a gap is identified, options are analysed, and a requirement is written. The requirement stage is where the eventual competition is decided, because a requirement written around an outcome you are unusually good at is an advantage no proposal quality can later overturn.</p>
+
+      <figure>
+        <svg viewBox="0 0 720 250" role="img" aria-label="Defence acquisition funnel from capability gap to award">
+          <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8" fill="#c8bfae"/></marker></defs>
+          <g class="d-w" marker-end="url(#ah)">
+            <line x1="118" y1="120" x2="150" y2="120"/><line x1="250" y1="120" x2="282" y2="120"/>
+            <line x1="382" y1="120" x2="414" y2="120"/><line x1="514" y1="120" x2="546" y2="120"/>
+          </g>
+          <path class="d-flow" d="M40,120 H680"/>
+          <g text-anchor="middle">
+            <g transform="translate(78,120)"><rect x="-40" y="-26" width="80" height="52" rx="9" class="d-card"/><text class="d-t" y="-3">Gap</text><text class="d-s" y="12">the need</text></g>
+            <g transform="translate(210,120)"><rect x="-40" y="-26" width="80" height="52" rx="9" class="d-card"/><text class="d-t" y="-3">Options</text><text class="d-s" y="12">analysis</text></g>
+            <g transform="translate(342,120)"><rect x="-46" y="-26" width="92" height="52" rx="9" class="d-card" style="stroke:#b45309;stroke-width:2"/><text class="d-t" y="-3" style="fill:#b45309">Requirement</text><text class="d-s" y="12">decided here</text></g>
+            <g transform="translate(474,120)"><rect x="-40" y="-26" width="80" height="52" rx="9" class="d-card"/><text class="d-t" y="-3">Tender</text><text class="d-s" y="12">published</text></g>
+            <g transform="translate(610,120)"><rect x="-42" y="-26" width="84" height="52" rx="9" class="d-card" style="stroke:#177a4a;stroke-width:2"/><text class="d-t" y="-3" style="fill:#177a4a">Award</text><text class="d-s" y="12">+ sustainment</text></g>
+          </g>
+          <line x1="342" y1="146" x2="342" y2="192" stroke="#177a4a" stroke-width="1.4"/><circle cx="342" cy="192" r="3" fill="#177a4a"/>
+          <text x="342" y="212" text-anchor="middle" style="fill:#177a4a;font-family:var(--sans);font-size:12px">shape it here</text>
+          <line x1="474" y1="146" x2="474" y2="192" stroke="#be2f2a" stroke-width="1.4"/><circle cx="474" cy="192" r="3" fill="#be2f2a"/>
+          <text x="474" y="212" text-anchor="middle" style="fill:#be2f2a;font-family:var(--sans);font-size:12px">competing here is late</text>
+        </svg>
+        <figcaption><span class="fno">Figure 2.1</span> The acquisition funnel. Influence concentrates at the requirement, not the tender.</figcaption>
+      </figure>
+
+      <h3>2.2 The stakeholder layers</h3>
+      <p>A government buying decision is distributed across roles that may sit in different institutions with different incentives and time horizons. Selling without knowing which one you are talking to is the most common and expensive mistake in this market.</p>
+      <table>
+        <caption>The five roles in a defence purchase</caption>
+        <thead><tr><th>Role</th><th>Cares about</th><th>Can do for you</th><th>Cannot do</th></tr></thead>
+        <tbody>
+          <tr><td><b>Sponsor / user</b></td><td>Does it help me do the job under stress</td><td>Advocate credibly, tell you the truth</td><td>Spend money</td></tr>
+          <tr><td><b>Capability owner</b></td><td>Does it close the documented gap</td><td>Shape how the requirement is written</td><td>Buy directly</td></tr>
+          <tr><td><b>Budget owner</b></td><td>Whole-life cost, fit to the plan</td><td>Fund it, or not</td><td>Usually judge the technology</td></tr>
+          <tr><td><b>Buyer / acquirer</b></td><td>A defensible, on-schedule competition</td><td>Run the procurement, set criteria</td><td>Change what was asked for</td></tr>
+          <tr><td><b>Assurer</b></td><td>Safe, secure, certifiable, supportable</td><td>Stop everything, at any point</td><td>Champion you</td></tr>
+        </tbody>
+      </table>
+
+      <h3>2.3 Buying routes</h3>
+      <p>The route chosen shapes everything downstream. In a Romanian and EU context you will meet, among others:</p>
+      <ul class="tight">
+        <li><b>SEAP / SICAP</b>, the national electronic public procurement system, where open tenders and their awards are published. Primary source for who buys what, at what value.</li>
+        <li><b>Framework agreements</b>, which pre-qualify suppliers and terms, then call off individual orders, often without a full competition each time. Getting onto the right framework can be the single highest-value business development act available.</li>
+        <li><b>Market consultation</b>, a pre-tender phase where the buyer engages industry to shape the requirement. This is where influence is legitimate and expected, within fairness rules that vary and must be respected.</li>
+        <li><b>EU-funded lines</b>, including defense-industrial and security instruments, which carry their own eligibility, co-funding and reporting rules.</li>
+      </ul>
+
+      <h3>2.4 Procurement timing and acquisition risk</h3>
+      <p>Budgets are annual and set in advance, and they distinguish sharply between money for investigating and money for buying. There are windows when new commitments can be made and windows when they cannot. Aligning proposals to that rhythm materially improves the hit rate. <b>Acquisition risk</b>, the chance a program slips, shrinks or is cancelled, is real and must be priced into any forecast, especially for programs still upstream of a firm requirement.</p>
+
+      <h3>2.5 Territory qualification and scoring</h3>
+      <p>Not every account with a budget is worth pursuing. A simple, defensible scoring model beats intuition. Score each opportunity on fit, timing, access and winnability, and pursue in rank order rather than chasing everything.</p>
+      <div class="box role"><span class="l">For my role</span>A workable formula: <span class="mono">score = fit(0-40) + timing(0-30) + access(0-20) + winnability(0-10)</span>. Fit = how well the requirement matches what we uniquely do. Timing = where it sits in the funnel and the budget cycle. Access = do we know the shaping stakeholders. Winnability = incumbency, industrial participation, price realism. Anything below a threshold gets a nurture cadence, not a bid.</div>
+      <div class="box li"><span class="l">LinkedIn angle</span>"Why a defense budget is not a sales opportunity." The single best contrarian post in this set. Budget-vs-opportunity, the funnel diagram, and the five stakeholder roles.</div>
+    </section>
+
+    <!-- ============ CH3 ============ -->
+    <section class="ch" id="c3">
+      <div class="cnum">Chapter 3</div>
+      <h2>UAS Architecture</h2>
+      <p class="lead">An unmanned aircraft system is not a drone. It is an aircraft, a control station, a datalink, and the people and procedures that tie them together. Knowing the blocks lets you read any platform's strengths and limits in minutes.</p>
+
+      <h3>3.1 The blocks</h3>
+      <table>
+        <caption>UAS subsystems and what they determine</caption>
+        <thead><tr><th>Subsystem</th><th>What it is</th><th>What it determines</th></tr></thead>
+        <tbody>
+          <tr><td><b>Air vehicle</b></td><td>The airframe: fixed-wing, multirotor, or hybrid VTOL</td><td>Endurance, speed, payload, runway need</td></tr>
+          <tr><td><b>Propulsion</b></td><td>Electric, combustion, or hybrid</td><td>Endurance, noise, thermal and acoustic signature</td></tr>
+          <tr><td><b>Payload</b></td><td>The sensors it carries (see 3.3)</td><td>What mission it can actually fly</td></tr>
+          <tr><td><b>GCS</b></td><td>Ground control station: the operator's console</td><td>How many aircraft one crew can run, workload</td></tr>
+          <tr><td><b>Datalink</b></td><td>The radio link(s) for control and data</td><td>Range, resilience, whether it works when jammed</td></tr>
+          <tr><td><b>Navigation</b></td><td>GNSS plus inertial, sometimes visual</td><td>Whether it flies when GPS is denied (see Ch 5)</td></tr>
+          <tr><td><b>Onboard compute</b></td><td>The flight and mission computers</td><td>How much autonomy and processing happens on the aircraft</td></tr>
+          <tr><td><b>C2 integration</b></td><td>How it plugs into the wider command system</td><td>Whether it is a silo or part of a picture (Ch 7)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3.2 VTOL and the runway problem</h3>
+      <p>Fixed-wing aircraft are efficient and long-legged but need a runway or a launcher and a way to recover. Multirotors take off vertically but are short-legged. <b>Hybrid VTOL</b>, vertical take-off and landing with wing-borne cruise, tries to buy both: launch and recover from a small unprepared site, then fly efficiently on the wing. For expeditionary and maritime use, where there is no runway and often a moving deck, that combination is worth a great deal, which is exactly the niche the leading tactical platforms target.</p>
+
+      <h3>3.3 Payloads and ISR sensors</h3>
+      <p>The payload is the mission. The common ISR (intelligence, surveillance, reconnaissance) sensors:</p>
+      <ul class="tight">
+        <li><b>EO/IR</b>: electro-optical (day camera) and infrared (thermal). The workhorse. Precise, and limited by weather, cloud and line of sight.</li>
+        <li><b>SAR</b>: synthetic aperture radar. Images the ground through cloud and darkness by using the aircraft's motion to synthesise a large antenna. All-weather, day and night, at the cost of size, power and processing.</li>
+        <li><b>ViDAR</b>: a wide-area optical search technique that scans a broad swath and flags small objects (a person in the water, a small boat) that a staring camera would miss. Force-multiplies maritime and search missions.</li>
+        <li><b>AIS</b>: automatic identification system. Not a sensor of the drone as such, but a receiver for the transponders ships broadcast. Fusing AIS with a radar or optical track lets you separate the cooperative vessel from the one running dark, which is the interesting one.</li>
+      </ul>
+
+      <h3>3.4 Datalinks: line of sight and beyond</h3>
+      <p>Two regimes. <b>LOS</b> (line of sight) links are high-bandwidth and range-limited by the horizon and terrain. <b>BLOS</b> (beyond line of sight), usually over <b>SATCOM</b>, extends control and data far past the horizon, at the cost of bandwidth, latency and dependence on the satellite link. A platform's real reach is set by its datalink, not its fuel. A long-endurance aircraft on a fragile LOS link is a short-range aircraft in practice.</p>
+      <div class="box mistake"><span class="l">Common mistake</span>Quoting endurance as range. An aircraft that can fly twelve hours but must stay within a 50 km LOS link is not a 12-hour-range asset. Always ask what the datalink does when contested.</div>
+
+      <h3>3.5 Mission autonomy</h3>
+      <p>Where the aircraft can carry out parts of the mission without a continuous human command: holding a search pattern, re-planning around a no-fly zone, continuing to a recovery point if the link drops. Autonomy is what lets one crew run several aircraft, and it is what keeps the aircraft useful when the link is jammed. It is treated in depth in <a href="#c8">Chapter 8</a>.</p>
+      <div class="box shield"><span class="l">Competitive relevance</span>Tactical VTOL ISR aircraft paired with strong onboard autonomy are the category the current market leaders compete in. When comparing platforms, the honest axes are endurance, sensor payload, datalink resilience, GPS-denied performance, and how much the aircraft can do when the link is cut, not the demo-day highlight reel.</div>
+    </section>
+
+    <!-- ============ CH4 ============ -->
+    <section class="ch" id="c4">
+      <div class="cnum">Chapter 4</div>
+      <h2>Counter-UAS</h2>
+      <p class="lead">Stopping a hostile drone is a loop, not a gadget. Detect, track, identify, decide, defeat, assess. Most failures and most bad procurement come from treating one stage, usually the jammer, as if it were the whole system.</p>
+
+      <figure>
+        <svg viewBox="0 0 720 200" role="img" aria-label="The counter-UAS loop: detect, track, identify, decide, defeat, assess">
+          <defs><marker id="ah2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8" fill="#c8bfae"/></marker></defs>
+          <path class="d-flow" d="M40,80 H680"/>
+          <g class="d-w" marker-end="url(#ah2)"><line x1="96" y1="80" x2="120" y2="80"/><line x1="212" y1="80" x2="236" y2="80"/><line x1="328" y1="80" x2="352" y2="80"/><line x1="444" y1="80" x2="468" y2="80"/><line x1="560" y1="80" x2="584" y2="80"/></g>
+          <g text-anchor="middle">
+            <g transform="translate(66,80)"><rect x="-32" y="-22" width="64" height="44" rx="8" class="d-card"/><text class="d-t" y="4">Detect</text></g>
+            <g transform="translate(182,80)"><rect x="-32" y="-22" width="64" height="44" rx="8" class="d-card"/><text class="d-t" y="4">Track</text></g>
+            <g transform="translate(298,80)"><rect x="-36" y="-22" width="72" height="44" rx="8" class="d-card"/><text class="d-t" y="4">Identify</text></g>
+            <g transform="translate(414,80)"><rect x="-34" y="-22" width="68" height="44" rx="8" class="d-card" style="stroke:#b45309;stroke-width:2"/><text class="d-t" y="4" style="fill:#b45309">Decide</text></g>
+            <g transform="translate(524,80)"><rect x="-32" y="-22" width="64" height="44" rx="8" class="d-card" style="stroke:#177a4a;stroke-width:2"/><text class="d-t" y="4" style="fill:#177a4a">Defeat</text></g>
+            <g transform="translate(636,80)"><rect x="-32" y="-22" width="64" height="44" rx="8" class="d-card"/><text class="d-t" y="4">Assess</text></g>
+          </g>
+          <path d="M636,102 C636,150 66,150 66,102" class="d-w" marker-end="url(#ah2)" style="stroke-dasharray:3 5"/>
+          <text x="351" y="168" text-anchor="middle" class="d-s">assess feeds the next detection: it is a loop</text>
+        </svg>
+        <figcaption><span class="fno">Figure 4.1</span> The C-UAS kill chain. Defeat is one stage of six, and it only happens after a human decision.</figcaption>
+      </figure>
+
+      <h3>4.1 Detection modalities</h3>
+      <p>No single sensor is enough. Each sees something the others miss, and each is blind in a way the others are not.</p>
+      <table>
+        <caption>C-UAS detection modalities</caption>
+        <thead><tr><th>Modality</th><th>Detects by</th><th>Strong at</th><th>Blind to</th></tr></thead>
+        <tbody>
+          <tr><td><b>Radar</b></td><td>Radio reflection</td><td>Range, velocity, all-weather</td><td>Very small / low / slow targets; clutter; birds</td></tr>
+          <tr><td><b>Passive RF</b></td><td>Listening to the drone's radio</td><td>Early warning, direction, no emission of its own</td><td>Autonomous drones flying with the radio off</td></tr>
+          <tr><td><b>EO/IR</b></td><td>Seeing / thermal</td><td>Visual identification, precision</td><td>Night (EO), fog, cloud, line of sight</td></tr>
+          <tr><td><b>Acoustic</b></td><td>Hearing rotor noise</td><td>Cheap, short-range cue, hard to spoof</td><td>Noise, range, quiet or fast platforms</td></tr>
+          <tr><td><b>Remote ID</b></td><td>The drone's own broadcast ID</td><td>Cooperative, lawful drones</td><td>Anyone who simply does not comply</td></tr>
+        </tbody>
+      </table>
+      <div class="box mistake"><span class="l">Common mistake: C-UAS is not a jammer</span>The most common opening question, "which jammer should we buy?", is the wrong question. A jammer is one non-kinetic effector. Without detection, tracking, identification and a lawful decision in front of it, it is a liability: it can jam your own signals, it may be illegal to operate, and it does nothing against a drone navigating on inertial and vision with its radio off. Buy the loop, not the gadget.</div>
+
+      <h3>4.2 Sensor fusion</h3>
+      <p>Fusion is the act of combining several imperfect, disagreeing sensors into one track you can trust, with a confidence attached. It is the hardest and most valuable part of a C-UAS system, and the part a brochure is least able to demonstrate. A radar hit plus a matching RF bearing plus an optical confirmation is a track worth acting on. Any one of them alone is a maybe.</p>
+
+      <h3>4.3 Effectors: kinetic and non-kinetic</h3>
+      <ul class="tight">
+        <li><b>Non-kinetic</b>: RF jamming (break the control or GNSS link), protocol takeover, GNSS spoofing (walk it away). Reversible, lower collateral risk, legally fraught, and defeated by autonomy.</li>
+        <li><b>Kinetic</b>: nets, projectiles, directed energy, interceptor drones. Physical defeat, higher collateral and legal threshold, effective against autonomous targets.</li>
+      </ul>
+      <p>Real systems field a <b>graduated response</b>: the softest effective option first, escalating only as authority and threat allow.</p>
+
+      <h3>4.4 ROE and legal authority</h3>
+      <div class="concept">
+        <div class="ct">Rules of engagement in C-UAS<span class="abbr">ROE</span></div>
+        <div class="layer def"><span class="l">Definition</span>The standing rules that say what response is permitted, against what, where, when, and on whose authority. In C-UAS they are unusually sharp because effectors touch the electromagnetic spectrum (regulated) and airspace (regulated) and may endanger people or aircraft.</div>
+        <div class="layer mech"><span class="l">Mechanism</span>An ROE engine, human or automated, gates every effector. Jamming may be lawful for the military on a base and unlawful for the same equipment near a civil airport. The system must encode who may authorise what, and log it.</div>
+        <div class="layer op"><span class="l">Operational relevance</span>A system that cannot prove it acted within authority is unusable in most real deployments, because the operator personally carries the legal consequence. Authority and audit are features, not paperwork.</div>
+        <div class="layer you"><span class="l">For my role</span>In any C-UAS discussion I lead with the decision and authority layer, not the effector. It signals I understand the customer's real constraint and separates me from vendors selling boxes.</div>
+      </div>
+
+      <h3>4.5 Layered defence and site design</h3>
+      <p>One sensor ring does not protect a site. Effective C-UAS is <b>layered</b>: long-range early warning, mid-range tracking and identification, and short-range defeat, arranged so the layers overlap and cover each other's blind spots. <b>Sensor placement</b> is an engineering problem in its own right: terrain, buildings and the earth's curvature create <b>dead zones</b> where a low, slow drone can approach unseen. Designing coverage, siting radars and RF sensors to eliminate gaps, is where a system succeeds or fails in the field, and it is invisible in a datasheet.</p>
+      <div class="box li"><span class="l">LinkedIn angle</span>"Why C-UAS is not a jammer." Lead with the wrong-question framing, show Figure 4.1, five points on why the loop beats the gadget. Also: "Why operator authority matters in C-UAS" from 4.4.</div>
+      <div class="box shield"><span class="l">Competitive relevance</span>For Romania's Black Sea coast, border and maritime approaches, layered C-UAS and maritime ISR are directly relevant, and industrial participation with local integrators is likely to be scored. Frame any competitor comparison around coverage, fusion quality, GPS-denied performance and sustainment, not peak specs.</div>
+    </section>
+
+    <!-- ============ CH5 ============ -->
+    <section class="ch" id="c5">
+      <div class="cnum">Chapter 5</div>
+      <h2>Electronic Warfare &amp; RF</h2>
+      <p class="lead">Almost everything an unmanned system does is radio: it is commanded by radio, it navigates by a radio signal from space, and it is found by radio. Electronic warfare is the fight for that spectrum. A handful of formulas explain most of it.</p>
+
+      <h3>5.1 The one trade-off</h3>
+      <p>Lower frequencies travel far and pass through weather but carry little detail. Higher frequencies carry huge bandwidth and resolve fine detail but fade fast and are stopped by rain. Every antenna and sensor is a point on that line. When someone says "X-band" or "the 2.4 gig", they have told you most of what a system can and cannot do.</p>
+      <div class="eq">λ = c / f
+        <span class="where">Wavelength λ (m) = speed of light c (≈3×10⁸ m/s) ÷ frequency f (Hz). Why it matters: antenna size scales with wavelength, so higher frequency means smaller antennas and finer beams, and that single fact drives most design choices.</span>
+      </div>
+
+      <h3>5.2 How far a signal reaches</h3>
+      <p>Radio weakens with distance and frequency. Free-space path loss is the clean idealisation, and it is enough to reason with.</p>
+      <div class="eq">FSPL (dB) = 20·log₁₀(d) + 20·log₁₀(f) + 32.44
+        <span class="where">d in km, f in MHz. Loss grows with both distance and frequency. Doubling distance adds 6 dB; so does doubling frequency. This is why long-range links sit low in the spectrum.</span>
+      </div>
+      <p>Whether a link closes is a budget: everything you gain minus everything you lose must leave enough signal above the noise.</p>
+      <div class="eq">P_rx = P_tx + G_tx + G_rx − FSPL − L
+        <span class="where">Received power = transmit power + transmit and receive antenna gains − path loss − other losses (cables, weather), all in dB. If P_rx sits comfortably above the receiver's noise floor, the link works.</span>
+      </div>
+      <div class="eq">SNR (dB) = P_signal − P_noise
+        <span class="where">Signal-to-noise ratio. The single number that decides whether information gets through. Jamming works by raising P_noise until SNR collapses. Everything in electronic attack is, at heart, an attack on somebody's SNR.</span>
+      </div>
+      <div class="eq">G ≈ (4π · A · η) / λ²
+        <span class="where">Antenna gain G from physical aperture area A and efficiency η. Bigger aperture and shorter wavelength give more gain and a narrower beam. This is why a dish beats a whip, and why direction finding needs either an array or an aperture.</span>
+      </div>
+
+      <h3>5.3 Why radar struggles with small drones</h3>
+      <p>Radar has to survive the round trip, out to the target and back, and that punishes range brutally.</p>
+      <div class="eq">P_rx ∝ (P_tx · G² · λ² · σ) / ((4π)³ · R⁴)
+        <span class="where">The radar equation, conceptually. Received power falls with the fourth power of range R, and scales with the target's radar cross-section σ. A small quadcopter has a tiny σ, so detecting it at range needs a lot of power, a big antenna, or getting closer. This is the physics behind "small, low and slow is hard".</span>
+      </div>
+      <div class="box mistake"><span class="l">Common mistake</span>Assuming detection range scales with distance. It scales with R⁴ for radar. Halving the required detection range does not double the effective sensitivity margin, it improves it sixteenfold. Small changes in range are large changes in difficulty.</div>
+
+      <h3>5.4 Detection and direction finding</h3>
+      <p><b>Passive RF</b> detection listens for the drone's own emissions, its control link and video downlink, and gives early warning without radiating anything itself. <b>Direction finding</b> (DF) adds bearing: with an antenna array and phase or amplitude comparison, the system estimates where the emission comes from, and two bearings cross to a location. Passive RF is stealthy and cheap; its blind spot is the drone that flies pre-planned with its radio silent.</p>
+
+      <h3>5.5 GNSS denial: jamming vs spoofing</h3>
+      <p>Satellite navigation signals arrive at the ground extraordinarily weak, which makes them easy to overpower and, worse, easy to imitate. There are two distinct attacks, and confusing them is a classic tell of someone who has not done the work.</p>
+      <figure>
+        <svg viewBox="0 0 720 250" role="img" aria-label="GNSS jamming floods the receiver with noise, spoofing feeds it false signals">
+          <defs><marker id="ah3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8" fill="#c8bfae"/></marker></defs>
+          <!-- satellite -->
+          <g transform="translate(90,42)"><rect x="-20" y="-12" width="40" height="24" rx="4" class="d-card"/><text class="d-t" y="4" style="font-size:11px">GNSS</text></g>
+          <text x="90" y="74" class="d-s" text-anchor="middle">very weak signal</text>
+          <!-- receiver -->
+          <g transform="translate(360,120)"><rect x="-46" y="-24" width="92" height="48" rx="9" class="d-card" style="stroke:#1f5fd0;stroke-width:1.8"/><text class="d-t" y="-3">Receiver</text><text class="d-s" y="12">on the drone</text></g>
+          <line x1="90" y1="60" x2="330" y2="108" class="d-w" marker-end="url(#ah3)"/>
+          <!-- jammer path -->
+          <g transform="translate(120,200)"><rect x="-40" y="-20" width="80" height="40" rx="8" class="d-card" style="stroke:#be2f2a;stroke-width:1.8"/><text class="d-t" y="-2" style="fill:#be2f2a">Jammer</text><text class="d-s" y="12">noise</text></g>
+          <path d="M160,190 C230,170 290,150 322,135" fill="none" stroke="#be2f2a" stroke-width="2.2" stroke-dasharray="4 5" marker-end="url(#ah3)"/>
+          <text x="250" y="205" class="d-s" style="fill:#be2f2a">floods SNR to zero → loses lock</text>
+          <!-- spoofer path -->
+          <g transform="translate(600,200)"><rect x="-44" y="-20" width="88" height="40" rx="8" class="d-card" style="stroke:#b45309;stroke-width:1.8"/><text class="d-t" y="-2" style="fill:#b45309">Spoofer</text><text class="d-s" y="12">fake sats</text></g>
+          <path d="M560,190 C480,168 430,150 402,133" fill="none" stroke="#b45309" stroke-width="2.2" stroke-dasharray="4 5" marker-end="url(#ah3)"/>
+          <text x="500" y="228" class="d-s" style="fill:#b45309">counterfeit signals → computes a false position</text>
+        </svg>
+        <figcaption><span class="fno">Figure 5.1</span> Jamming denies the signal (the drone knows it is lost). Spoofing counterfeits it (the drone is confidently wrong). The second is more dangerous.</figcaption>
+      </figure>
+      <ul class="tight">
+        <li><b>Jamming</b> raises the noise until the receiver loses lock. The drone knows it has lost navigation and falls back to inertial, return-to-home, or a hover. Denial.</li>
+        <li><b>Spoofing</b> transmits counterfeit satellite signals so the receiver computes a false position and time. The drone does not know it is wrong, and can be walked off course. Deception. Far harder to detect and far more dangerous.</li>
+      </ul>
+      <p><b>CRPA</b>, a controlled-reception-pattern antenna, is a key defence: an antenna array that steers nulls toward the direction of interference, suppressing a jammer or spoofer while keeping the real satellites. It is one of the practical answers to a contested navigation environment, alongside inertial and vision-based navigation that need no external signal at all.</p>
+
+      <h3>5.6 The RF kill chain, EMC, and resilience</h3>
+      <p>Electronic attack runs its own chain: <b>find</b> the emission, <b>fix</b> its direction, <b>identify</b> the waveform, then <b>deny or deceive</b>. <b>Communications resilience</b> is the defensive mirror: frequency hopping, spread spectrum, directional links and mesh routing so that a link degrades gracefully instead of failing. <b>Electromagnetic compatibility</b> (EMC) is the unglamorous constraint underneath all of it: your own systems, radar, jammer, datalink, comms, must not blind each other. On a small vehicle or a single site, EMC is often the real engineering limit.</p>
+      <div class="box li"><span class="l">LinkedIn angles</span>"GNSS jamming vs spoofing, and why the difference matters" with Figure 5.1. "What passive RF can and cannot detect" from 5.4. Both are crisp, technical, and rare in the feed.</div>
+    </section>
+
+    <!-- ============ CH6 ============ -->
+    <section class="ch" id="c6">
+      <div class="cnum">Chapter 6</div>
+      <h2>Drone Cybersecurity</h2>
+      <p class="lead">An unmanned system is a flying networked computer with radios. Its attack surface is larger than most people assume, and the interesting attacks are rarely on the airframe. They are on the link, the navigation, the ground station and the backend.</p>
+
+      <h3>6.1 The threat model</h3>
+      <p>Before listing attacks, state what you are defending and against whom. For a UAS the assets are: control of the aircraft, the integrity of its navigation, the confidentiality and integrity of its data, and the trustworthiness of the ground and cloud systems. The adversaries range from a hobbyist with a software-defined radio to a state electronic-warfare unit. The right controls depend entirely on which you are facing.</p>
+
+      <h3>6.2 Attack surfaces</h3>
+      <table>
+        <caption>UAS attack surfaces and representative attacks</caption>
+        <thead><tr><th>Surface</th><th>Representative attack</th><th>Primary defence</th></tr></thead>
+        <tbody>
+          <tr><td><b>Ground control station</b></td><td>Compromise the operator's machine, own the fleet</td><td>Hardening, least privilege, segmentation</td></tr>
+          <tr><td><b>Datalink</b></td><td>Jamming, interception, injection, protocol takeover</td><td>Encryption, authentication, frequency agility</td></tr>
+          <tr><td><b>Navigation</b></td><td>GNSS jamming and spoofing (Ch 5)</td><td>Inertial, vision, CRPA, spoof detection</td></tr>
+          <tr><td><b>Firmware / supply chain</b></td><td>Malicious or backdoored components and updates</td><td>Secure boot, signed updates, provenance</td></tr>
+          <tr><td><b>APIs / cloud / backend</b></td><td>Credential theft, broken auth, data exfiltration</td><td>Zero trust, secrets management, logging</td></tr>
+        </tbody>
+      </table>
+
+      <h3>6.3 The link and navigation attacks</h3>
+      <p>Two families deserve naming. A <b>replay attack</b> captures legitimate commands or signals and re-transmits them later to trigger an unintended action. A <b>spoofing attack</b> fabricates signals (a fake GNSS constellation, a fake command source) that the system wrongly trusts. Both are defeated by the same principle: authenticate everything, and never trust a message just because it is well-formed and arrived on the right frequency.</p>
+
+      <h3>6.4 Zero trust in unmanned systems</h3>
+      <div class="concept">
+        <div class="ct">Zero trust, applied to UAS<span class="abbr">never trust, verify</span></div>
+        <div class="layer def"><span class="l">Definition</span>An architecture that assumes no component, network or message is trustworthy by default. Every access and every command is authenticated and authorised, and the internal network is treated as already hostile.</div>
+        <div class="layer mech"><span class="l">Mechanism</span>Strong identity for every device and service, signed and authenticated commands, encrypted links, network segmentation so one compromised node is contained, signed firmware and updates, and telemetry integrity so a tampered feed is detected.</div>
+        <div class="layer op"><span class="l">Operational relevance</span>In contested environments the assumption that the network is safe is simply false. Zero trust is the only posture that survives an adversary who is already inside the perimeter or on the air.</div>
+        <div class="layer you"><span class="l">For my role</span>This is the bridge between my security background and the defense-tech world. It is a credible, current framing I can bring to both C-UAS and DarkAnalytica work, and it maps cleanly onto the CEH and OSINT grounding on my CV.</div>
+      </div>
+
+      <h3>6.5 Forensic logging and telemetry integrity</h3>
+      <p>When something goes wrong, and it will, the questions are what happened, in what order, and can we prove it. <b>Forensic logging</b>, tamper-evident records of commands, decisions and system state, is what makes an incident explainable and a system defensible. <b>Telemetry integrity</b> ensures the data the operator sees is the data the aircraft sent, not something injected in between. Both are the same discipline as the audit log in the C-UAS architecture of Chapter 4.</p>
+      <div class="box mistake"><span class="l">Common mistake</span>Treating drone security as airframe security. The airframe is rarely the target. The link, the navigation signal, the ground station and the cloud backend are where real compromise happens, and they are owned by different teams who each assume someone else has it covered.</div>
+    </section>
+
+    <!-- ============ CH7 ============ -->
+    <section class="ch" id="c7">
+      <div class="cnum">Chapter 7</div>
+      <h2>Command &amp; Control</h2>
+      <p class="lead">C2 answers two questions: who decides what, on what authority, and how a decision becomes action and returns as feedback. Every defense software product lives somewhere in that loop, whether the team building it uses the word or not.</p>
+
+      <h3>7.1 C2, C4ISR, and the common picture</h3>
+      <p><b>C2</b> is command and control. <b>C4ISR</b> adds computers, communications, intelligence, surveillance and reconnaissance: the wider apparatus that feeds and connects C2. The shared artefact is the <b>COP</b>, the common operating picture, a single agreed view of the situation; a <b>JCOP</b> is the joint version, shared across services or nations. A product that produces a display is not producing a COP unless others trust it and act on it.</p>
+
+      <h3>7.2 The OODA loop</h3>
+      <div class="concept">
+        <div class="ct">The OODA loop<span class="abbr">Observe, Orient, Decide, Act</span></div>
+        <div class="layer def"><span class="l">Definition</span>A model of decision-making under competition: observe the situation, orient (make sense of it against experience and context), decide, act, then observe the result. A loop, not a line.</div>
+        <div class="layer mech"><span class="l">Mechanism</span>The loop has a period and it degrades under stress, deception and missing information. The side that runs a good loop faster, and disrupts the other's, tends to win. Orientation, not observation, is usually the bottleneck.</div>
+        <div class="layer op"><span class="l">Operational relevance</span>Most defense software claims to speed up this loop. The credible ones are specific about which step they improve, observation, sense-making, decision support, or execution, and honest about the rest.</div>
+        <div class="layer you"><span class="l">For my role</span>A precise "we improve orientation, not the whole loop" is more persuasive than "we give you decision advantage". Specificity signals competence in a field full of dashboards that claim everything.</div>
+      </div>
+
+      <h3>7.3 Interoperability and standards</h3>
+      <p>The customer is rarely buying a system; they are adding a component to a system of systems bought over decades, often across nations. So interoperability is frequently the primary requirement. It has three levels: <b>technical</b> (can the bits move), <b>syntactic</b> (can the receiver parse them), and <b>semantic</b> (does the receiver understand the same thing by them). Failures cluster at the semantic level, and they are silent: two systems exchange a valid "track" and mean different things by its confidence or its time reference. Alliance standardisation agreements (STANAGs) and federated mission networking exist to fight this, imperfectly.</p>
+
+      <h3>7.4 Distributed vs centralised, and decision latency</h3>
+      <p>Centralised C2 gives coherence and control; distributed C2 gives resilience and speed at the edge. The contested information environment, where the network is attacked and partitions, pushes toward distributed designs and toward <b>mission command</b>: tell subordinates the intent and let them work out the how. Two failure modes bound the design: <b>data overload</b>, where the operator drowns in feeds, and <b>decision latency</b>, where the loop is too slow to matter. Good C2 fights both at once.</p>
+      <div class="box li"><span class="l">LinkedIn angle</span>"Why C2 is not just a dashboard" and "What 'human on the loop' actually means". Both puncture common misconceptions with a clear model.</div>
+    </section>
+
+    <!-- ============ CH8 ============ -->
+    <section class="ch" id="c8">
+      <div class="cnum">Chapter 8</div>
+      <h2>Autonomy &amp; AI</h2>
+      <p class="lead">Autonomy is what lets one crew run many aircraft and keeps a platform useful when the link is cut. It is also where procurement, testing and law strain hardest, because an adaptive system is not a fixed one.</p>
+
+      <h3>8.1 Autonomy vs automation</h3>
+      <div class="concept">
+        <div class="ct">Autonomy vs automation<span class="abbr">the real distinction</span></div>
+        <div class="layer def"><span class="l">Definition</span><b>Automation</b> follows fixed rules: given this input, do that. <b>Autonomy</b> pursues a goal and chooses how, adapting to a situation it was not scripted for. The line is whether the system decides, or merely executes.</div>
+        <div class="layer mech"><span class="l">Mechanism</span>Autonomy stacks perception (build a picture), planning (choose a course), decision-making, and navigation. Each can be more or less capable, and a system can be autonomous in one and merely automated in another.</div>
+        <div class="layer op"><span class="l">Operational relevance</span>Autonomy is bought for the moments a human cannot be in the loop: jammed links, saturation, speed. Its value is highest exactly when it is hardest to supervise, which is the central tension.</div>
+        <div class="layer you"><span class="l">For my role</span>When a vendor says "autonomous", I ask autonomous at what, and under what conditions. It separates real capability from a scripted demo, and it is the right question in front of any customer.</div>
+      </div>
+
+      <h3>8.2 Human in, on, and out of the loop</h3>
+      <p>Three postures, and the words matter. <b>Human in the loop</b>: the system waits for a human to authorise each action. <b>Human on the loop</b>: the system acts, and a human supervises and can intervene. <b>Human out of the loop</b>: the system acts without real-time human involvement. As you move down that list you gain speed and lose direct control, and the legal and ethical bar rises sharply, especially for any use of force. Most credible defense positions keep meaningful human judgement over consequential decisions.</p>
+
+      <h3>8.3 Operational design domain and model drift</h3>
+      <p>An autonomous system is only valid inside its <b>operational design domain</b> (ODD), the conditions it was designed and tested for: terrain, weather, lighting, threat. Outside the ODD, behaviour is undefined. Worse, models can <b>drift</b>: the world, the data or the mission changes, and yesterday's validated model is quietly wrong today. This is why validation for adaptive systems cannot be a single pre-deployment gate.</p>
+
+      <h3>8.4 Multi-agent autonomy and swarming</h3>
+      <p><b>Swarming</b> is many autonomous agents cooperating toward a shared goal, coordinating locally with no central controller, so the group degrades gracefully as individuals are lost. It multiplies effect and complicates every part of testing, C2 and law. <b>Edge AI</b>, running the models on the aircraft rather than in the cloud, is what makes real-time autonomy possible when the link is contested.</p>
+
+      <h3>8.5 Explainability, logging and accountability</h3>
+      <p>For consequential decisions, a system that cannot show why it did what it did is a system a human cannot be accountable for. <b>Explainability</b> proportional to consequence, thorough <b>logging</b>, and clear <b>accountability</b> that does not evaporate into the software are not compliance overhead; they are what makes autonomy usable in the real world. Testing this is the subject of the next chapter.</p>
+      <div class="box li"><span class="l">LinkedIn angles</span>"Autonomy vs automation" and "Why autonomy breaks traditional procurement" (revalidation, not a one-time gate). Strong, and few write them well.</div>
+    </section>
+
+    <!-- ============ CH9 ============ -->
+    <section class="ch" id="c9">
+      <div class="cnum">Chapter 9</div>
+      <h2>Testing &amp; Validation</h2>
+      <p class="lead">A component that works on a bench is not a component that works on an aircraft, in weather, under an adversary, repeatably. The gap between the demo and the deployment is where careers and programs are lost, and where brochures mislead.</p>
+
+      <h3>9.1 Verification vs validation</h3>
+      <div class="concept">
+        <div class="ct">TEVV<span class="abbr">Test, Evaluation, Verification &amp; Validation</span></div>
+        <div class="layer def"><span class="l">Definition</span>The structured process for establishing whether a system performs as designed, whether the design meets the operational need, and whether performance stays trustworthy under relevant conditions.</div>
+        <div class="layer mech"><span class="l">Mechanism</span><b>Verification</b>: did we build the system correctly (to spec)? <b>Validation</b>: did we build the correct system (that meets the need)? <b>Evaluation</b>: how effective and suitable is it operationally? These are different questions with different evidence.</div>
+        <div class="layer op"><span class="l">Operational relevance</span>For adaptive and AI systems, validation cannot be a one-time pre-deployment gate. A change to the model, data, environment or operational boundary can trigger revalidation. This reshapes how such systems are bought and sustained.</div>
+        <div class="layer you"><span class="l">For my role</span>The right vocabulary for discussing AI procurement, field trials, claim control and acceptance testing. Useful directly when talking about autonomy, Hivemind-class software, and any "our AI does X" claim.</div>
+      </div>
+
+      <h3>9.2 Technology readiness</h3>
+      <p>The <b>TRL</b> scale (technology readiness level, 1 to 9) is the common shorthand for maturity, from basic principles observed (1) to a system proven in operational use (9). It is useful and it is gamed: vendors quote optimistic levels, and the jump from a demonstrated prototype in a clean environment to a system that works in the field, the notorious "valley of death" around the middle of the scale, is where most technology stalls.</p>
+      <table>
+        <caption>TRL, in plain terms</caption>
+        <thead><tr><th>Band</th><th>Roughly means</th></tr></thead>
+        <tbody>
+          <tr><td><b>TRL 1-3</b></td><td>Idea, principle, lab proof of concept</td></tr>
+          <tr><td><b>TRL 4-6</b></td><td>Works in the lab, then in a relevant environment (the hard middle)</td></tr>
+          <tr><td><b>TRL 7-9</b></td><td>Prototype in the operational environment, then proven in service</td></tr>
+        </tbody>
+      </table>
+
+      <h3>9.3 How real testing is done</h3>
+      <ul class="tight">
+        <li><b>Scenario-based testing</b>: representative missions, not just component checks.</li>
+        <li><b>Environmental testing</b>: temperature, vibration, humidity, shock, altitude, the conditions that break bench-perfect hardware.</li>
+        <li><b>Red teaming</b>: an adversary actively trying to defeat the system, essential for anything security- or autonomy-related.</li>
+        <li><b>Field testing and repeatability</b>: it worked once is not a result; it works reliably, under stated conditions, is.</li>
+      </ul>
+      <p>The metrics that matter are <b>false positives and false negatives</b>. A C-UAS system that cries wolf is ignored; one that misses the real drone is worse. The trade-off between the two, and where a system is tuned to sit, is a more honest measure than any single detection-range number.</p>
+
+      <h3>9.4 Claim control and why brochures are dangerous</h3>
+      <p><b>Claim control</b> is the discipline of stating only what has been tested, under what conditions, by whom. Vendor brochures routinely quote peak numbers from ideal conditions, in isolation, with no adversary. Taken at face value they lead to systems that fail on delivery and to procurement decisions that cannot be defended. The countermeasure is to ask, for every claim: tested against what, where, how many times, and who verified it.</p>
+      <div class="box mistake"><span class="l">Common mistake</span>Believing the datasheet. Peak detection range in clear air against a large target, with no clutter and no adversary, tells you almost nothing about performance against a small drone, low, in weather, over a real site. Demand the test conditions.</div>
+      <div class="box li"><span class="l">LinkedIn angles</span>"The difference between verification and validation" and "Why MRO matters more than demo performance". Both are practitioner signals that cut through vendor noise.</div>
+    </section>
+
+    <!-- ============ CH10 ============ -->
+    <section class="ch" id="c10">
+      <div class="cnum">Chapter 10</div>
+      <h2>Defence Supply Chain &amp; Sustainment</h2>
+      <p class="lead">Platforms stay in service for decades. Their components go obsolete long before that, and every deployed system must be kept flying, fixed, upgraded and legally supplied. Sustainment, not the sale, is where the durable money and the durable relationship live.</p>
+
+      <h3>10.1 Export control</h3>
+      <div class="concept">
+        <div class="ct">ITAR and export control<span class="abbr">who may hold what</span></div>
+        <div class="layer def"><span class="l">Definition</span><b>ITAR</b> (International Traffic in Arms Regulations), authorised by the US <b>AECA</b> (Arms Export Control Act), controls the export and handling of defense articles, services and technical data on the US Munitions List. The EU dual-use regime and national export licensing sit alongside it. Together they govern what can cross a border, to whom, and under what documentation.</div>
+        <div class="layer mech"><span class="l">Mechanism</span>Controlled items and data need licences and end-use documentation. Even sharing technical data with a foreign national can be a controlled "deemed export". Compliance runs through the whole life of a program, not just the sale.</div>
+        <div class="layer op"><span class="l">Operational relevance</span>Ordering controlled components directly can mean end-use certificates, technology control plans, licence applications and weeks of delay before anything ships. A partner who carries that burden competently is a genuine value proposition, not a middleman.</div>
+        <div class="layer you"><span class="l">For my role</span>For a Romanian program sourcing US-controlled RF, sensor or autonomy technology, export control is a real constraint on timeline and on who can partner. Understanding it lets me structure capture realistically and flag it early to Leo-level decisions. This is an overview; specialist counsel is required for any actual transaction.</div>
+      </div>
+
+      <h3>10.2 Supplier qualification</h3>
+      <p>Selling into defense means getting qualified first. <b>JOSCAR</b> (the Joint Supply Chain Accreditation Register, the well-known UK and Ireland scheme) and equivalents pre-vet suppliers on quality, security and financial stability. Aerospace quality standards (AS/EN 9100, built on ISO 9001), cyber baselines, and NATO codification with an <b>NCAGE</b> code are the common entry gates. Each unlocks a category of opportunity and costs a small supplier real effort to obtain.</p>
+
+      <h3>10.3 Obsolescence and form-fit-function</h3>
+      <p><b>DMSMS</b> (diminishing manufacturing sources and material shortages) is the industry's name for the permanent problem: the platform outlives its parts. When an original component is discontinued and no drop-in equivalent exists, the answer is a <b>form-fit-function</b> (FFF) replacement: a new part designed to be mechanically, electrically and functionally identical, so it drops into the same place and the platform does not change. Done properly, a single spares delivery becomes a sustainable long-term supply line. <b>Configuration control</b>, knowing exactly which version of which part is in which aircraft, is what makes this possible and auditable.</p>
+
+      <h3>10.4 MRO, spares and sovereign sustainment</h3>
+      <p><b>MRO</b> (maintenance, repair and overhaul) and a reliable <b>spares</b> pipeline are what keep a fleet available, and availability, not peak performance, is usually what is actually contracted. For a country like Romania, <b>sovereign sustainment</b>, the ability to maintain and repair a capability at home rather than depending on a foreign supply line that can be interrupted, is a strategic priority. <b>Local assembly and co-production</b> serve the same goal and often satisfy the industrial-participation obligations from Chapter 1.</p>
+      <div class="box mistake"><span class="l">Common mistake</span>Optimising the purchase price and ignoring the tail. A system that is cheap to buy and expensive or impossible to sustain locally loses to one with a credible in-country MRO and spares story, even at a higher sticker price.</div>
+      <div class="box li"><span class="l">LinkedIn angle</span>"Why MRO matters more than demo performance." The unglamorous truth that separates operators from spectators.</div>
+    </section>
+
+    <!-- ============ CH11 ============ -->
+    <section class="ch" id="c11">
+      <div class="cnum">Chapter 11</div>
+      <h2>Competitive Context</h2>
+      <p class="lead">How to read the competitive landscape honestly, using the current tactical-autonomy leaders as the worked example. The goal is not to memorise brochures but to know the axes that actually decide a competition.</p>
+      <div class="box key"><span class="l">Note on this chapter</span>Product names, specifications and program details change. Treat the specifics below as a framework and a starting point to verify against current, primary sources, not as settled fact.</div>
+
+      <h3>11.1 The reference point</h3>
+      <p>Shield AI is a useful benchmark because it competes on the two things this handbook keeps returning to: a tactical <b>VTOL</b> ISR aircraft (the V-BAT family) and an <b>autonomy</b> stack (Hivemind) intended to fly the aircraft when GPS and communications are denied. That pairing, a runway-independent, ship-capable air vehicle plus onboard autonomy that survives a contested environment, is exactly the niche described in Chapters 3 and 8.</p>
+
+      <h3>11.2 Where systems genuinely overlap, and where they do not</h3>
+      <p>Most competitors in this space claim similar headline missions. The honest comparison happens on axes that a demo hides:</p>
+      <table>
+        <caption>Axes that actually decide a tactical-UAS competition</caption>
+        <thead><tr><th>Axis</th><th>The real question</th></tr></thead>
+        <tbody>
+          <tr><td><b>Launch &amp; recovery</b></td><td>Truly runway-independent? From a moving deck? By how small a crew?</td></tr>
+          <tr><td><b>Endurance vs payload</b></td><td>Stated together, or one at a time in different conditions?</td></tr>
+          <tr><td><b>Datalink resilience</b></td><td>What happens to range and control when the link is contested?</td></tr>
+          <tr><td><b>GPS-denied performance</b></td><td>Does the autonomy actually fly the mission without GNSS, tested how?</td></tr>
+          <tr><td><b>Sensor payload &amp; fusion</b></td><td>EO/IR, SAR, ViDAR, AIS: what is carried and what is fused into a usable picture?</td></tr>
+          <tr><td><b>Sustainment</b></td><td>MRO, spares, local support, availability, not demo-day performance.</td></tr>
+          <tr><td><b>Industrial participation</b></td><td>What is offered to local industry, and is it scored?</td></tr>
+        </tbody>
+      </table>
+      <p>ViDAR, the wide-area optical search technique from Chapter 3, is a good example of an axis that quietly decides maritime competitions: a platform that can scan a broad swath and cue on small contacts is worth more on the Black Sea than one with a marginally better peak endurance number.</p>
+
+      <h3>11.3 Romania, the Black Sea, and BD implications</h3>
+      <p>Romania's relevant demand sits at the border, the maritime approaches and the Black Sea, exactly where runway-independent ISR, maritime search and layered C-UAS matter. <b>Frontex</b> (the EU border agency) is a recurring reference customer and funding context for border and maritime surveillance, and its requirements and awards are worth tracking as a signal of where the money and the standards are heading. The practical business-development implications:</p>
+      <ul class="tight">
+        <li>Lead with capability and sustainment, not peak specs, because the customer buys availability and coverage.</li>
+        <li>Assume industrial participation and sovereign sustainment will be scored; build the local-partner story early.</li>
+        <li>Track Frontex and national border and maritime programs as the leading indicators of demand.</li>
+        <li>Position honestly on the axes above; overclaiming loses credibility fast in a small, well-connected community.</li>
+      </ul>
+      <div class="box shield"><span class="l">For my role</span>This is the chapter I would revise most before a specific interview or meeting: refresh the current product facts from primary sources, map the live Romanian and Frontex programs, and rehearse the honest axes. The framework is durable; the specifics are perishable.</div>
+    </section>
+
+    <!-- ============ CH12 ============ -->
+    <section class="ch" id="c12">
+      <div class="cnum">Chapter 12</div>
+      <h2>Romanian Institutional Map</h2>
+      <p class="lead">Who owns which kind of decision. Selling or delivering into the Romanian security sector means knowing which institution operates a capability, which owns the requirement, and which controls the money, because they are frequently not the same.</p>
+      <div class="box key"><span class="l">Note on this chapter</span>Mandates and procurement authority shift with reorganisations and law. Use this as an orientation map and verify current decision-rights for any specific program.</div>
+
+      <h3>12.1 The main actors</h3>
+      <table>
+        <caption>Romanian security institutions, at a glance</caption>
+        <thead><tr><th>Institution</th><th>Broad remit</th><th>Relevance here</th></tr></thead>
+        <tbody>
+          <tr><td><b>MApN</b></td><td>Ministry of National Defence: the armed forces</td><td>Military C-UAS, ISR, autonomy, major defense acquisition</td></tr>
+          <tr><td><b>DGArm</b></td><td>Armaments directorate under MApN</td><td>Defense procurement and armaments programs</td></tr>
+          <tr><td><b>MAI</b></td><td>Ministry of Internal Affairs: internal security</td><td>Parent of border, gendarmerie, emergency and aviation bodies</td></tr>
+          <tr><td><b>Poliția de Frontieră</b></td><td>Border Police (under MAI)</td><td>Border and maritime surveillance, Frontex interface</td></tr>
+          <tr><td><b>Garda de Coastă</b></td><td>Coast Guard (within Border Police)</td><td>Maritime domain, Black Sea approaches</td></tr>
+          <tr><td><b>IGAv</b></td><td>General Inspectorate of Aviation (MAI)</td><td>MAI air assets, including UAS operations</td></tr>
+          <tr><td><b>IGSU</b></td><td>Emergency Situations (firefighting, disaster)</td><td>Civil ISR, disaster response, drone use</td></tr>
+          <tr><td><b>Jandarmeria</b></td><td>Gendarmerie: public order, gendarme force</td><td>Event security, crowd and site protection, C-UAS</td></tr>
+          <tr><td><b>SPP</b></td><td>Protection and Guard Service</td><td>VIP and dignitary protection, event C-UAS</td></tr>
+        </tbody>
+      </table>
+
+      <h3>12.2 The three logics: operator, requirement, resource</h3>
+      <p>For any capability, three different decision-rights are in play, and mapping them is the institutional version of the stakeholder analysis in Chapter 2:</p>
+      <ul class="tight">
+        <li><b>Operational logic</b>: who actually flies or runs the capability in the field (for example, Border Police on the maritime frontier, Jandarmeria at a public event, MApN in a military context).</li>
+        <li><b>Requirement logic</b>: who defines what is needed and writes it down (the operating body, sometimes shaped by the parent ministry).</li>
+        <li><b>Resource logic</b>: who holds the budget and the acquisition authority (often the ministry, DGArm for defense, or an EU-funded line).</li>
+      </ul>
+      <p>The same drone-detection need looks completely different depending on whether the operator is Jandarmeria protecting an event, Border Police watching the Black Sea, or MApN defending a base. Different authority, different budget, different procurement route, different partners.</p>
+      <div class="box role"><span class="l">For my role</span>Before pursuing any Romanian opportunity I fill in all three logics by name. If I cannot identify the operator, the requirement owner and the budget holder, I do not yet have an opportunity, I have an introduction. This is the concrete, country-specific version of the funnel in Chapter 2.</div>
+    </section>
+
+    <!-- ============ CH13 ============ -->
+    <section class="ch" id="c13">
+      <div class="cnum">Chapter 13</div>
+      <h2>Cellular Networks, Signals &amp; Lawful Interception</h2>
+      <p class="lead">Mobile networks are the largest sensing and communications fabric on the planet, and unmanned systems increasingly ride on them. Understanding how 2G through 5G actually work, and how they are lawfully intercepted, is a direct extension of my telecom-intelligence background and a genuine differentiator in this field.</p>
+
+      <h3>13.1 How a mobile network works</h3>
+      <p>Every mobile call, message and byte follows the same three-part path: a device, a radio access network, and a core.</p>
+      <figure>
+        <svg viewBox="0 0 720 250" role="img" aria-label="Mobile network: device to radio access network to core to internet, with a lawful interception tap">
+          <defs><marker id="ah4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8" fill="#c8bfae"/></marker></defs>
+          <path class="d-flow" d="M40,100 H600"/>
+          <g class="d-w" marker-end="url(#ah4)"><line x1="112" y1="100" x2="150" y2="100"/><line x1="270" y1="100" x2="308" y2="100"/><line x1="452" y1="100" x2="490" y2="100"/></g>
+          <g text-anchor="middle">
+            <g transform="translate(70,100)"><rect x="-40" y="-24" width="80" height="48" rx="9" class="d-card"/><text class="d-t" y="-3">Device</text><text class="d-s" y="12">UE / SIM</text></g>
+            <g transform="translate(210,100)"><rect x="-56" y="-26" width="112" height="52" rx="9" class="d-card" style="stroke:#1f5fd0;stroke-width:1.6"/><text class="d-t" y="-3">Cell tower</text><text class="d-s" y="12">RAN · gNodeB</text></g>
+            <g transform="translate(380,100)"><rect x="-64" y="-26" width="128" height="52" rx="9" class="d-card"/><text class="d-t" y="-3">Core network</text><text class="d-s" y="12">auth · route · bill</text></g>
+            <g transform="translate(560,100)"><rect x="-52" y="-24" width="104" height="48" rx="9" class="d-card"/><text class="d-t" y="-3">Internet / PSTN</text></g>
+          </g>
+          <!-- LI tap -->
+          <line x1="380" y1="126" x2="380" y2="180" stroke="#b45309" stroke-width="1.6" stroke-dasharray="3 4" marker-end="url(#ah4)"/>
+          <g transform="translate(380,205)"><rect x="-74" y="-22" width="148" height="44" rx="9" class="d-card" style="stroke:#b45309;stroke-width:1.6"/><text class="d-t" y="-2" style="fill:#b45309">LI mediation → LEA</text><text class="d-s" y="13">warranted, targeted</text></g>
+        </svg>
+        <figcaption><span class="fno">Figure 13.1</span> The device attaches to a cell tower (the radio access network), which connects to the operator's core. Lawful interception happens inside the core, under warrant, against named targets.</figcaption>
+      </figure>
+      <ul class="tight">
+        <li><b>The device (UE)</b> holds a <b>SIM</b> that carries the subscriber identity. It talks by radio to the nearest suitable cell.</li>
+        <li><b>The radio access network (RAN)</b> is the towers: a <b>BTS</b> in 2G, <b>NodeB</b> in 3G, <b>eNodeB</b> in 4G, <b>gNodeB</b> in 5G. It manages the radio link and hands the device between cells as it moves (<b>handover</b>).</li>
+        <li><b>The core</b> authenticates the subscriber, routes voice and data, tracks location for delivery, and bills. It evolved from circuit-switched (2G/3G) to all-IP (4G EPC, 5G 5GC).</li>
+      </ul>
+
+      <h3>13.2 Two to five G, what actually changed</h3>
+      <table>
+        <caption>Cellular generations</caption>
+        <thead><tr><th>Gen</th><th>Brought</th><th>Core idea</th></tr></thead>
+        <tbody>
+          <tr><td><b>2G (GSM)</b></td><td>Digital voice, SMS</td><td>Circuit-switched, the birth of mobile identity (IMSI/IMEI)</td></tr>
+          <tr><td><b>3G (UMTS)</b></td><td>Mobile data</td><td>Packet data alongside voice</td></tr>
+          <tr><td><b>4G (LTE)</b></td><td>Mobile broadband</td><td>All-IP, everything becomes data</td></tr>
+          <tr><td><b>5G (NR)</b></td><td>Capacity, low latency, slicing</td><td>Low, mid and high (mmWave) bands; network slicing; edge</td></tr>
+        </tbody>
+      </table>
+
+      <h3>13.3 Bands and coverage: the same trade-off, again</h3>
+      <p>Cellular obeys the physics of Chapter 5. <b>Low-band</b> (below ~1 GHz) travels far and penetrates buildings, so it gives wide rural coverage with modest capacity. <b>Mid-band</b> (roughly 1 to 6 GHz) balances reach and speed and is the workhorse of 4G and 5G. <b>High-band mmWave</b> (tens of GHz) carries enormous capacity over very short range and is stopped by walls and rain, so it suits dense hotspots. Cell size shrinks as frequency rises, which is why mmWave needs many small cells and low-band covers a whole valley from one mast.</p>
+
+      <h3>13.4 Identity: subscriber vs device</h3>
+      <p>Two identifiers underpin everything, and confusing them is a classic error. The <b>IMSI</b> identifies the <b>subscriber</b> (the SIM). The <b>IMEI</b> identifies the <b>device</b> (the handset). A person can swap SIMs (new IMSI, same IMEI) or swap handsets (same IMSI, new IMEI), and separating the two is the whole basis of device-versus-subscriber attribution. Temporary identifiers (like the TMSI) are assigned to limit how often the permanent ones are exposed over the air.</p>
+
+      <h3>13.5 Lawful interception</h3>
+      <div class="concept">
+        <div class="ct">Lawful interception<span class="abbr">LI</span></div>
+        <div class="layer def"><span class="l">Definition</span>The legally authorised, targeted capture of communications or associated metadata by a network operator on behalf of a law enforcement or intelligence agency, under a warrant and against named targets. It is a built-in, standardised capability of modern networks, not a hack.</div>
+        <div class="layer mech"><span class="l">Mechanism</span>An authorised target is provisioned into the operator's systems. A <b>mediation function</b> in the core copies the relevant traffic, content and, separately, the metadata or intercept-related information, and hands it to the requesting agency over a standardised interface. Access is controlled, logged and auditable.</div>
+        <div class="layer op"><span class="l">Operational relevance</span>Two things separate lawful interception from abuse: it is <b>targeted</b> (specific warranted subjects, not bulk trawling) and it is <b>accountable</b> (authorised, logged, reviewable). Metadata (who contacted whom, when, from where) is often as revealing as content, and is governed accordingly.</div>
+        <div class="layer you"><span class="l">For my role</span>This sits squarely on my CV: telecom-intelligence support to government agencies, subscriber and device attribution, cell-site analysis and signaling exposure. It is also where GDPR-by-design and lawful-basis discipline from my data work meets the operational world, a rare combination to bring to a defense or agency role.</div>
+      </div>
+
+      <h3>13.6 Signaling exposure</h3>
+      <p>Networks do not only carry your traffic; they exchange <b>signaling</b> between operators to set up calls, route messages and support roaming. The older <b>SS7</b> protocol suite (2G/3G) and its 4G/5G successor <b>Diameter</b> were designed for a small club of trusted operators, and that trust assumption is the weakness: access to the signaling network can, in principle, be abused to locate subscribers or intercept messages. This is what "signaling exposure" means, and it is why signaling security and monitoring are now a defensive discipline in their own right. Treated here at the level of understanding the risk, not enabling it.</p>
+
+      <h3>13.7 Short range: Wi-Fi and Bluetooth</h3>
+      <p>Not everything is cellular. <b>Wi-Fi</b> and <b>Bluetooth</b> devices constantly emit, and those emissions support presence and attribution at close range. Phones send Wi-Fi <b>probe requests</b> looking for known networks, and Bluetooth devices advertise; both historically exposed a hardware <b>MAC address</b> that could track a device over time. Modern operating systems fight this with <b>MAC randomisation</b>, which is a genuine and ongoing arms race. For counter-drone and site security this matters directly: many small drones and their controllers use Wi-Fi or Bluetooth links, so passive short-range RF is one more detection and attribution layer alongside the cellular and dedicated sensors above.</p>
+      <div class="box li"><span class="l">LinkedIn angles</span>"IMSI vs IMEI, subscriber vs device" (a clean, widely-misunderstood distinction). "What lawful interception actually is, and is not" (targeted and accountable, not bulk). "Why metadata is not less sensitive than content."</div>
+    </section>
+
+    <!-- ============ GLOSSARY ============ -->
+    <section class="ch" id="glossary">
+      <div class="cnum">Reference</div>
+      <h2>Glossary</h2>
+      <p class="lead">The acronym density is itself the barrier to entry. Each entry gives the definition, why it matters, and the misconception to avoid. A living list, extended over time.</p>
+      <div class="gloss">
+
+        <div class="gentry"><div class="term">DOTMLPF-P <span class="full">Doctrine, Organisation, Training, Materiel, Leadership, Personnel, Facilities, Policy</span></div><dl><dt>Definition</dt><dd>A checklist for the components of a military capability.</dd><dt>Why it matters</dt><dd>Your product is one letter (Materiel). A gap is rarely closed by materiel alone.</dd><dt>Misconception</dt><dd class="mis">That buying equipment delivers a capability. Training, doctrine and people usually decide whether it works.</dd></dl></div>
+
+        <div class="gentry"><div class="term">ISR <span class="full">Intelligence, Surveillance, Reconnaissance</span></div><dl><dt>Definition</dt><dd>Collecting and turning observation into usable intelligence.</dd><dt>Why it matters</dt><dd>The core mission of most unmanned platforms in this handbook.</dd><dt>Misconception</dt><dd class="mis">That a sensor is ISR. ISR is the whole cycle from collection to a decision-ready product.</dd></dl></div>
+
+        <div class="gentry"><div class="term">UAS / C-UAS <span class="full">(Counter-) Unmanned Aircraft System</span></div><dl><dt>Definition</dt><dd>UAS: the aircraft plus its control station, datalink and crew. C-UAS: the system to detect and defeat a hostile UAS.</dd><dt>Why it matters</dt><dd>Both are systems, not gadgets. See Chapters 3 and 4.</dd><dt>Misconception</dt><dd class="mis">That C-UAS equals a jammer. The jammer is one effector at the end of a six-stage loop.</dd></dl></div>
+
+        <div class="gentry"><div class="term">C2 / C4ISR <span class="full">Command &amp; Control / + Computers, Communications, ISR</span></div><dl><dt>Definition</dt><dd>C2: who decides and how decisions become action. C4ISR: the wider apparatus that feeds it.</dd><dt>Why it matters</dt><dd>Almost every defense software product lives inside this loop.</dd><dt>Misconception</dt><dd class="mis">That C2 is a dashboard. A display nobody trusts or acts on is not command and control.</dd></dl></div>
+
+        <div class="gentry"><div class="term">COP / JCOP <span class="full">(Joint) Common Operating Picture</span></div><dl><dt>Definition</dt><dd>A single agreed view of the situation, shared (joint) across services or nations.</dd><dt>Why it matters</dt><dd>Interoperability and trust turn a display into a COP.</dd><dt>Misconception</dt><dd class="mis">That producing a picture produces a COP. It only counts if others trust and use it.</dd></dl></div>
+
+        <div class="gentry"><div class="term">OODA <span class="full">Observe, Orient, Decide, Act</span></div><dl><dt>Definition</dt><dd>A model of decision-making under competition, as a loop.</dd><dt>Why it matters</dt><dd>The frame for what "decision advantage" software actually claims.</dd><dt>Misconception</dt><dd class="mis">That observation is the bottleneck. Orientation (making sense) usually is.</dd></dl></div>
+
+        <div class="gentry"><div class="term">ROE <span class="full">Rules of Engagement</span></div><dl><dt>Definition</dt><dd>The standing rules for what response is permitted, against what, when, and on whose authority.</dd><dt>Why it matters</dt><dd>In C-UAS, effectors touch regulated spectrum and airspace, so authority gates everything.</dd><dt>Misconception</dt><dd class="mis">That ROE is paperwork. It is the constraint the operator personally answers for.</dd></dl></div>
+
+        <div class="gentry"><div class="term">LOS / BLOS / SATCOM <span class="full">(Beyond) Line of Sight / Satellite Communications</span></div><dl><dt>Definition</dt><dd>LOS links are horizon-limited and high-bandwidth; BLOS (usually via SATCOM) reaches past the horizon at lower bandwidth.</dd><dt>Why it matters</dt><dd>A platform's real reach is set by its datalink, not its fuel.</dd><dt>Misconception</dt><dd class="mis">Quoting endurance as range. Ask what the link does when contested.</dd></dl></div>
+
+        <div class="gentry"><div class="term">GNSS <span class="full">Global Navigation Satellite System</span></div><dl><dt>Definition</dt><dd>Satellite positioning and timing (GPS, Galileo, GLONASS, BeiDou).</dd><dt>Why it matters</dt><dd>The single point of failure most drones depend on; the target of jamming and spoofing.</dd><dt>Misconception</dt><dd class="mis">That GNSS is robust. Its signals are extraordinarily weak and easy to deny or fake.</dd></dl></div>
+
+        <div class="gentry"><div class="term">Jamming vs Spoofing <span class="full">GNSS / RF denial vs deception</span></div><dl><dt>Definition</dt><dd>Jamming floods the receiver with noise (denial); spoofing feeds counterfeit signals (deception).</dd><dt>Why it matters</dt><dd>Jamming makes the drone know it is lost; spoofing makes it confidently wrong.</dd><dt>Misconception</dt><dd class="mis">That they are the same. Spoofing is harder to detect and more dangerous.</dd></dl></div>
+
+        <div class="gentry"><div class="term">CRPA <span class="full">Controlled Reception Pattern Antenna</span></div><dl><dt>Definition</dt><dd>An antenna array that steers nulls toward interference, protecting GNSS from jamming and spoofing.</dd><dt>Why it matters</dt><dd>A practical answer to contested navigation, alongside inertial and vision.</dd><dt>Misconception</dt><dd class="mis">That anti-jam means anti-spoof. Different problem, different assurance.</dd></dl></div>
+
+        <div class="gentry"><div class="term">FSPL <span class="full">Free-Space Path Loss</span></div><dl><dt>Definition</dt><dd>The idealised loss of radio power with distance and frequency: <span class="mono">20log₁₀(d)+20log₁₀(f)+32.44</span> dB.</dd><dt>Why it matters</dt><dd>The starting point of any link-range reasoning.</dd><dt>Misconception</dt><dd class="mis">That loss depends only on distance. Frequency matters just as much.</dd></dl></div>
+
+        <div class="gentry"><div class="term">SNR <span class="full">Signal-to-Noise Ratio</span></div><dl><dt>Definition</dt><dd>Signal power relative to noise power; the number that decides whether information gets through.</dd><dt>Why it matters</dt><dd>All electronic attack is, at heart, an attack on someone's SNR.</dd><dt>Misconception</dt><dd class="mis">That more transmit power always helps. If it also raises noise or interference, it may not.</dd></dl></div>
+
+        <div class="gentry"><div class="term">Link budget <span class="full">power accounting for a radio link</span></div><dl><dt>Definition</dt><dd>Everything gained minus everything lost; if received power clears the noise floor, the link closes.</dd><dt>Why it matters</dt><dd>Turns "will it reach?" into arithmetic.</dd><dt>Misconception</dt><dd class="mis">That antennas are free gain. Gain means a narrower beam you must point.</dd></dl></div>
+
+        <div class="gentry"><div class="term">Radar cross-section <span class="full">σ (sigma)</span></div><dl><dt>Definition</dt><dd>How reflective a target is to radar. Small drones have a tiny σ.</dd><dt>Why it matters</dt><dd>With the R⁴ range law, small σ is why "low, slow and small" is so hard to detect.</dd><dt>Misconception</dt><dd class="mis">That detection range scales with distance. For radar it scales with the fourth power of range.</dd></dl></div>
+
+        <div class="gentry"><div class="term">EW <span class="full">Electronic Warfare</span></div><dl><dt>Definition</dt><dd>The fight for the electromagnetic spectrum: support (listen), attack (deny/deceive), protect.</dd><dt>Why it matters</dt><dd>Almost everything a drone does is radio, so it is all contestable.</dd><dt>Misconception</dt><dd class="mis">That EW is only jamming. Listening and protecting are the larger, quieter parts.</dd></dl></div>
+
+        <div class="gentry"><div class="term">SAR / ViDAR / AIS <span class="full">Synthetic Aperture Radar / wide-area optical search / Automatic Identification System</span></div><dl><dt>Definition</dt><dd>SAR: all-weather ground imaging. ViDAR: broad optical search for small contacts. AIS: receiving ships' identity transponders.</dd><dt>Why it matters</dt><dd>The sensor mix decides the mission, especially maritime.</dd><dt>Misconception</dt><dd class="mis">That EO/IR is enough. It is blind at night, in fog, and beyond line of sight.</dd></dl></div>
+
+        <div class="gentry"><div class="term">Remote ID <span class="full">drone electronic identification broadcast</span></div><dl><dt>Definition</dt><dd>A signal a compliant drone broadcasts to identify itself.</dd><dt>Why it matters</dt><dd>Cheap identification of lawful traffic; separates cooperative from hostile.</dd><dt>Misconception</dt><dd class="mis">That it helps against threats. A hostile drone simply does not broadcast.</dd></dl></div>
+
+        <div class="gentry"><div class="term">TRL <span class="full">Technology Readiness Level</span></div><dl><dt>Definition</dt><dd>A 1-to-9 maturity scale from basic principle to proven in service.</dd><dt>Why it matters</dt><dd>Common shorthand for how real a technology is.</dd><dt>Misconception</dt><dd class="mis">That a quoted TRL is objective. It is routinely optimistic; the mid-scale "valley of death" is where most stall.</dd></dl></div>
+
+        <div class="gentry"><div class="term">TEVV <span class="full">Test, Evaluation, Verification &amp; Validation</span></div><dl><dt>Definition</dt><dd>Verification: built correctly (to spec). Validation: built the correct thing (meets the need). Evaluation: how effective operationally.</dd><dt>Why it matters</dt><dd>The right vocabulary for AI procurement and acceptance.</dd><dt>Misconception</dt><dd class="mis">That validation is a one-time gate. For adaptive systems, change triggers revalidation.</dd></dl></div>
+
+        <div class="gentry"><div class="term">ODD <span class="full">Operational Design Domain</span></div><dl><dt>Definition</dt><dd>The conditions an autonomous system was designed and tested for.</dd><dt>Why it matters</dt><dd>Outside the ODD, behaviour is undefined.</dd><dt>Misconception</dt><dd class="mis">That "it works" is unconditional. It works inside its ODD.</dd></dl></div>
+
+        <div class="gentry"><div class="term">Autonomy vs Automation <span class="full">deciding vs executing</span></div><dl><dt>Definition</dt><dd>Automation follows fixed rules; autonomy pursues a goal and adapts.</dd><dt>Why it matters</dt><dd>Its value is highest when it is hardest to supervise (jammed, saturated).</dd><dt>Misconception</dt><dd class="mis">That "autonomous" is one thing. Ask: autonomous at what, and under what conditions.</dd></dl></div>
+
+        <div class="gentry"><div class="term">Human in / on / out of the loop <span class="full">levels of human control</span></div><dl><dt>Definition</dt><dd>In: authorises each action. On: supervises and can intervene. Out: no real-time human role.</dd><dt>Why it matters</dt><dd>The legal and ethical bar rises sharply as the human steps back, especially for use of force.</dd><dt>Misconception</dt><dd class="mis">That "on the loop" means supervised safety. It means the system acts and a human may not catch it in time.</dd></dl></div>
+
+        <div class="gentry"><div class="term">Swarming <span class="full">cooperative multi-agent autonomy</span></div><dl><dt>Definition</dt><dd>Many autonomous agents coordinating locally toward a shared goal, with no central controller.</dd><dt>Why it matters</dt><dd>Multiplies effect and degrades gracefully as individuals are lost.</dd><dt>Misconception</dt><dd class="mis">That it is many remote-piloted drones. Real swarming is decentralised and autonomous.</dd></dl></div>
+
+        <div class="gentry"><div class="term">FFF / DMSMS <span class="full">Form-Fit-Function replacement / Diminishing Manufacturing Sources</span></div><dl><dt>Definition</dt><dd>DMSMS: parts go obsolete while the platform lives on. FFF: a new part designed to drop into the old one's place.</dd><dt>Why it matters</dt><dd>Turns a one-off spares crisis into a sustainable supply line.</dd><dt>Misconception</dt><dd class="mis">That obsolescence is an edge case. Over a decades-long platform life it is the normal condition.</dd></dl></div>
+
+        <div class="gentry"><div class="term">MRO <span class="full">Maintenance, Repair &amp; Overhaul</span></div><dl><dt>Definition</dt><dd>Everything that keeps a fleet available through its life.</dd><dt>Why it matters</dt><dd>Availability, not peak performance, is usually what is contracted.</dd><dt>Misconception</dt><dd class="mis">That the sale is the prize. The sustainment tail is often the larger half.</dd></dl></div>
+
+        <div class="gentry"><div class="term">ITAR / AECA <span class="full">International Traffic in Arms Regulations / Arms Export Control Act</span></div><dl><dt>Definition</dt><dd>US controls on the export and handling of defense articles, services and technical data.</dd><dt>Why it matters</dt><dd>They govern who can hold what, and add real time and cost to sourcing.</dd><dt>Misconception</dt><dd class="mis">That only shipping hardware counts. Sharing technical data with a foreign national can be a controlled "deemed export".</dd></dl></div>
+
+        <div class="gentry"><div class="term">JOSCAR / NCAGE <span class="full">supplier accreditation / NATO Commercial and Government Entity code</span></div><dl><dt>Definition</dt><dd>JOSCAR: a defense supplier pre-qualification register. NCAGE: a NATO codification identifier for an organisation.</dd><dt>Why it matters</dt><dd>Entry gates: without them, whole categories of opportunity are closed.</dd><dt>Misconception</dt><dd class="mis">That a good product is enough. Qualification is a separate, gating exercise.</dd></dl></div>
+
+        <div class="gentry"><div class="term">IMSI vs IMEI <span class="full">subscriber identity vs device identity</span></div><dl><dt>Definition</dt><dd>IMSI identifies the SIM (subscriber). IMEI identifies the handset (device).</dd><dt>Why it matters</dt><dd>Separating them is the basis of device-versus-subscriber attribution.</dd><dt>Misconception</dt><dd class="mis">That one identifies "the person". A person can change either independently.</dd></dl></div>
+
+        <div class="gentry"><div class="term">LI <span class="full">Lawful Interception</span></div><dl><dt>Definition</dt><dd>Warranted, targeted capture of communications or metadata by an operator for an authorised agency.</dd><dt>Why it matters</dt><dd>A standardised, accountable network capability, not a hack.</dd><dt>Misconception</dt><dd class="mis">That it is bulk surveillance. Lawful interception is targeted and logged; metadata can be as revealing as content.</dd></dl></div>
+
+        <div class="gentry"><div class="term">SS7 / Diameter <span class="full">inter-operator signaling protocols</span></div><dl><dt>Definition</dt><dd>The signaling that sets up calls, routes messages and supports roaming (SS7 in 2G/3G, Diameter in 4G/5G).</dd><dt>Why it matters</dt><dd>Built on inter-operator trust; that trust assumption is the exposure.</dd><dt>Misconception</dt><dd class="mis">That signaling is harmless plumbing. Access to it can, in principle, locate or intercept subscribers.</dd></dl></div>
+
+        <div class="gentry"><div class="term">False positive / false negative <span class="full">the two ways a detector is wrong</span></div><dl><dt>Definition</dt><dd>A false positive cries wolf; a false negative misses the real thing.</dd><dt>Why it matters</dt><dd>Their trade-off is a more honest measure than any single detection-range figure.</dd><dt>Misconception</dt><dd class="mis">That one number ("detects at X km") describes performance. Ask where the system sits on this trade-off.</dd></dl></div>
+
+      </div>
+      <p style="margin-top:26px;color:var(--faint);font-size:14.5px">This handbook is a living document. Planned additions: expanded UAS propulsion and payload detail, a maritime ISR mission architecture, an RF link-budget worked example, deeper autonomy validation (TEVV feedback cycle), and a growing glossary toward 100+ entries. Sourced from public and open material; program-specific and time-sensitive facts are marked to verify.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>© 2026 Leonard Dumitru · Defense Technology Handbook · living document</span>
+  <span><a href="index.html">Portfolio</a> · <a href="https://github.com/darkanalytica1">GitHub</a></span>
+</footer>
+
+<script>
+  const prog=document.getElementById('prog');
+  addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+  const links=[...document.querySelectorAll('.toc a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  addEventListener('scroll',()=>{
+    let idx=0;
+    secs.forEach((s,k)=>{if(s.getBoundingClientRect().top<160)idx=k});
+    links.forEach((a,k)=>a.classList.toggle('on',k===idx));
+  },{passive:true});
+</script>
+</body>
+</html>

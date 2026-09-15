@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counter-Drone & Defense Tech, Field Guide</title>
+<meta name="description" content="An illustrated field guide to counter-drone systems, RF, AI sensor fusion, government procurement and lawful data. Animated technical diagrams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070a12; --bg2:#0b1020; --panel:#0e1424; --panel2:#111a2e;
+    --line:#1e2b47; --line2:#2a3c60;
+    --ink:#e8eefc; --dim:#93a2c4; --faint:#5f7099;
+    --accent:#4dd4ff; --accent2:#7c8cff; --amber:#ffcf6b; --green:#54e0a3; --red:#ff7b74;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none}
+  .mono{font-family:var(--mono)}
+
+  /* progress + nav */
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:100;transition:width .1s}
+  nav{position:sticky;top:0;z-index:60;background:rgba(7,10,18,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1180px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between}
+  .nav-in .b{font-weight:800;font-size:15px;display:flex;gap:9px;align-items:center}
+  .nav-in .b .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .nav-in a.back{font-family:var(--mono);font-size:13px;color:var(--dim)}
+  .nav-in a.back:hover{color:var(--accent)}
+
+  .shell{max-width:1180px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:230px 1fr;gap:48px}
+  @media(max-width:940px){.shell{grid-template-columns:1fr}}
+  /* TOC */
+  .toc{position:sticky;top:88px;align-self:start;height:max-content;padding-top:40px}
+  @media(max-width:940px){.toc{display:none}}
+  .toc .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;margin-bottom:16px}
+  .toc ol{list-style:none;margin:0;padding:0;counter-reset:c}
+  .toc li{counter-increment:c;margin:2px 0}
+  .toc a{display:flex;gap:11px;padding:7px 10px;border-radius:8px;color:var(--dim);font-size:13.5px;line-height:1.35;transition:.15s}
+  .toc a::before{content:counter(c,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--faint);padding-top:2px}
+  .toc a:hover{background:var(--panel);color:var(--ink)}
+  .toc a.on{background:var(--panel);color:var(--accent)}
+  .toc a.on::before{color:var(--accent)}
+
+  main{min-width:0;padding-bottom:120px}
+  /* hero */
+  header.hero{padding:76px 0 40px;border-bottom:1px solid var(--line);margin-bottom:20px}
+  .kick{font-family:var(--mono);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent)}
+  header.hero h1{font-size:clamp(34px,5.4vw,56px);line-height:1.05;letter-spacing:-.03em;font-weight:800;margin:16px 0 0}
+  header.hero h1 .g{background:linear-gradient(100deg,var(--accent),var(--accent2) 60%,var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+  header.hero .intro{font-size:19px;color:var(--dim);max-width:660px;margin:22px 0 0}
+  header.hero .intro b{color:var(--ink);font-weight:600}
+  .byline{margin-top:26px;font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+  .byline a{color:var(--dim)}
+
+  /* chapter */
+  .ch{padding:64px 0;border-bottom:1px solid var(--line)}
+  .ch:last-child{border-bottom:0}
+  .ch .num{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--accent)}
+  .ch h2{font-size:clamp(25px,3.4vw,34px);letter-spacing:-.02em;font-weight:800;margin:10px 0 0;line-height:1.12}
+  .ch p{color:var(--dim);font-size:16.5px;max-width:680px}
+  .ch p b{color:var(--ink);font-weight:600}
+  .ch .tldr{border-left:2px solid var(--accent);background:linear-gradient(90deg,rgba(77,212,255,.06),transparent);padding:12px 18px;margin:22px 0;border-radius:0 8px 8px 0;color:var(--ink);font-size:15.5px}
+  .ch .tldr b{color:var(--accent);font-family:var(--mono);font-size:12px;letter-spacing:.1em;display:block;margin-bottom:3px}
+
+  /* figure / diagram frame */
+  figure.dgm{margin:30px 0 6px;background:radial-gradient(120% 140% at 50% 0%,var(--panel2),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:26px 22px 18px;overflow:hidden}
+  figure.dgm svg{width:100%;height:auto;display:block}
+  figure.dgm figcaption{font-family:var(--mono);font-size:12px;color:var(--faint);text-align:center;margin-top:14px;letter-spacing:.03em}
+
+  /* SVG shared classes */
+  .lbl{font-family:'JetBrains Mono',monospace;fill:#cdd8f0;font-size:13px;font-weight:500}
+  .lbl-s{font-family:'JetBrains Mono',monospace;fill:#6f82a8;font-size:11px}
+  .lbl-w{fill:#eef4ff;font-family:'Inter',sans-serif;font-weight:700;font-size:14px}
+  .cap{font-family:'JetBrains Mono',monospace;fill:#7d90b6;font-size:11px}
+  .flow{stroke-dasharray:5 9;stroke-linecap:round;animation:march .8s linear infinite}
+  @keyframes march{to{stroke-dashoffset:-14}}
+  .pulse{animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+  .rv{opacity:0;transform:translateY(20px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.flow{animation:none}.pulse{animation:none}*{scroll-behavior:auto}}
+
+  footer{max-width:1180px;margin:0 auto;padding:40px 24px;border-top:1px solid var(--line);color:var(--faint);font-family:var(--mono);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a{color:var(--dim)}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-in">
+    <span class="b"><span class="dot"></span>Field Guide</span>
+    <a class="back" href="index.html">← Leonard Dumitru</a>
+  </div>
+</nav>
+
+<div class="shell">
+  <aside class="toc">
+    <div class="k">Chapters</div>
+    <ol id="toc">
+      <li><a href="#threat">Why counter-drone, why now</a></li>
+      <li><a href="#chain">Anatomy of a counter-drone system</a></li>
+      <li><a href="#spectrum">The spectrum is the battlefield</a></li>
+      <li><a href="#fusion">Sensor fusion and AI in the loop</a></li>
+      <li><a href="#procure">How governments actually buy this</a></li>
+      <li><a href="#data">Doing the data lawfully</a></li>
+    </ol>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <span class="kick">Field guide</span>
+      <h1>Counter-drone and <span class="g">defense technology</span>, explained.</h1>
+      <p class="intro">A working field guide to how modern counter-drone systems actually work: <b>the sensors, the RF, the AI, the decision, and the way governments buy it.</b> Written by someone who owns these programs end to end, with the diagrams animated so you can see the flow, not just read about it.</p>
+      <div class="byline">By Leonard Dumitru · Defense Product Owner · <a href="index.html">portfolio</a> · <a href="https://github.com/darkanalytica1">github</a></div>
+    </header>
+
+    <section class="ch" id="threat">
+      <div class="num">CHAPTER 01</div>
+      <h2>Why counter-drone, why now</h2>
+      <p>A small commercial drone costs a few hundred dollars. The things it can threaten, an airport, a military base, a substation, a stadium full of people, are worth billions and were designed for a world where the sky was somebody else's problem.</p>
+      <p>That is the whole story in one word: <b>asymmetry</b>. Cheap, fast, easy offense against expensive, slow, hard-to-move defense. It is why every serious operator of critical assets is now buying counter-drone capability, and why this guide exists.</p>
+
+      <figure class="dgm rv">
+        <svg viewBox="0 0 1000 360" role="img" aria-label="One cheap drone threatens multiple high-value assets">
+          <defs>
+            <linearGradient id="acard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16213a"/><stop offset="1" stop-color="#0e1728"/></linearGradient>
+            <filter id="softr" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+
+          <!-- threat wires drone -> assets -->
+          <g fill="none" stroke-width="2.2">
+            <path d="M205,180 C360,120 520,80 700,72" stroke="#3a2530"/>
+            <path d="M205,180 C360,120 520,80 700,72" stroke="#ff7b74" stroke-dasharray="4 10" class="flow"/>
+            <path d="M205,180 C360,160 520,150 700,150" stroke="#3a2530"/>
+            <path d="M205,180 C360,160 520,150 700,150" stroke="#ff7b74" stroke-dasharray="4 10" class="flow"/>
+            <path d="M205,180 C360,200 520,210 700,228" stroke="#3a2530"/>
+            <path d="M205,180 C360,200 520,210 700,228" stroke="#ff7b74" stroke-dasharray="4 10" class="flow"/>
+            <path d="M205,180 C360,240 520,290 700,306" stroke="#3a2530"/>
+            <path d="M205,180 C360,240 520,290 700,306" stroke="#ff7b74" stroke-dasharray="4 10" class="flow"/>
+          </g>
+          <!-- travelling threat dots -->
+          <circle r="4.5" fill="#ff7b74"><animateMotion dur="2.6s" repeatCount="indefinite" path="M205,180 C360,120 520,80 700,72"/></circle>
+          <circle r="4.5" fill="#ff7b74"><animateMotion dur="2.6s" begin="0.6s" repeatCount="indefinite" path="M205,180 C360,160 520,150 700,150"/></circle>
+          <circle r="4.5" fill="#ff7b74"><animateMotion dur="2.6s" begin="1.2s" repeatCount="indefinite" path="M205,180 C360,200 520,210 700,228"/></circle>
+          <circle r="4.5" fill="#ff7b74"><animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite" path="M205,180 C360,240 520,290 700,306"/></circle>
+
+          <!-- drone -->
+          <g transform="translate(150,180)" color="#ff7b74" filter="url(#softr)">
+            <circle r="44" fill="url(#acard)" stroke="#5a3540"/>
+            <g stroke="#ff7b74" stroke-width="2.4" fill="none">
+              <line x1="-15" y1="-15" x2="15" y2="15"/><line x1="15" y1="-15" x2="-15" y2="15"/>
+              <circle cx="-15" cy="-15" r="6"/><circle cx="15" cy="-15" r="6"/><circle cx="-15" cy="15" r="6"/><circle cx="15" cy="15" r="6"/>
+            </g>
+            <rect x="-7" y="-7" width="14" height="14" rx="3" fill="#ff7b74"/>
+          </g>
+          <text x="150" y="248" text-anchor="middle" class="lbl" fill="#ff9a94">~$500 drone</text>
+          <text x="150" y="266" text-anchor="middle" class="lbl-s">off the shelf</text>
+
+          <!-- assets -->
+          <g class="lbl-w" text-anchor="start">
+            <g transform="translate(700,72)"><rect x="0" y="-24" width="230" height="48" rx="11" fill="url(#acard)" stroke="#2a3c60"/>
+              <g transform="translate(28,0)" stroke="#4dd4ff" stroke-width="2" fill="none"><rect x="-8" y="-11" width="16" height="22" rx="2"/><line x1="0" y1="-11" x2="0" y2="-18"/></g>
+              <text x="52" y="-1">Airports</text><text x="52" y="15" class="lbl-s">$B infrastructure</text></g>
+            <g transform="translate(700,150)"><rect x="0" y="-24" width="230" height="48" rx="11" fill="url(#acard)" stroke="#2a3c60"/>
+              <g transform="translate(28,0)" stroke="#4dd4ff" stroke-width="2" fill="none"><path d="M0,-12 L11,-6 L11,7 L0,13 L-11,7 L-11,-6 Z"/></g>
+              <text x="52" y="-1">Military bases</text><text x="52" y="15" class="lbl-s">personnel, aircraft</text></g>
+            <g transform="translate(700,228)"><rect x="0" y="-24" width="230" height="48" rx="11" fill="url(#acard)" stroke="#2a3c60"/>
+              <g transform="translate(28,0)" stroke="#4dd4ff" stroke-width="2" fill="none"><path d="M2,-13 L-7,3 L0,3 L-2,13 L8,-4 L1,-4 Z"/></g>
+              <text x="52" y="-1">Critical infrastructure</text><text x="52" y="15" class="lbl-s">power, water, ports</text></g>
+            <g transform="translate(700,306)"><rect x="0" y="-24" width="230" height="48" rx="11" fill="url(#acard)" stroke="#2a3c60"/>
+              <g transform="translate(28,0)" stroke="#4dd4ff" stroke-width="2" fill="none"><path d="M-12,6 A12,7 0 0 1 12,6"/><circle cx="-5" cy="-3" r="3"/><circle cx="5" cy="-3" r="3"/></g>
+              <text x="52" y="-1">Public events</text><text x="52" y="15" class="lbl-s">crowds, VIPs</text></g>
+          </g>
+        </svg>
+        <figcaption>One cheap, expendable platform threatens assets worth billions. That imbalance is the market.</figcaption>
+      </figure>
+    </section>
+
+    <!-- CH2 flagship diagram, built first to prove quality -->
+    <section class="ch" id="chain">
+      <div class="num">CHAPTER 02</div>
+      <h2>Anatomy of a counter-drone system</h2>
+      <p>Every counter-drone (C-UAS) system, from a backpack unit to a base-wide installation, runs the same loop. A hostile drone appears, and the system has to <b>detect it, track it, work out what it is, decide what to do, and act</b>, fast enough to matter and inside the law.</p>
+      <div class="tldr"><b>THE ONE IDEA</b>The hard part is not any single stage. It is fusing several imperfect sensors into one trustworthy track, and turning that into a decision a human can be accountable for.</div>
+
+      <figure class="dgm rv">
+        <svg viewBox="0 0 1000 430" role="img" aria-label="Detect, track, classify, decide, defeat pipeline fed by RF, radar and electro-optical sensors">
+          <defs>
+            <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#16213a"/><stop offset="1" stop-color="#0e1728"/>
+            </linearGradient>
+            <linearGradient id="lit" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#123049"/><stop offset="1" stop-color="#0e2036"/>
+            </linearGradient>
+            <linearGradient id="wire" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#4dd4ff"/><stop offset="1" stop-color="#7c8cff"/>
+            </linearGradient>
+            <radialGradient id="threat" cx="0.5" cy="0.4" r="0.6">
+              <stop offset="0" stop-color="#ff9a94"/><stop offset="1" stop-color="#ff7b74"/>
+            </radialGradient>
+            <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <!-- drone icon -->
+            <g id="drone">
+              <line x1="-13" y1="-13" x2="13" y2="13" stroke="currentColor" stroke-width="2.2"/>
+              <line x1="13" y1="-13" x2="-13" y2="13" stroke="currentColor" stroke-width="2.2"/>
+              <circle cx="-13" cy="-13" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="13" cy="-13" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="-13" cy="13" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="13" cy="13" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+              <rect x="-6" y="-6" width="12" height="12" rx="3" fill="currentColor"/>
+            </g>
+          </defs>
+
+          <!-- sensors -->
+          <g class="lbl-s" text-anchor="middle">
+            <!-- RF -->
+            <g transform="translate(70,95)">
+              <circle r="26" fill="url(#card)" stroke="#2a3c60"/>
+              <g stroke="#4dd4ff" stroke-width="2" fill="none">
+                <line x1="0" y1="9" x2="0" y2="-10"/>
+                <path d="M-7,-4 A9,9 0 0 1 7,-4"/><path d="M-12,0 A15,15 0 0 1 12,0"/>
+              </g>
+              <text y="42" class="lbl">RF</text>
+            </g>
+            <!-- radar -->
+            <g transform="translate(70,215)">
+              <circle r="26" fill="url(#card)" stroke="#2a3c60"/>
+              <g stroke="#4dd4ff" stroke-width="2" fill="none">
+                <path d="M-11,7 A13,13 0 0 1 11,-7" /><line x1="0" y1="0" x2="10" y2="-9"/><line x1="-9" y1="9" x2="0" y2="12"/>
+              </g>
+              <text y="42" class="lbl">RADAR</text>
+            </g>
+            <!-- EO/IR -->
+            <g transform="translate(70,335)">
+              <circle r="26" fill="url(#card)" stroke="#2a3c60"/>
+              <g stroke="#4dd4ff" stroke-width="2" fill="none">
+                <path d="M-13,0 Q0,-11 13,0 Q0,11 -13,0Z"/><circle cx="0" cy="0" r="4.5" fill="#4dd4ff" stroke="none"/>
+              </g>
+              <text y="42" class="lbl">EO / IR</text>
+            </g>
+          </g>
+
+          <!-- sensor wires into DETECT -->
+          <g fill="none" stroke-width="2.4">
+            <path d="M100,95 C160,95 170,205 214,205" stroke="#25436a"/>
+            <path d="M100,95 C160,95 170,205 214,205" stroke="url(#wire)" class="flow" stroke-width="2.4"/>
+            <path d="M100,215 H214" stroke="#25436a"/>
+            <path d="M100,215 H214" stroke="url(#wire)" class="flow"/>
+            <path d="M100,335 C160,335 170,225 214,225" stroke="#25436a"/>
+            <path d="M100,335 C160,335 170,225 214,225" stroke="url(#wire)" class="flow"/>
+          </g>
+
+          <!-- stages -->
+          <g text-anchor="middle">
+            <!-- helper positions: DETECT 275, TRACK 420, CLASSIFY 565, DECIDE 710, DEFEAT 895 (wider) -->
+            <g transform="translate(275,215)">
+              <rect x="-60" y="-38" width="120" height="76" rx="14" fill="url(#lit)" stroke="#3a6f9c" stroke-width="1.6"/>
+              <text y="-8" class="lbl-w">Detect</text><text y="14" class="lbl-s">is something there?</text>
+            </g>
+            <g transform="translate(420,215)">
+              <rect x="-60" y="-38" width="120" height="76" rx="14" fill="url(#card)" stroke="#2a3c60"/>
+              <text y="-8" class="lbl-w">Track</text><text y="14" class="lbl-s">where, how fast</text>
+            </g>
+            <g transform="translate(565,215)">
+              <rect x="-60" y="-38" width="120" height="76" rx="14" fill="url(#card)" stroke="#2a3c60"/>
+              <text y="-8" class="lbl-w">Classify</text><text y="14" class="lbl-s">friend or threat</text>
+            </g>
+            <g transform="translate(710,215)">
+              <rect x="-60" y="-38" width="120" height="76" rx="14" fill="url(#card)" stroke="#caa04a" stroke-width="1.6"/>
+              <text y="-8" class="lbl-w" fill="#ffcf6b">Decide</text><text y="14" class="lbl-s">graduated response</text>
+            </g>
+            <g transform="translate(895,215)">
+              <rect x="-58" y="-38" width="116" height="76" rx="14" fill="url(#card)" stroke="#2f7d55" stroke-width="1.6"/>
+              <text y="-8" class="lbl-w" fill="#54e0a3">Defeat</text><text y="14" class="lbl-s">by legal authority</text>
+            </g>
+          </g>
+
+          <!-- stage connectors -->
+          <g fill="none" stroke-width="3">
+            <path d="M335,215 H360" stroke="#25436a"/><path d="M335,215 H360" stroke="url(#wire)" class="flow"/>
+            <path d="M480,215 H505" stroke="#25436a"/><path d="M480,215 H505" stroke="url(#wire)" class="flow"/>
+            <path d="M625,215 H650" stroke="#25436a"/><path d="M625,215 H650" stroke="url(#wire)" class="flow"/>
+            <path d="M770,215 H837" stroke="#8a6a2a"/><path d="M770,215 H837" stroke="#ffcf6b" class="flow"/>
+          </g>
+
+          <!-- travelling threat: drone enters, follows the chain, neutralised -->
+          <g color="#ff7b74">
+            <use href="#drone">
+              <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;0.13;0.13;1;1" keyTimes="0;0.28;0.34;0.9;1" calcMode="linear"
+                path="M40,95 L214,205 L335,215 L480,215 L625,215 L770,215 L895,215"/>
+              <animate attributeName="color" values="#ff7b74;#ff7b74;#ffcf6b;#54e0a3;#54e0a3" keyTimes="0;0.6;0.75;0.9;1" dur="6s" repeatCount="indefinite"/>
+            </use>
+          </g>
+          <circle r="21" fill="none" stroke="#ff7b74" stroke-width="1.5" opacity="0.5">
+            <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;0.13;0.13;1;1" keyTimes="0;0.28;0.34;0.9;1" calcMode="linear"
+              path="M40,95 L214,205 L335,215 L480,215 L625,215 L770,215 L895,215"/>
+            <animate attributeName="r" values="21;13;13;9" keyTimes="0;0.3;0.85;1" dur="6s" repeatCount="indefinite"/>
+            <animate attributeName="stroke" values="#ff7b74;#ff7b74;#54e0a3" keyTimes="0;0.85;1" dur="6s" repeatCount="indefinite"/>
+          </circle>
+
+          <text x="40" y="70" class="cap" text-anchor="middle" fill="#ff9a94">hostile UAS</text>
+        </svg>
+        <figcaption>Detect → Track → Classify → Decide → Defeat, fed by RF, radar and electro-optical sensors. The threat is neutralized only at the end, under human authority.</figcaption>
+      </figure>
+
+      <p>Read the animation: the drone is picked up by whichever sensor sees it first, its track is refined as it moves down the chain, and it is only neutralized at <b>Defeat</b>, after a human decision at <b>Decide</b>. That ordering is not an accident. It is what keeps the system lawful and accountable, which is the whole subject of chapter five.</p>
+
+      <h3 style="font-size:20px;margin:44px 0 0;letter-spacing:-.01em">The same loop as a real deployed system</h3>
+      <p>That five-box chain is the concept. This is what it looks like once it is a system you can buy, install and defend in an audit. More moving parts, but the same spine runs straight through the middle. Follow the numbers.</p>
+
+      <figure class="dgm rv">
+        <svg viewBox="0 0 1000 500" role="img" aria-label="Full counter-drone system architecture from sensors through fusion, AI, command and control, to response, with an audit log">
+          <defs>
+            <linearGradient id="ac" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16213a"/><stop offset="1" stop-color="#0e1728"/></linearGradient>
+            <linearGradient id="aw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4dd4ff"/><stop offset="1" stop-color="#7c8cff"/></linearGradient>
+            <style>
+              .n rect{fill:url(#ac);stroke:#2a3c60;stroke-width:1.4}
+              .n .t{fill:#eef4ff;font-family:'Inter',sans-serif;font-weight:700;font-size:12.5px;text-anchor:middle}
+              .n .s{fill:#6f82a8;font-family:'JetBrains Mono',monospace;font-size:10px;text-anchor:middle}
+              .zone{fill:#0d1526;stroke:#182746;stroke-width:1;rx:14}
+              .zl{fill:#5f7099;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-anchor:middle}
+              .w{stroke:#25436a;stroke-width:2.2;fill:none}
+              .wf{stroke:url(#aw);stroke-width:2.2;fill:none;stroke-dasharray:5 8;animation:march .8s linear infinite}
+              .st{stroke:#33507a;stroke-width:1.6;fill:none;stroke-dasharray:2 5}
+              .badge circle{fill:#4dd4ff}
+              .badge text{fill:#04121a;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11px;text-anchor:middle}
+            </style>
+          </defs>
+
+          <!-- zones -->
+          <rect class="zone" x="30" y="66" width="150" height="410"/>
+          <rect class="zone" x="200" y="66" width="150" height="410"/>
+          <rect class="zone" x="370" y="66" width="150" height="300"/>
+          <rect class="zone" x="540" y="66" width="150" height="300"/>
+          <rect class="zone" x="710" y="66" width="260" height="410"/>
+          <g class="zl"><text x="105" y="86">SENSORS</text><text x="275" y="86">EDGE</text><text x="445" y="86">FUSION + AI</text><text x="615" y="86">COMMAND &amp; CONTROL</text><text x="840" y="86">RESPONSE</text></g>
+
+          <!-- links (draw before nodes) -->
+          <g>
+            <!-- sensors -> edge -->
+            <path class="w" d="M159,120 C185,120 195,160 221,160"/><path class="wf" d="M159,120 C185,120 195,160 221,160"/>
+            <path class="w" d="M159,190 H221"/><path class="wf" d="M159,190 H221"/>
+            <path class="w" d="M159,290 C185,290 195,320 221,320"/><path class="wf" d="M159,290 C185,290 195,320 221,320"/>
+            <path class="w" d="M159,370 C185,370 195,330 221,320"/><path class="wf" d="M159,370 C185,370 195,330 221,320"/>
+            <!-- edge -> fusion -->
+            <path class="w" d="M329,160 H391"/><path class="wf" d="M329,160 H391"/>
+            <path class="w" d="M329,320 C360,320 365,175 391,168"/><path class="wf" d="M329,320 C360,320 365,175 391,168"/>
+            <!-- fusion -> AI -->
+            <path class="w" d="M445,186 V284"/><path class="wf" d="M445,186 V284"/>
+            <!-- AI -> C2 -->
+            <path class="w" d="M499,310 C535,310 545,165 561,160"/><path class="wf" d="M499,310 C535,310 545,165 561,160"/>
+            <!-- C2 <-> ROE -->
+            <path class="w" d="M615,186 V284"/><path class="wf" d="M615,186 V284"/>
+            <!-- C2 -> operator -->
+            <path class="w" d="M669,150 C700,150 720,120 746,120"/><path class="wf" d="M669,150 C700,150 720,120 746,120"/>
+            <!-- C2 -> effectors -->
+            <path class="w" d="M669,168 C710,168 720,250 746,250"/><path class="wf" d="M669,168 C710,168 720,250 746,250" style="stroke:#ffcf6b"/>
+            <!-- C2 -> alerts -->
+            <path class="w" d="M669,172 C700,172 720,370 746,370"/><path class="wf" d="M669,172 C700,172 720,370 746,370"/>
+            <!-- stores (static dashed) -->
+            <path class="st" d="M445,186 V416"/><path class="st" d="M615,336 V416"/>
+          </g>
+
+          <!-- travelling packet on primary path -->
+          <circle r="5.5" fill="#fff">
+            <animateMotion dur="7s" repeatCount="indefinite" calcMode="linear"
+              path="M105,120 L221,160 L391,160 L445,160 L445,310 L561,160 L615,160 L746,120 L615,160 L746,250"/>
+            <animate attributeName="fill" values="#4dd4ff;#4dd4ff;#7c8cff;#7c8cff;#ffcf6b" keyTimes="0;0.4;0.6;0.8;1" dur="7s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- nodes -->
+          <g class="n">
+            <!-- sensors -->
+            <g transform="translate(105,120)"><rect x="-49" y="-22" width="98" height="44" rx="10"/><text class="t" y="-3">RF sensor</text><text class="s" y="12">emissions</text></g>
+            <g transform="translate(105,190)"><rect x="-49" y="-22" width="98" height="44" rx="10"/><text class="t" y="-3">Radar</text><text class="s" y="12">range, velocity</text></g>
+            <g transform="translate(105,290)"><rect x="-49" y="-22" width="98" height="44" rx="10"/><text class="t" y="-3">EO / IR</text><text class="s" y="12">optical</text></g>
+            <g transform="translate(105,370)"><rect x="-49" y="-22" width="98" height="44" rx="10"/><text class="t" y="-3">Acoustic</text><text class="s" y="12">sound sig.</text></g>
+            <!-- edge -->
+            <g transform="translate(275,160)"><rect x="-49" y="-24" width="98" height="48" rx="10"/><text class="t" y="-4">Edge DSP</text><text class="s" y="12">filter, detect</text></g>
+            <g transform="translate(275,320)"><rect x="-49" y="-24" width="98" height="48" rx="10"/><text class="t" y="-4">Edge detect</text><text class="s" y="12">EO + acoustic</text></g>
+            <!-- fusion + AI -->
+            <g transform="translate(445,160)"><rect x="-54" y="-26" width="108" height="52" rx="11" style="stroke:#3a6f9c"/><text class="t" y="-4" style="fill:#8fd8f4">Track &amp; Fusion</text><text class="s" y="12">one track</text></g>
+            <g transform="translate(445,310)"><rect x="-54" y="-26" width="108" height="52" rx="11" style="stroke:#7c8cff"/><text class="t" y="-4" style="fill:#b8c2ff">AI classify</text><text class="s" y="12">+ confidence</text></g>
+            <!-- C2 -->
+            <g transform="translate(615,160)"><rect x="-54" y="-26" width="108" height="52" rx="11" style="stroke:#4dd4ff"/><text class="t" y="-4" style="fill:#9fe3ff">C2 core</text><text class="s" y="12">single pane</text></g>
+            <g transform="translate(615,310)"><rect x="-54" y="-26" width="108" height="52" rx="11" style="stroke:#caa04a"/><text class="t" y="-4" style="fill:#ffcf6b">ROE engine</text><text class="s" y="12">authority check</text></g>
+            <!-- response -->
+            <g transform="translate(842,120)"><rect x="-62" y="-24" width="124" height="48" rx="10" style="stroke:#3a6f9c"/><text class="t" y="-4" style="fill:#8fd8f4">Operator console</text><text class="s" y="12">human decision</text></g>
+            <g transform="translate(842,250)"><rect x="-62" y="-26" width="124" height="52" rx="10" style="stroke:#2f7d55"/><text class="t" y="-5" style="fill:#54e0a3">Effectors</text><text class="s" y="12">jam · spoof · kinetic</text></g>
+            <g transform="translate(842,370)"><rect x="-62" y="-24" width="124" height="48" rx="10"/><text class="t" y="-4">Alerts / SIEM</text><text class="s" y="12">wider picture</text></g>
+            <!-- data stores -->
+            <g transform="translate(445,440)"><rect x="-54" y="-22" width="108" height="44" rx="10"/><text class="t" y="-3">Track DB</text><text class="s" y="12">history</text></g>
+            <g transform="translate(615,440)"><rect x="-54" y="-22" width="108" height="44" rx="10" style="stroke:#5a4a2a"/><text class="t" y="-3" style="fill:#ffe0a0">Audit log</text><text class="s" y="12">immutable</text></g>
+          </g>
+
+          <!-- numbered badges -->
+          <g class="badge">
+            <g transform="translate(190,140)"><circle r="11"/><text y="4">1</text></g>
+            <g transform="translate(360,160)"><circle r="11"/><text y="4">2</text></g>
+            <g transform="translate(445,235)"><circle r="11"/><text y="4">3</text></g>
+            <g transform="translate(530,205)"><circle r="11"/><text y="4">4</text></g>
+            <g transform="translate(615,235)"><circle r="11"/><text y="4">5</text></g>
+            <g transform="translate(712,250)"><circle r="11" fill="#ffcf6b"/><text y="4">6</text></g>
+            <g transform="translate(705,370)"><circle r="11"/><text y="4">7</text></g>
+          </g>
+        </svg>
+        <figcaption>A real counter-drone deployment: four sensor types, edge processing, fusion and AI, a command-and-control core gated by a rules-of-engagement engine, graduated effectors, and an immutable audit log tying it together.</figcaption>
+      </figure>
+
+      <div style="max-width:700px;margin-top:8px">
+        <p style="margin:14px 0"><b style="color:var(--accent);font-family:var(--mono);font-size:13px">1 · Sensors feed the edge.</b><br>RF, radar, EO/IR and acoustic sensors push raw data to edge processors sitting next to them, so the heavy signal processing happens before anything touches the network.</p>
+        <p style="margin:14px 0"><b style="color:var(--accent);font-family:var(--mono);font-size:13px">2 · Edge to fusion.</b><br>Cleaned detections flow to the track-and-fusion service, which stitches disagreeing sensors into single tracks.</p>
+        <p style="margin:14px 0"><b style="color:var(--accent);font-family:var(--mono);font-size:13px">3 · Fusion to AI.</b><br>The classifier decides what each track is, and how confident it is. The confidence travels with the track from here on.</p>
+        <p style="margin:14px 0"><b style="color:var(--accent);font-family:var(--mono);font-size:13px">4 · Into command and control.</b><br>Classified tracks arrive at C2, the single pane of glass an operator actually watches.</p>
+        <p style="margin:14px 0"><b style="color:var(--amber);font-family:var(--mono);font-size:13px">5 · C2 checks the rules.</b><br>The rules-of-engagement engine answers one question: what is permitted here, now, against this target, and by whose authority.</p>
+        <p style="margin:14px 0"><b style="color:var(--green);font-family:var(--mono);font-size:13px">6 · The human decides, then acts.</b><br>The operator authorizes a response, and only then does C2 task an effector, from a soft jam up to, at the far end and under strict authority, a kinetic defeat.</p>
+        <p style="margin:14px 0"><b style="color:var(--accent);font-family:var(--mono);font-size:13px">7 · Everything is watched.</b><br>Alerts feed the wider security picture, and every track, decision and action is written to an immutable audit log. That log is not a nice-to-have. It is what makes the whole system defensible after the fact.</p>
+      </div>
+    </section>
+
+    <section class="ch" id="spectrum">
+      <div class="num">CHAPTER 03</div>
+      <h2>The spectrum is the battlefield</h2>
+      <p>Almost everything a drone does is radio. It takes commands over a control link, sends video back, and is found either by listening for those emissions or by bouncing radar off it. So the electromagnetic spectrum is not background, it is the terrain.</p>
+      <p>There is one trade-off that governs the whole field. <b>Lower frequencies travel far and punch through weather, but carry little detail. Higher frequencies carry huge bandwidth and resolve fine detail, but fade fast and hate rain.</b> Every antenna, every sensor, every design choice is a point on that line.</p>
+      <div class="tldr"><b>THE TRADE-OFF</b>When someone tells you a system works in "X-band" or "the 2.4 gig", they have just told you most of what it can and cannot do. Frequency is destiny.</div>
+
+      <figure class="dgm rv">
+        <svg viewBox="0 0 1000 330" role="img" aria-label="The radio spectrum from VHF to K band, with the range versus resolution trade-off">
+          <defs>
+            <linearGradient id="spec" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#3f6fd8"/><stop offset="0.4" stop-color="#4dd4ff"/><stop offset="0.7" stop-color="#7c8cff"/><stop offset="1" stop-color="#ffcf6b"/>
+            </linearGradient>
+            <linearGradient id="ar1" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#4dd4ff" stop-opacity="0"/><stop offset="1" stop-color="#4dd4ff"/></linearGradient>
+            <linearGradient id="ar2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffcf6b" stop-opacity="0"/><stop offset="1" stop-color="#ffcf6b"/></linearGradient>
+          </defs>
+
+          <!-- opposing arrows -->
+          <g>
+            <line x1="130" y1="70" x2="480" y2="70" stroke="url(#ar1)" stroke-width="3"/>
+            <polygon points="130,70 142,64 142,76" fill="#4dd4ff"/>
+            <text x="150" y="52" class="lbl" fill="#8fd8f4">longer range · through weather</text>
+            <line x1="880" y1="70" x2="530" y2="70" stroke="url(#ar2)" stroke-width="3"/>
+            <polygon points="880,70 868,64 868,76" fill="#ffcf6b"/>
+            <text x="850" y="52" class="lbl" fill="#f4d58f" text-anchor="end">finer resolution · more bandwidth</text>
+          </g>
+
+          <!-- spectrum bar -->
+          <rect x="120" y="120" width="780" height="46" rx="8" fill="url(#spec)"/>
+          <g stroke="#0b1020" stroke-width="2">
+            <line x1="217" y1="120" x2="217" y2="166"/><line x1="315" y1="120" x2="315" y2="166"/><line x1="412" y1="120" x2="412" y2="166"/><line x1="510" y1="120" x2="510" y2="166"/><line x1="607" y1="120" x2="607" y2="166"/><line x1="705" y1="120" x2="705" y2="166"/><line x1="802" y1="120" x2="802" y2="166"/>
+          </g>
+          <g class="lbl-w" text-anchor="middle" fill="#081018" font-size="13">
+            <text x="168" y="148">VHF</text><text x="266" y="148">UHF</text><text x="363" y="148">L</text><text x="461" y="148">S</text><text x="558" y="148">C</text><text x="656" y="148">X</text><text x="753" y="148">Ku</text><text x="851" y="148">K</text>
+          </g>
+          <g class="lbl-s" text-anchor="middle" fill="#6f82a8">
+            <text x="120" y="186">30 MHz</text><text x="510" y="186">2 GHz</text><text x="900" y="186">27 GHz</text>
+          </g>
+
+          <!-- sweeping marker -->
+          <g>
+            <rect x="-2" y="112" width="3" height="62" fill="#fff" opacity="0.85"/>
+            <circle cx="0" cy="112" r="5" fill="#fff"/>
+            <animateTransform attributeName="transform" type="translate" values="120,0; 900,0; 120,0" dur="7s" repeatCount="indefinite" calcMode="linear"/>
+          </g>
+
+          <!-- callouts -->
+          <g>
+            <line x1="461" y1="166" x2="461" y2="240" stroke="#2a3c60"/><circle cx="461" cy="240" r="3" fill="#4dd4ff"/>
+            <text x="461" y="262" class="lbl" text-anchor="middle" fill="#cdd8f0">drone control</text>
+            <text x="461" y="280" class="lbl-s" text-anchor="middle">2.4 / 5.8 GHz links</text>
+            <line x1="656" y1="166" x2="656" y2="240" stroke="#2a3c60"/><circle cx="656" cy="240" r="3" fill="#4dd4ff"/>
+            <text x="656" y="262" class="lbl" text-anchor="middle" fill="#cdd8f0">detection radar</text>
+            <text x="656" y="280" class="lbl-s" text-anchor="middle">S / X band</text>
+          </g>
+        </svg>
+        <figcaption>The same physics sets range against resolution. Counter-drone systems live in the middle: control links around 2.4 and 5.8 GHz, detection radar in S and X band.</figcaption>
+      </figure>
+    </section>
+
+    <section class="ch" id="fusion">
+      <div class="num">CHAPTER 04</div>
+      <h2>Sensor fusion and AI in the loop</h2>
+      <p>No single sensor is enough. RF listening goes deaf against a drone flying a pre-programmed route with its radio off. Radar catches a bird and a quadcopter and cannot always tell them apart. Cameras are precise and blind at night or in fog.</p>
+      <p>The answer is <b>fusion</b>: take several imperfect, disagreeing sensors and combine them into one track you can trust, with a confidence attached. This is where AI earns its place, and where it has to be honest about what it does not know.</p>
+      <div class="tldr"><b>WHERE AI BELONGS</b>Not making the decision. Turning three noisy signals into one classified track with a stated confidence, so a human can decide well and fast.</div>
+
+      <figure class="dgm rv">
+        <svg viewBox="0 0 1000 380" role="img" aria-label="RF, radar and electro-optical sensors fused and classified by AI into one track">
+          <defs>
+            <linearGradient id="fc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16213a"/><stop offset="1" stop-color="#0e1728"/></linearGradient>
+            <linearGradient id="fw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4dd4ff"/><stop offset="1" stop-color="#7c8cff"/></linearGradient>
+          </defs>
+          <!-- sensor cards -->
+          <g class="lbl-w" text-anchor="middle">
+            <g transform="translate(115,80)"><rect x="-78" y="-30" width="156" height="60" rx="12" fill="url(#fc)" stroke="#2a3c60"/><text x="0" y="-4">RF listen</text><text x="0" y="14" class="lbl-s">emissions, direction</text></g>
+            <g transform="translate(115,190)"><rect x="-78" y="-30" width="156" height="60" rx="12" fill="url(#fc)" stroke="#2a3c60"/><text x="0" y="-4">Radar</text><text x="0" y="14" class="lbl-s">range, velocity</text></g>
+            <g transform="translate(115,300)"><rect x="-78" y="-30" width="156" height="60" rx="12" fill="url(#fc)" stroke="#2a3c60"/><text x="0" y="-4">EO / IR</text><text x="0" y="14" class="lbl-s">visual confirm</text></g>
+          </g>
+          <!-- wires to fusion -->
+          <g fill="none" stroke-width="2.6">
+            <path d="M193,80 C300,80 320,190 400,190" stroke="#25436a"/><path d="M193,80 C300,80 320,190 400,190" stroke="url(#fw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M193,190 H400" stroke="#25436a"/><path d="M193,190 H400" stroke="url(#fw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M193,300 C300,300 320,190 400,190" stroke="#25436a"/><path d="M193,300 C300,300 320,190 400,190" stroke="url(#fw)" stroke-dasharray="5 9" class="flow"/>
+          </g>
+          <circle r="4.5" fill="#4dd4ff"><animateMotion dur="2.4s" repeatCount="indefinite" path="M193,80 C300,80 320,190 400,190"/></circle>
+          <circle r="4.5" fill="#4dd4ff"><animateMotion dur="2.4s" begin="0.5s" repeatCount="indefinite" path="M193,190 H400"/></circle>
+          <circle r="4.5" fill="#4dd4ff"><animateMotion dur="2.4s" begin="1s" repeatCount="indefinite" path="M193,300 C300,300 320,190 400,190"/></circle>
+
+          <!-- fusion node -->
+          <g transform="translate(470,190)">
+            <rect x="-66" y="-46" width="132" height="92" rx="16" fill="#123049" stroke="#3a6f9c" stroke-width="1.6"/>
+            <text x="0" y="-8" text-anchor="middle" class="lbl-w" fill="#8fd8f4">Fusion</text>
+            <text x="0" y="12" text-anchor="middle" class="lbl-s">align in time</text>
+            <text x="0" y="28" text-anchor="middle" class="lbl-s">and space</text>
+          </g>
+          <path d="M536,190 H600" stroke="#25436a" stroke-width="2.6" fill="none"/><path d="M536,190 H600" stroke="url(#fw)" stroke-width="2.6" stroke-dasharray="5 9" class="flow" fill="none"/>
+          <circle r="4.5" fill="#7c8cff"><animateMotion dur="1.6s" repeatCount="indefinite" path="M536,190 H600"/></circle>
+
+          <!-- AI node -->
+          <g transform="translate(672,190)">
+            <rect x="-66" y="-46" width="132" height="92" rx="16" fill="url(#fc)" stroke="#7c8cff" stroke-width="1.6"/>
+            <g stroke="#7c8cff" stroke-width="1.8" fill="none" transform="translate(0,-14)">
+              <rect x="-13" y="-13" width="26" height="26" rx="4"/>
+              <line x1="-13" y1="-6" x2="-19" y2="-6"/><line x1="-13" y1="6" x2="-19" y2="6"/><line x1="13" y1="-6" x2="19" y2="-6"/><line x1="13" y1="6" x2="19" y2="6"/>
+              <line x1="-6" y1="-13" x2="-6" y2="-19"/><line x1="6" y1="-13" x2="6" y2="-19"/><line x1="-6" y1="13" x2="-6" y2="19"/><line x1="6" y1="13" x2="6" y2="19"/>
+            </g>
+            <text x="0" y="26" text-anchor="middle" class="lbl-w" fill="#b8c2ff">AI classify</text>
+          </g>
+          <path d="M738,190 H800" stroke="#25436a" stroke-width="2.6" fill="none"/><path d="M738,190 H800" stroke="#54e0a3" stroke-width="2.6" stroke-dasharray="5 9" class="flow" fill="none"/>
+          <circle r="4.5" fill="#54e0a3"><animateMotion dur="1.6s" repeatCount="indefinite" path="M738,190 H800"/></circle>
+
+          <!-- output track -->
+          <g transform="translate(890,190)">
+            <rect x="-84" y="-52" width="168" height="104" rx="14" fill="url(#fc)" stroke="#2f7d55" stroke-width="1.6"/>
+            <text x="0" y="-28" text-anchor="middle" class="lbl-w" fill="#54e0a3">One track</text>
+            <text x="0" y="-9" text-anchor="middle" class="lbl-s">quadcopter · hostile</text>
+            <rect x="-62" y="6" width="124" height="10" rx="5" fill="#0e1728" stroke="#2a3c60"/>
+            <rect x="-62" y="6" width="96" height="10" rx="5" fill="#54e0a3"/>
+            <text x="0" y="36" text-anchor="middle" class="lbl-s">confidence 0.78</text>
+          </g>
+        </svg>
+        <figcaption>Three imperfect sensors, aligned and fused, then classified by AI into one track with a stated confidence. The confidence is the point: an honest 0.78 is worth more than a confident guess.</figcaption>
+      </figure>
+    </section>
+
+    <section class="ch" id="procure">
+      <div class="num">CHAPTER 05</div>
+      <h2>How governments actually buy this</h2>
+      <p>Here is the part the engineers never see and the salespeople get wrong. A government does not wake up and buy a counter-drone system. A need becomes a written requirement, the requirement becomes a competition, and the competition becomes a contract, over months or years.</p>
+      <p>The uncomfortable truth: <b>by the time a tender is public, the useful work is done.</b> The system was shaped when the requirement was written, and if you first heard about it at the tender, you are already late.</p>
+      <div class="tldr"><b>WHERE IT IS DECIDED</b>Influence lives at the requirement, not the tender. Everything after "requirement written" is competing on price against a spec you did not shape.</div>
+
+      <figure class="dgm rv">
+        <svg viewBox="0 0 1000 300" role="img" aria-label="Capability gap to award procurement pipeline, decided at the requirement stage">
+          <defs>
+            <linearGradient id="pc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16213a"/><stop offset="1" stop-color="#0e1728"/></linearGradient>
+            <linearGradient id="pw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4dd4ff"/><stop offset="1" stop-color="#7c8cff"/></linearGradient>
+          </defs>
+          <!-- connectors -->
+          <g fill="none" stroke-width="3">
+            <path d="M131,150 H159" stroke="#25436a"/><path d="M131,150 H159" stroke="url(#pw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M271,150 H299" stroke="#25436a"/><path d="M271,150 H299" stroke="url(#pw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M411,150 H439" stroke="#25436a"/><path d="M411,150 H439" stroke="url(#pw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M551,150 H579" stroke="#25436a"/><path d="M551,150 H579" stroke="url(#pw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M691,150 H719" stroke="#25436a"/><path d="M691,150 H719" stroke="url(#pw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M831,150 H859" stroke="#25436a"/><path d="M831,150 H859" stroke="url(#pw)" stroke-dasharray="5 9" class="flow"/>
+          </g>
+          <!-- nodes -->
+          <g text-anchor="middle">
+            <g transform="translate(75,150)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#pc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Capability</text><text y="12" class="lbl-s">the gap</text></g>
+            <g transform="translate(215,150)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#pc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Options</text><text y="12" class="lbl-s">buy? adapt?</text></g>
+            <g transform="translate(355,150)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="#2a2410" stroke="#caa04a" stroke-width="1.8"/><text y="-6" class="lbl-w" fill="#ffcf6b">Requirement</text><text y="12" class="lbl-s">written here</text></g>
+            <g transform="translate(495,150)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#pc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Strategy</text><text y="12" class="lbl-s">how to buy</text></g>
+            <g transform="translate(635,150)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#pc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Market</text><text y="12" class="lbl-s">RFI, industry days</text></g>
+            <g transform="translate(775,150)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#pc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Tender</text><text y="12" class="lbl-s">published</text></g>
+            <g transform="translate(915,150)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#pc)" stroke="#2f7d55" stroke-width="1.6"/><text y="-6" class="lbl-w" fill="#54e0a3">Award</text><text y="12" class="lbl-s">+ support</text></g>
+          </g>
+          <circle r="6" fill="#fff"><animateMotion dur="5s" repeatCount="indefinite" path="M75,150 H915"/><animate attributeName="fill" values="#4dd4ff;#ffcf6b;#7c8cff;#54e0a3" keyTimes="0;0.33;0.6;1" dur="5s" repeatCount="indefinite"/></circle>
+          <!-- callouts -->
+          <g>
+            <line x1="355" y1="181" x2="355" y2="230" stroke="#2f7d55"/><circle cx="355" cy="230" r="3" fill="#54e0a3"/>
+            <text x="355" y="252" class="lbl" text-anchor="middle" fill="#54e0a3">you shape it here</text>
+            <line x1="775" y1="181" x2="775" y2="230" stroke="#7a3b38"/><circle cx="775" cy="230" r="3" fill="#ff7b74"/>
+            <text x="775" y="252" class="lbl" text-anchor="middle" fill="#ff9a94">compete here, already late</text>
+          </g>
+        </svg>
+        <figcaption>The requirement stage, not the tender, is where a defense deal is won or lost. This is the single most valuable thing to understand about the market.</figcaption>
+      </figure>
+    </section>
+
+    <section class="ch" id="data">
+      <div class="num">CHAPTER 06</div>
+      <h2>Doing the data lawfully</h2>
+      <p>Counter-drone and intelligence systems run on data, much of it about people and organizations, gathered from public and official sources. Getting that wrong is not a technical bug, it is a legal and reputational one, and in this sector it ends programs.</p>
+      <p>The discipline is simple to state and hard to hold: <b>every record carries where it came from and when, nothing enters without that, suppression and erasure are enforced at every stage, and they survive the next nightly re-ingest.</b></p>
+      <div class="tldr"><b>PROVENANCE AS ARCHITECTURE</b>Lawfulness is not a policy document beside the pipeline. It is a gate inside it that a record cannot get past without a source, a timestamp, and a legal basis.</div>
+
+      <figure class="dgm rv">
+        <svg viewBox="0 0 1000 320" role="img" aria-label="A compliant data pipeline with a provenance gate and a reject branch">
+          <defs>
+            <linearGradient id="dc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16213a"/><stop offset="1" stop-color="#0e1728"/></linearGradient>
+            <linearGradient id="dw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4dd4ff"/><stop offset="1" stop-color="#54e0a3"/></linearGradient>
+          </defs>
+          <g fill="none" stroke-width="3">
+            <path d="M131,130 H159" stroke="#25436a"/><path d="M131,130 H159" stroke="url(#dw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M271,130 H299" stroke="#25436a"/><path d="M271,130 H299" stroke="url(#dw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M411,130 H439" stroke="#25436a"/><path d="M411,130 H439" stroke="url(#dw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M551,130 H579" stroke="#25436a"/><path d="M551,130 H579" stroke="url(#dw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M691,130 H719" stroke="#25436a"/><path d="M691,130 H719" stroke="url(#dw)" stroke-dasharray="5 9" class="flow"/>
+            <path d="M831,130 H859" stroke="#25436a"/><path d="M831,130 H859" stroke="url(#dw)" stroke-dasharray="5 9" class="flow"/>
+            <!-- reject branch -->
+            <path d="M215,161 V250" stroke="#7a3b38"/><path d="M215,161 V250" stroke="#ff7b74" stroke-dasharray="4 8" class="flow"/>
+          </g>
+          <g text-anchor="middle">
+            <g transform="translate(75,130)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#dc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Source</text><text y="12" class="lbl-s">public, official</text></g>
+            <g transform="translate(215,130)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="#123049" stroke="#3a6f9c" stroke-width="1.6"/><text y="-6" class="lbl-w" fill="#8fd8f4">Gate</text><text y="12" class="lbl-s">provenance?</text></g>
+            <g transform="translate(355,130)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#dc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Suppress</text><text y="12" class="lbl-s">opt-out check</text></g>
+            <g transform="translate(495,130)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#dc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Erasure</text><text y="12" class="lbl-s">tombstone</text></g>
+            <g transform="translate(635,130)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#dc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Warehouse</text><text y="12" class="lbl-s">with sources</text></g>
+            <g transform="translate(775,130)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#dc)" stroke="#2a3c60"/><text y="-6" class="lbl-w">Retention</text><text y="12" class="lbl-s">field TTLs</text></g>
+            <g transform="translate(915,130)"><rect x="-56" y="-31" width="112" height="62" rx="13" fill="url(#dc)" stroke="#2f7d55" stroke-width="1.6"/><text y="-6" class="lbl-w" fill="#54e0a3">Usable</text><text y="12" class="lbl-s">defensible</text></g>
+            <g transform="translate(215,278)"><rect x="-56" y="-26" width="112" height="52" rx="12" fill="#241214" stroke="#a24b48" stroke-width="1.4"/><text y="-2" class="lbl-w" fill="#ff9a94">Rejected</text><text y="15" class="lbl-s">no provenance</text></g>
+          </g>
+          <circle r="6" fill="#fff"><animateMotion dur="5s" repeatCount="indefinite" path="M75,130 H915"/><animate attributeName="fill" values="#4dd4ff;#4dd4ff;#54e0a3" keyTimes="0;0.7;1" dur="5s" repeatCount="indefinite"/></circle>
+          <circle r="4.5" fill="#ff7b74"><animateMotion dur="5s" begin="0.4s" repeatCount="indefinite" path="M215,161 V250"/></circle>
+        </svg>
+        <figcaption>A record with no source and timestamp never enters. Suppression and erasure are enforced inside the pipeline, so they survive the nightly re-ingest instead of being quietly undone.</figcaption>
+      </figure>
+
+      <p style="margin-top:34px;color:var(--faint);font-size:14px">This guide is a living document. More chapters, on electronic warfare, on the C2 that ties multiple systems together, and on the through-life support that is where the real money sits, are on the way.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>© 2026 Leonard Dumitru · Field Guide</span>
+  <span><a href="index.html">Portfolio</a> · <a href="https://github.com/darkanalytica1">GitHub</a></span>
+</footer>
+
+<script>
+  const prog=document.getElementById('prog');
+  addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  // TOC active state
+  const links=[...document.querySelectorAll('.toc a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  addEventListener('scroll',()=>{
+    let i=secs.findIndex((s,k)=>s&&s.getBoundingClientRect().top>120);
+    if(i===-1)i=secs.length; i=Math.max(0,i-1);
+    links.forEach((a,k)=>a.classList.toggle('on',k===i));
+  },{passive:true});
+</script>
+</body>
+</html>
