@@ -4,127 +4,73 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Leonard Dumitru</title>
-<meta name="description" content="Leonard Dumitru. Defense product and capture for government, defense and intelligence technology. Counter-UAS, RF, AI, procurement. Open technical work and writing.">
+<meta name="description" content="Open technical work and field notes on unmanned and counter-unmanned systems, RF, security and intelligence. By Leonard Dumitru.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#f4f5f7; --surface:#ffffff; --raise:#f8f9fb;
-    --ink:#141b26; --body:#2f3742; --muted:#5c6675; --faint:#8b94a2; --rule:#e2e6ec; --rule2:#d0d6df;
-    --accent:#2f4b7a;        /* steel navy */
-    --brass:#8a6d33;         /* restrained detail */
-    --serif:'Newsreader',Georgia,serif;
-    --sans:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-    --w:1080px;
+    --paper:#f6f5f2; --surface:#fffdfa; --ink:#1c2027; --body:#3a4049; --muted:#6b7280; --faint:#9aa0ab;
+    --rule:#e6e3dc; --rule2:#d8d4ca; --accent:#3a5573;
+    --serif:'Newsreader',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --w:760px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--paper);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--paper);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--w);margin:0 auto;padding:0 32px}
-  .mono{font-family:var(--mono)}
+  .wrap{max-width:var(--w);margin:0 auto;padding:0 28px}
 
-  /* masthead */
-  header.top{border-bottom:1px solid var(--rule);background:rgba(244,245,247,.9);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50}
-  .top-in{max-width:var(--w);margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between}
-  .mark{display:flex;align-items:center;gap:12px}
-  .mark svg{display:block}
-  .mark .name{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);letter-spacing:.01em}
-  .topnav{display:flex;gap:30px;font-size:13px;font-family:var(--mono);color:var(--muted)}
-  .topnav a{transition:color .15s}
+  header.top{position:sticky;top:0;z-index:20;background:rgba(246,245,242,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+  .top-in{max-width:var(--w);margin:0 auto;padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink);font-weight:500}
+  .brand svg{display:block;opacity:.85}
+  .topnav{display:flex;gap:22px;font-family:var(--mono);font-size:12px;color:var(--muted)}
   .topnav a:hover{color:var(--ink)}
-  @media(max-width:720px){.topnav{display:none}}
+  @media(max-width:560px){.topnav a:not(:last-child){display:none}}
 
-  /* hero */
-  .hero{padding:76px 0 56px;border-bottom:1px solid var(--rule)}
-  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
-  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,6.5vw,68px);line-height:1.02;letter-spacing:-.01em;color:var(--ink);margin:18px 0 0}
-  .role{font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.4vw,24px);color:var(--muted);margin:12px 0 0;font-weight:400}
-  .hero .bio{max-width:640px;margin:26px 0 0;font-size:17px;color:var(--body)}
-  .hero .bio + .bio{margin-top:14px;color:var(--muted);font-size:15.5px}
+  /* quiet intro */
+  .intro{padding:64px 0 40px}
+  .intro .ey{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .intro p{font-family:var(--serif);font-size:22px;line-height:1.45;color:var(--ink);margin:16px 0 0;font-weight:400;max-width:600px}
+  .intro .by{margin-top:14px;font-size:14px;color:var(--muted)}
 
-  .herometa{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;margin:34px 0 0;font-family:var(--mono);font-size:13px;max-width:560px}
-  .herometa dt{color:var(--faint);text-transform:uppercase;letter-spacing:.08em;font-size:11px;padding-top:2px}
-  .herometa dd{margin:0;color:var(--body)}
-
-  .actions{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
-  .btn{font-family:var(--mono);font-size:13px;padding:11px 20px;border:1px solid var(--rule2);border-radius:4px;color:var(--ink);background:var(--surface);transition:.15s}
-  .btn:hover{border-color:var(--accent);color:var(--accent)}
-  .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-
-  /* section */
-  section.blk{padding:64px 0;border-bottom:1px solid var(--rule)}
-  .sechead{display:flex;align-items:baseline;gap:16px;margin-bottom:34px}
-  .sechead .no{font-family:var(--mono);font-size:12px;color:var(--brass);letter-spacing:.1em}
-  .sechead h2{font-family:var(--serif);font-weight:600;font-size:26px;color:var(--ink);margin:0;letter-spacing:-.01em}
-  .sechead .rule{flex:1;height:1px;background:var(--rule)}
-
-  /* focus */
-  .focus{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
-  @media(max-width:760px){.focus{grid-template-columns:1fr}}
-  .fitem{background:var(--surface);padding:26px}
-  .fitem .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-  .fitem h3{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);margin:10px 0 8px}
-  .fitem p{margin:0;font-size:14.5px;color:var(--muted)}
-
-  /* work */
-  .work{display:grid;gap:0;border:1px solid var(--rule)}
-  .witem{display:grid;grid-template-columns:1fr auto;gap:8px 24px;padding:22px 24px;border-bottom:1px solid var(--rule);background:var(--surface);transition:background .15s;align-items:start}
-  .witem:last-child{border-bottom:0}
-  .witem:hover{background:var(--raise)}
-  .witem .t{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink)}
-  .witem .d{font-size:14.5px;color:var(--muted);margin-top:4px;max-width:640px}
-  .witem .tags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
-  .witem .tag{font-family:var(--mono);font-size:11px;color:var(--faint);border:1px solid var(--rule);border-radius:3px;padding:2px 8px}
-  .witem .go{font-family:var(--mono);font-size:12px;color:var(--accent);white-space:nowrap;align-self:center}
-  .witem:hover .go{text-decoration:underline}
-
-  /* experience */
-  .exp{border-left:1px solid var(--rule2);margin-left:4px}
-  .role-item{position:relative;padding:0 0 30px 28px}
-  .role-item:last-child{padding-bottom:0}
-  .role-item::before{content:'';position:absolute;left:-4.5px;top:7px;width:8px;height:8px;border-radius:50%;background:var(--paper);border:1.5px solid var(--rule2)}
-  .role-item.now::before{background:var(--accent);border-color:var(--accent)}
-  .role-item .when{font-family:var(--mono);font-size:12px;color:var(--faint)}
-  .role-item h3{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);margin:4px 0 2px}
-  .role-item .org{font-size:14px;color:var(--accent);font-family:var(--mono)}
-  .role-item p{margin:9px 0 0;font-size:14.5px;color:var(--muted);max-width:660px}
-
-  .creds{display:flex;flex-wrap:wrap;gap:10px}
-  .cred{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--surface);border:1px solid var(--rule2);border-radius:4px;padding:8px 14px}
-  .cred b{color:var(--accent);font-weight:500}
+  /* groups + rows: skimmable */
+  section.grp{padding:8px 0 30px}
+  .glabel{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);padding:22px 0 8px;border-top:1px solid var(--rule)}
+  .row{display:flex;gap:18px;align-items:baseline;padding:15px 0;border-top:1px solid var(--rule);transition:padding-left .15s}
+  .row:hover{padding-left:6px}
+  .row .n{font-family:var(--mono);font-size:12px;color:var(--faint);width:22px;flex:none;padding-top:3px}
+  .row .body{flex:1;min-width:0}
+  .row .t{font-size:16.5px;color:var(--ink);font-weight:500;letter-spacing:-.005em}
+  .row .t .arw{color:var(--accent);opacity:0;transition:opacity .15s}
+  .row:hover .t .arw{opacity:1}
+  .row .d{font-size:14px;color:var(--muted);margin-top:2px}
+  .row .tags{margin-top:7px;display:flex;gap:7px;flex-wrap:wrap}
+  .row .tag{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--rule2);border-radius:3px;padding:1px 7px}
 
   /* contact */
-  .contact p{font-size:17px;color:var(--body);max-width:560px}
-  .contact .lines{margin-top:22px;font-family:var(--mono);font-size:14px;display:grid;gap:8px}
+  .contact{padding:30px 0 10px;border-top:1px solid var(--rule)}
+  .contact .glabel{border-top:0;padding-top:0}
+  .contact .lines{font-family:var(--mono);font-size:13.5px;display:grid;gap:6px}
   .contact .lines a{color:var(--accent)}
-  .contact .lines span{color:var(--faint);display:inline-block;min-width:96px;text-transform:uppercase;font-size:11px;letter-spacing:.08em}
+  .contact .lines span{color:var(--faint);display:inline-block;min-width:78px;text-transform:uppercase;font-size:10.5px;letter-spacing:.08em}
 
-  footer{padding:30px 0;color:var(--faint);font-family:var(--mono);font-size:12px}
-  .foot-in{max-width:var(--w);margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-
-  .rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
-  .rv.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+  footer{padding:34px 0 48px;color:var(--faint);font-family:var(--mono);font-size:11.5px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="top-in">
-    <a class="mark" href="#top" aria-label="Leonard Dumitru">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-        <rect x="1" y="1" width="24" height="24" rx="3" stroke="#2f4b7a" stroke-width="1.3"/>
-        <path d="M13 5 L21 13 L13 21 L5 13 Z" stroke="#8a6d33" stroke-width="1.1"/>
-        <circle cx="13" cy="13" r="2.2" fill="#141b26"/>
+    <a class="brand" href="#top" aria-label="Leonard Dumitru">
+      <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
+        <rect x="1.5" y="1.5" width="23" height="23" rx="3" stroke="#3a5573" stroke-width="1.2"/>
+        <path d="M13 6 L20 13 L13 20 L6 13 Z" stroke="#8a6d33" stroke-width="1"/>
       </svg>
-      <span class="name">Leonard Dumitru</span>
+      Leonard Dumitru
     </a>
     <nav class="topnav">
-      <a href="#focus">Focus</a>
       <a href="#work">Work</a>
       <a href="#contact">Contact</a>
       <a href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub</a>
@@ -132,106 +78,82 @@
   </div>
 </header>
 
-<main>
-  <section class="hero" id="top">
-    <div class="wrap">
-      <span class="eyebrow">Defense product · C-UAS · RF · AI · Government</span>
-      <h1>Leonard Dumitru</h1>
-      <div class="role">Product and capture for government, defense and intelligence technology.</div>
-      <p class="bio">Product Manager, Strategic Clients, at a UAV and mission-systems group in Romania. I own the government engagement end to end, from first contact to framework agreement, and the solution architecture behind it.</p>
-      <p class="bio">Background in open-source and telecom intelligence for government agencies: subscriber and device attribution, RF and frequency monitoring, cell-site analysis and signaling exposure. Prior decade owning product and revenue in regulated payments, telecom and advertising.</p>
-      <dl class="herometa">
-        <dt>Location</dt><dd>Bucharest, Romania · EU citizen</dd>
-        <dt>Focus</dt><dd>Counter-UAS, RF and EW, AI autonomy, defense procurement</dd>
-        <dt>Status</dt><dd>Open to defense and security roles and contract work</dd>
-      </dl>
-      <div class="actions">
-        <a class="btn primary" href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="#work">Open work</a>
-        <a class="btn" href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">LinkedIn</a>
+<main class="wrap" id="top">
+  <section class="intro">
+    <div class="ey">Counter-UAS · RF · Security · Intelligence</div>
+    <p>Open technical work and field notes on unmanned and counter-unmanned systems, the radio spectrum, and the intelligence around them. Written from public sources.</p>
+    <div class="by">Leonard Dumitru, Bucharest.</div>
+  </section>
+
+  <section class="grp" id="work">
+    <div class="glabel">Tools</div>
+    <a class="row" href="https://github.com/darkanalytica1/c-uas-coverage-planner" target="_blank" rel="noopener">
+      <div class="n">01</div>
+      <div class="body">
+        <div class="t">C-UAS Sensor Coverage Planner <span class="arw">&rarr;</span></div>
+        <div class="d">Models sensor coverage, overlap and dead zones over a site, with line-of-sight masking. Renders a map.</div>
+        <div class="tags"><span class="tag">c-uas</span><span class="tag">python</span><span class="tag">geospatial</span></div>
       </div>
+    </a>
+
+    <div class="glabel">Guides &amp; references</div>
+    <a class="row" href="https://github.com/darkanalytica1/defence-product-gtm" target="_blank" rel="noopener">
+      <div class="n">02</div>
+      <div class="body">
+        <div class="t">Defense Tech: Product &amp; GTM <span class="arw">&rarr;</span></div>
+        <div class="d">How defense capability is specified, bought and sustained. A field guide.</div>
+        <div class="tags"><span class="tag">defense</span><span class="tag">procurement</span></div>
+      </div>
+    </a>
+    <a class="row" href="https://github.com/darkanalytica1/ethical-hacking-cheatsheet" target="_blank" rel="noopener">
+      <div class="n">03</div>
+      <div class="body">
+        <div class="t">Security Testing Reference <span class="arw">&rarr;</span></div>
+        <div class="d">Offensive techniques paired with the defenses that stop them. Authorised testing only.</div>
+        <div class="tags"><span class="tag">security</span></div>
+      </div>
+    </a>
+    <a class="row" href="https://github.com/darkanalytica1/romanian-open-company-data" target="_blank" rel="noopener">
+      <div class="n">04</div>
+      <div class="body">
+        <div class="t">Romanian Open Company Data <span class="arw">&rarr;</span></div>
+        <div class="d">A toolkit and guide for national company registers and the official EU verification services.</div>
+        <div class="tags"><span class="tag">osint</span><span class="tag">python</span></div>
+      </div>
+    </a>
+    <a class="row" href="https://github.com/darkanalytica1/gdpr-b2b-data-engineering" target="_blank" rel="noopener">
+      <div class="n">05</div>
+      <div class="body">
+        <div class="t">Lawful Data Engineering <span class="arw">&rarr;</span></div>
+        <div class="d">GDPR compliance enforced in code: provenance, suppression, erasure that survives re-ingest.</div>
+        <div class="tags"><span class="tag">data</span><span class="tag">gdpr</span></div>
+      </div>
+    </a>
+
+    <div class="glabel">Field research</div>
+    <a class="row" href="https://github.com/darkanalytica1/case-studies" target="_blank" rel="noopener">
+      <div class="n">06</div>
+      <div class="body">
+        <div class="t">Field Research <span class="arw">&rarr;</span></div>
+        <div class="d">Short, cited case studies: C-UAS, drone RF, GNSS jamming versus spoofing, maritime OSINT.</div>
+        <div class="tags"><span class="tag">research</span></div>
+      </div>
+    </a>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="glabel">Contact</div>
+    <div class="lines">
+      <div><span>Email</span><a href="mailto:darkanalytica@gmail.com">darkanalytica@gmail.com</a></div>
+      <div><span>GitHub</span><a href="https://github.com/darkanalytica1" target="_blank" rel="noopener">github.com/darkanalytica1</a></div>
+      <div><span>LinkedIn</span><a href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">linkedin.com/in/wh-systems</a></div>
     </div>
   </section>
 
-  <section class="blk" id="focus">
-    <div class="wrap">
-      <div class="sechead rv"><span class="no">01</span><h2>Focus</h2><span class="rule"></span></div>
-      <div class="focus rv">
-        <div class="fitem">
-          <div class="k">Systems</div>
-          <h3>Unmanned &amp; counter-unmanned</h3>
-          <p>Sensing, tracking, classification and graduated response, from the sensor to the command decision, under legal authority.</p>
-        </div>
-        <div class="fitem">
-          <div class="k">Signals</div>
-          <h3>RF, EW &amp; telecom intelligence</h3>
-          <p>The electromagnetic layer: detection, direction finding, GNSS denial, and the cellular and signaling fabric it all rides on.</p>
-        </div>
-        <div class="fitem">
-          <div class="k">Delivery</div>
-          <h3>Capability &amp; procurement</h3>
-          <p>How a requirement becomes a contract, how autonomy is tested and trusted, and how it is sustained over a life measured in decades.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="blk" id="work">
-    <div class="wrap">
-      <div class="sechead rv"><span class="no">02</span><h2>Open work</h2><span class="rule"></span></div>
-      <p class="rv" style="color:var(--muted);font-size:15px;max-width:640px;margin:0 0 26px">Public, open-source contributions. Field guides written from understanding and dependency-free reference code, each with passing tests. A way of giving back to the community and of showing the work behind the words.</p>
-      <div class="work rv">
-        <a class="witem" href="https://github.com/darkanalytica1/c-uas-coverage-planner" target="_blank" rel="noopener">
-          <div><div class="t">C-UAS Sensor Coverage Planner</div><div class="d">A tool that models a site, places counter-drone sensors with range and field of view, accounts for the line-of-sight shadows cast by buildings and terrain, and computes coverage, overlap and the dead zones a low-slow drone could exploit. Renders a coverage map. Tested.</div><div class="tags"><span class="tag">c-uas</span><span class="tag">python</span><span class="tag">geospatial</span></div></div>
-          <div class="go">github →</div>
-        </a>
-        <a class="witem" href="https://github.com/darkanalytica1/case-studies" target="_blank" rel="noopener">
-          <div><div class="t">Field Research</div><div class="d">Short original case studies from public sources: reading a small-drone threat, a drone's RF control band, GNSS jamming versus spoofing, and finding a vessel that has gone dark. Independent research, cited.</div><div class="tags"><span class="tag">c-uas</span><span class="tag">rf</span><span class="tag">osint</span></div></div>
-          <div class="go">github →</div>
-        </a>
-        <a class="witem" href="https://github.com/darkanalytica1/defence-product-gtm" target="_blank" rel="noopener">
-          <div><div class="t">Defense Tech: Product &amp; GTM</div><div class="d">A field guide to how the defense world buys: the five-role buyer map, requirement shaping, command-and-control literacy, and go-to-market for a market unlike any other.</div><div class="tags"><span class="tag">defense</span><span class="tag">procurement</span><span class="tag">product</span></div></div>
-          <div class="go">github →</div>
-        </a>
-        <a class="witem" href="https://github.com/darkanalytica1/ethical-hacking-cheatsheet" target="_blank" rel="noopener">
-          <div><div class="t">Security Testing Reference</div><div class="d">Offensive technique paired with the defense that stops it, across reconnaissance, network, wireless, web and social engineering. Framed for authorised testing only.</div><div class="tags"><span class="tag">security</span><span class="tag">offensive</span><span class="tag">defensive</span></div></div>
-          <div class="go">github →</div>
-        </a>
-        <a class="witem" href="https://github.com/darkanalytica1/romanian-open-company-data" target="_blank" rel="noopener">
-          <div><div class="t">Romanian Open Company Data</div><div class="d">A field guide and dependency-free toolkit for national company registers: identifier validation, entity resolution, and clients for the official EU verification services.</div><div class="tags"><span class="tag">osint</span><span class="tag">data</span><span class="tag">python</span></div></div>
-          <div class="go">github →</div>
-        </a>
-        <a class="witem" href="https://github.com/darkanalytica1/gdpr-b2b-data-engineering" target="_blank" rel="noopener">
-          <div><div class="t">Lawful Data Engineering</div><div class="d">Compliance enforced in code, not policy: a provenance gate, hashed suppression, erasure that survives re-ingest, and a worked legitimate-interest assessment.</div><div class="tags"><span class="tag">data</span><span class="tag">compliance</span><span class="tag">gdpr</span></div></div>
-          <div class="go">github →</div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="blk contact" id="contact">
-    <div class="wrap">
-      <div class="sechead rv"><span class="no">03</span><h2>Contact</h2><span class="rule"></span></div>
-      <p class="rv">Available for roles and contract work in defense, security and intelligence technology. The fastest way to reach me is email.</p>
-      <div class="lines rv">
-        <div><span>Email</span><a href="mailto:darkanalytica@gmail.com">darkanalytica@gmail.com</a></div>
-        <div><span>LinkedIn</span><a href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">linkedin.com/in/wh-systems</a></div>
-        <div><span>GitHub</span><a href="https://github.com/darkanalytica1" target="_blank" rel="noopener">github.com/darkanalytica1</a></div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="foot-in">
+  <footer>
     <span>© 2026 Leonard Dumitru</span>
     <span>Bucharest, Romania</span>
-  </div>
-</footer>
-
-<script>
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
-  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-</script>
+  </footer>
+</main>
 </body>
 </html>
