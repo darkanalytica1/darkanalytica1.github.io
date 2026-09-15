@@ -157,6 +157,23 @@
     color:var(--faint);font-size:13px;font-family:var(--mono)}
   .foot-in a{color:var(--dim)}.foot-in a:hover{color:var(--accent)}
 
+  /* ---------- credentials + experience ---------- */
+  .creds{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:44px}
+  .cred{font-family:var(--mono);font-size:12.5px;color:var(--ink);background:var(--panel);
+    border:1px solid var(--line2);border-radius:999px;padding:8px 15px;display:inline-flex;gap:9px;align-items:center}
+  .cred b{color:var(--accent);font-weight:700}
+  .exp{border-left:1px solid var(--line);margin-left:6px}
+  .role{position:relative;padding:0 0 34px 32px}
+  .role:last-child{padding-bottom:0}
+  .role::before{content:'';position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--line2)}
+  .role.now::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .role .when{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.06em}
+  .role h3{font-size:19px;margin:5px 0 2px;letter-spacing:-.01em}
+  .role .org{color:var(--accent);font-size:14px;font-family:var(--mono)}
+  .role p{color:var(--dim);font-size:15px;margin:9px 0 0;max-width:720px}
+  .role .tag{margin-top:2px}
+
   /* reveal */
   .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
   .rv.in{opacity:1;transform:none}
@@ -174,6 +191,7 @@
     <div class="nav-links">
       <a href="#focus">Focus</a>
       <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
       <a href="#capabilities">Capabilities</a>
       <a href="#contact">Contact</a>
     </div>
@@ -191,6 +209,7 @@
     <p class="sub">Business development and market intelligence, with the technical depth to build the data engines and the domain literacy to sell into defence, aerospace and cybersecurity.</p>
     <div class="cta-row">
       <a class="btn btn-p" href="#work">View the work →</a>
+      <a class="btn btn-g" href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">Download CV ↓</a>
       <a class="btn btn-g" href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
     <div class="stat-strip">
@@ -283,6 +302,57 @@
   </div>
 </section>
 
+<section class="blk" id="experience" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Experience &amp; credentials</span>
+      <h2>Commercial ownership, then defence and intelligence.</h2>
+      <p>Ten years owning revenue and product in regulated markets, now leading product and capture for government, defence and intelligence technology.</p>
+    </div>
+    <div class="creds rv">
+      <span class="cred"><b>GIAC</b> Open Source Intelligence (GOSI), 2024</span>
+      <span class="cred"><b>CEH</b> Certified Ethical Hacker v12, EC-Council</span>
+      <span class="cred"><b>AWS</b> Certified Cloud Practitioner</span>
+      <span class="cred"><b>DPO</b> Certified Data Protection Officer</span>
+    </div>
+    <div class="exp">
+      <div class="role now rv">
+        <div class="when">01/2026 - Present</div>
+        <h3>Product Manager, Strategic Clients (Product &amp; Capture Lead)</h3>
+        <div class="org">Skyline Drones / La Orizont Group · Bucharest / remote</div>
+        <p>UAV, sensing and mission-systems group serving government and defence. Own government and defence accounts end to end, from first contact to framework agreement or contract, and architect the counter-drone (C-UAS) detection and engagement systems: RF, radar and electro-optical or infrared sensor fusion, classification and tracking, graduated to legal authority.</p>
+      </div>
+      <div class="role rv">
+        <div class="when">04/2025 - 12/2025</div>
+        <h3>Platform Product Owner, Post-Merger Integration</h3>
+        <div class="org">AdStart Media · remote</div>
+        <p>Owned the product side of merging three companies into one platform, building the business-intelligence layer from scratch and validating every output in SQL against raw data.</p>
+      </div>
+      <div class="role rv">
+        <div class="when">12/2022 - 04/2025</div>
+        <h3>Founder / Product Owner</h3>
+        <div class="org">WebHunt.io · Bucharest / remote</div>
+        <p>Built a B2B intelligence and go-to-market platform for government agencies: OSINT, subscriber and device attribution, entity resolution and workflow orchestration under controlled sourcing and deterministic workflow rules. Sold and delivered to SaaS, cybersecurity, telecom and technology clients.</p>
+      </div>
+      <div class="role rv">
+        <div class="when">01/2023 - 09/2024</div>
+        <h3>COO, Telecom Advertising Products</h3>
+        <div class="org">Relario Voice AG · Bucharest / remote</div>
+        <p>Owned the commercial and operational product layer for a Swiss telecom company monetising voice traffic, defining the billable product and partner rules and diagnosing routing and partner-performance drops from source data.</p>
+      </div>
+      <div class="role rv">
+        <div class="when">09/2019 - 02/2021</div>
+        <h3>Senior Business Development Manager</h3>
+        <div class="org">Twispay / Capital Financial Services · Bucharest</div>
+        <p>Licensed EU payment institution, high-risk merchant segment. Acquired and onboarded 20+ major EU merchants end to end, and ran KYC / KYB due diligence and fraud and AML review with the compliance teams (PCI DSS, AML, GDPR).</p>
+      </div>
+    </div>
+    <div class="rv" style="margin-top:30px">
+      <a class="btn btn-g" href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">Full CV (PDF) ↓</a>
+    </div>
+  </div>
+</section>
+
 <section class="blk" id="capabilities" style="padding-top:20px">
   <div class="wrap">
     <div class="sec-head rv">
@@ -337,7 +407,8 @@
       <p>If you build for the defence, aerospace or cybersecurity world and you want someone who can bridge the commercial and the technical, let us talk.</p>
       <div class="cta-row">
         <a class="btn btn-p" href="mailto:darkanalytica@gmail.com">Get in touch →</a>
-        <a class="btn btn-g" href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-g" href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">Download CV ↓</a>
+        <a class="btn btn-g" href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
     </div>
   </div>
@@ -348,7 +419,7 @@
 <footer>
   <div class="wrap foot-in">
     <span>© 2026 Leonard Dumitru</span>
-    <span><a href="https://github.com/darkanalytica1" target="_blank" rel="noopener">github.com/darkanalytica1</a> · <a href="mailto:darkanalytica@gmail.com">darkanalytica@gmail.com</a></span>
+    <span><a href="https://github.com/darkanalytica1" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/wh-systems" target="_blank" rel="noopener">LinkedIn</a> · <a href="assets/Leonard_Dumitru_CV.pdf" target="_blank" rel="noopener">CV</a> · <a href="mailto:darkanalytica@gmail.com">darkanalytica@gmail.com</a></span>
   </div>
 </footer>
 
