@@ -1,12 +1,12 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>A subsea cable can hear only its first span · DarkAnalytica</title>
-<meta name="description" content="Russia rehearsed cable sabotage off Svalbard. With distributed acoustic sensing, the 1,375 km Svalbard segment can hear only about 131 km from its two landings; the deep middle stays deaf.">
+<title>Can Norway see what happens to its Arctic cables? · DarkAnalytica</title>
+<meta name="description" content="Reconstructing the Svalbard cable link, the January 2022 fault and the traffic that crosses it, from open AIS data. The stretch where the cable failed is the stretch it cannot hear.">
 <meta name="author" content="Leonard Dumitru">
 <link rel="canonical" href="https://darkanalytica1.github.io/research/subsea-cable-das/">
-<meta property="og:type" content="article"><meta property="og:title" content="Russia rehearsed cable sabotage off Svalbard. The cable can hear only 131 of its 1,375 km.">
-<meta property="og:description" content="Where a repeatered subsea cable can listen to itself with DAS, and why the deep middle stays deaf.">
+<meta property="og:type" content="article"><meta property="og:title" content="Can Norway see what happens to its Arctic cables?">
+<meta property="og:description" content="The stretch where the Svalbard cable failed in 2022 is the stretch it cannot hear. Open AIS data, a fault record and the physics of repeatered cables.">
 <meta property="og:image" content="https://darkanalytica1.github.io/research/subsea-cable-das/og.png"><meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"A subsea cable can hear only its first span","author":{"@type":"Person","name":"Leonard Dumitru"},"datePublished":"2026-09-28","image":"https://darkanalytica1.github.io/research/subsea-cable-das/og.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Can Norway see what happens to its Arctic cables?","author":{"@type":"Person","name":"Leonard Dumitru"},"datePublished":"2026-09-28","dateModified":"2026-09-29","image":"https://darkanalytica1.github.io/research/subsea-cable-das/og.png"}</script>
 <style>
 @font-face{font-family:"IBM Plex Sans";src:url(fonts/plex-sans-400.woff2);font-weight:400}
 @font-face{font-family:"IBM Plex Sans";src:url(fonts/plex-sans-500.woff2);font-weight:500}
@@ -31,80 +31,149 @@ p{margin:0 0 16px}sup a{font:500 11px "IBM Plex Mono";text-decoration:none;color
 .grid{display:grid;grid-template-columns:400px 1fr;gap:18px}
 .stat{border-top:1px solid var(--line);padding:10px 0}.stat b{display:block;font:600 34px/1.05 "IBM Plex Sans"}.stat span{font-size:14px;color:var(--ink2)}
 .cap{font-size:13.5px;color:var(--ink3);margin:8px 0 24px}.cap b{color:var(--ink2)}
-table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0 24px}th{font:500 11.5px "IBM Plex Mono";letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);text-align:left;border-bottom:2px solid var(--navy);padding:6px 8px}
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0 24px}.tbl table{min-width:560px;margin:0}table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0 24px}th{font:500 11.5px "IBM Plex Mono";letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);text-align:left;border-bottom:2px solid var(--navy);padding:6px 8px}
 td{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top}
 .box{background:#fff;border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:6px;padding:14px 16px;margin:18px 0}
 .box .mono{display:block;margin-bottom:4px}
 ol.src{font-size:14px;color:var(--ink2);padding-left:22px}ol.src li{margin:6px 0}
 footer{border-top:1px solid var(--line);margin-top:48px;padding:20px 0 40px;font-size:13px;color:var(--ink3)}
 @media(max-width:900px){.grid{grid-template-columns:1fr}#map{margin:0 auto}}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start}
+.kf{border-top:2px solid var(--navy);padding-top:10px}.kf .mono{display:block}.kf b{display:block;font:600 34px/1.05 "IBM Plex Sans";margin:6px 0 2px}.kf p{font-size:15px;margin:0 0 14px;color:var(--ink2)}
+.claims{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0 24px}.claims div{background:#fff;border:1px solid var(--line);border-top:2px solid var(--navy);border-radius:6px;padding:12px 14px;font-size:15px}
+.claims div .mono{display:block;margin-bottom:4px}.claims .as{border-top-color:var(--brass)}.claims .un{border-top-color:#B7791F}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font:500 12px "IBM Plex Mono";color:var(--ink2);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.toc{font:500 12.5px "IBM Plex Mono";letter-spacing:.04em;color:var(--ink3);margin:6px 0 26px;line-height:2}.toc a{color:var(--ink2);text-decoration:none;margin-right:14px}
+.pull{font:600 22px/1.35 "IBM Plex Sans";color:var(--navy);border-left:3px solid var(--brass);padding:4px 0 4px 16px;margin:26px 0}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.claims{grid-template-columns:1fr}}
 </style></head><body>
+</head><body>
 <header class="wide"><div class="bar mono"><a href="/">DarkAnalytica</a><span>Investigation 01 · Subsea infrastructure</span></div></header>
 <main>
 <div class="w">
-<h1>Russia rehearsed cable sabotage off Svalbard.<span>The cable can hear only 131 of its 1,375&nbsp;km.</span></h1>
-<p class="dek">A telecom fibre can work as a long chain of microphones. On a repeatered subsea cable, that only works up to the first repeater from each shore. The deep middle, where an attacker would work, stays deaf.</p>
-<div class="by mono">Leonard Dumitru · 28 September 2026 · 7 min · calculations and data: <a href="https://github.com/darkanalytica1/cable-das-coverage">cable-das-coverage</a></div>
+<h1>Can Norway see what happens to its Arctic cables?<span>The stretch where the Svalbard cable failed is the stretch it cannot hear.</span></h1>
+<p class="dek">Two fibre cables carry almost all of Svalbard's data to the mainland, including the downlinks of SvalSat, a ground station far enough north to see polar-orbiting satellites on every orbit. One of them failed in January 2022 on the edge of the continental shelf. Using open vessel-tracking data, the published fault record and the physics of repeatered cables, this investigation reconstructs who crosses that route, and what the cable itself could have noticed.</p>
+<div class="by mono">Leonard Dumitru · 29 September 2026 · 15 min · data and code: <a href="https://github.com/darkanalytica1/cable-das-coverage">cable-das-coverage</a></div>
+<div class="toc"><a href="#c1">01 The link</a><a href="#c2">02 7 January 2022</a><a href="#c3">03 Who crosses it</a><a href="#c4">04 What the fibre hears</a><a href="#c5">05 Depth and access</a><a href="#c6">06 A pattern</a><a href="#c7">07 The next cable</a><a href="#c8">08 Assessment</a></div>
 </div>
+
 <div class="wide"><div class="fig">
- <div class="hd"><span class="mono">Where shore-based DAS can listen · select a configuration</span>
-  <div class="tabs" role="group" aria-label="Configuration">
-   <button data-s="single" aria-pressed="false">One landing</button><button data-s="dual" aria-pressed="true">Both landings</button><button data-s="esf" aria-pressed="false">Enhanced fibre</button><button data-s="loop" aria-pressed="false">Loopback repeaters</button><button data-s="sop" aria-pressed="false">Polarisation</button></div></div>
- <div class="grid"><div id="map"><noscript><img src="static.png" alt="Map and profile of the Svalbard cable with heard and deaf stretches" style="width:100%"></noscript></div>
-  <div><div class="stat"><b id="sH" style="color:var(--teal)">131 km</b><span id="sHt">heard, 9.5 % of the segment</span></div>
-   <div class="stat"><b id="sD" style="color:var(--brass)">1,244 km</b><span id="sDt">longest deaf stretch</span></div>
-   <div class="stat"><b id="sN">Commercial</b><span id="sNt">standard interrogator at each landing</span></div>
-   <div class="mono" style="margin-top:16px">Depth along the segment · hover to locate</div><div id="prof"></div></div></div>
+ <div class="hd"><span class="mono">Figure 1 · The Svalbard route, the 2022 fault zone and every vessel crossing in the 13 days before the fault</span>
+  <div class="tabs" role="group" aria-label="Sensing configuration">
+   <button data-s="dual" aria-pressed="true">DAS, both landings</button><button data-s="loop" aria-pressed="false">Loopback repeaters</button><button data-s="sop" aria-pressed="false">Polarisation</button></div></div>
+ <div class="hero"><div id="map"><noscript><img src="static.png" alt="Map of the Svalbard cable route with the 2022 fault zone and vessel crossings" style="width:100%"></noscript></div>
+  <div>
+   <div class="kf"><span class="mono">Crossings before the fault</span><b>281</b><p>times vessels crossed the route between km 80 and 280 in the 13 days before 7 January 2022, 82 % of them by Russian-flagged ships.<sup><a href="#n10">10</a></sup></p></div>
+   <div class="kf"><span class="mono">Where the fault was</span><b style="color:#80550F">130–230 km</b><p>from Longyearbyen, where the seabed drops away to as deep as 2,700 m.<sup><a href="#n9">9</a></sup> That is beyond the first repeater, which sits 65 to 100 km out.</p></div>
+   <div class="kf"><span class="mono">What the cable could hear there</span><b style="color:var(--brass)">Nothing</b><p>A shore-based acoustic interrogator stops at the first repeater. From both landings the cable hears at most about 130 to 200 of its 1,375 km.</p></div>
+   <div class="legend"><span><i style="background:#8A6A1F"></i>Russian-flagged crossing</span><span><i style="background:#3E5C76"></i>other flag</span><span><i style="background:#B7791F;opacity:.35;border-radius:2px"></i>reported fault zone</span></div>
+  </div></div>
 </div>
-<p class="cap w" style="padding:0"><b>Figure 1.</b> GEBCO 2020 bathymetry. Cable drawn along the approximate public route; 20 repeaters assumed evenly spaced (about 65.5 km). Coverage shows where the fibre can listen, not what it would detect.</p></div>
+<p class="cap w" style="padding:0"><b>Figure 1.</b> GEBCO 2020 bathymetry. Cable drawn along the approximate public route; 20 repeaters assumed evenly spaced (the operator has described them as roughly 100 km apart, see section 04). Dots: crossings of the route line computed from Norwegian Coastal Administration AIS, 25 December 2021 to 7 January 2022 03:10 UTC, route km 80 to 280 only (see Method). Dots are offset slightly for legibility. A crossing is not evidence of damage.</p></div>
+
 <div class="w">
-<h2><small>01 · The signal</small>A rehearsal near the Arctic cables</h2>
-<p>On 10 September, Reuters reported that a joint British, Norwegian and US operation tracked and confronted Russian deep-sea submersibles from the GUGI directorate near Svalbard, during what officials described as a test of a capability to disable undersea cables covertly.<sup><a href="#s1">1</a></sup> Two fibre cables of about 1,400 km link Svalbard to the Norwegian mainland and lie as deep as 2,700 m.<sup><a href="#s1">1</a></sup></p>
-<p>The question here is narrow and defensive: could a cable like this at least hear something happening along its own route?</p>
-<h2><small>02 · What a fibre can hear</small>The cable as a sensor</h2>
-<p>Distributed acoustic sensing (DAS) sends laser pulses into a fibre and reads the light scattered back by tiny imperfections in the glass. Vibrations change that backscatter, so each few metres of fibre becomes a sensor. On a 120 km fibre between Longyearbyen and Ny-Ålesund, researchers recorded for 44 days in 2020, tracked a ship about 86 km along the fibre and detected whale calls out to 95 km.<sup><a href="#s2">2</a></sup></p>
-<h2><small>03 · The constraint</small>The first repeater is a one-way gate</h2>
-<p>Long cables need optical amplifiers (repeaters) every few tens of kilometres. Ordinary repeaters amplify in one direction only, so the backscatter from beyond the first repeater never reaches the interrogator on shore.<sup><a href="#s3">3</a></sup> Commercial DAS units reach up to about 171 km without amplification,<sup><a href="#s3">3</a></sup> but on a repeatered cable the limit is the first span, not the instrument.</p>
-<p>Each of the two Svalbard segments is about 1,375 km and 1,339 km long, with twenty repeaters each.<sup><a href="#s4">4</a></sup> The span plan is not public. Assuming even spacing, each span is about 65.5 km.</p>
-<div class="box"><span class="mono">Calculated · both landings</span>An interrogator at each end hears about 131 km of the 1,375 km segment, 9.5 %. The longest stretch no shore interrogator can hear is about 1,244 km. From one landing only, coverage falls to 65 km, 4.8 %.</div>
-<h2><small>04 · The finding</small>The ears are in shallow water</h2>
-<p>The heard stretches sit next to the landings. On the Svalbard side the first 250 km run over the shelf at a few hundred metres; the route then drops past 2,000 m. Sampling GEBCO 2020 depths along the public route, about 94 % of the route deeper than 1,000 m falls in the deaf stretch.<sup><a href="#s5">5</a></sup> The share stays between 89 % and 97 % if the shore spans are anywhere between 30 and 120 km, so the conclusion does not depend on the even-spacing assumption.</p>
-<p>A better interrogator does not change this. Enhanced-scattering fibre has pushed DAS to 200.6 km on unrepeatered systems,<sup><a href="#s6">6</a></sup> which is useful on short links, but the first repeater still stops the returning light.</p>
-<table><thead><tr><th>Approach</th><th>Hears on this segment</th><th>Locates events</th><th>Status</th></tr></thead><tbody>
-<tr><td>DAS, one landing</td><td>65 km · 4.8 %</td><td>to metres</td><td>commercial</td></tr>
-<tr><td>DAS, both landings</td><td>131 km · 9.5 %</td><td>to metres</td><td>commercial</td></tr>
-<tr><td>Enhanced-scattering fibre</td><td>131 km · 9.5 %</td><td>to metres</td><td>no gain past a repeater</td></tr>
-<tr><td>Loopback repeaters (multi-span DAS)</td><td>up to the whole cable</td><td>to metres, signal falls span by span</td><td>demonstrated, not commercial<sup><a href="#s3">3</a></sup></td></tr>
-<tr><td>Polarisation on live traffic</td><td>the whole cable</td><td>not along the cable yet</td><td>research<sup><a href="#s2">2</a></sup></td></tr>
-</tbody></table>
-<h2><small>05 · Assessment</small>Decided at specification</h2>
-<p>We assess that a repeatered cable like this cannot guard its own deep route with shore-based DAS today. The options that reach the deep middle, loopback paths in the repeaters or a reserved fibre pair designed for sensing, have to be chosen before the repeaters are built. Norway plans a new cable to Svalbard and Jan Mayen by 2028;<sup><a href="#s1">1</a></sup> that is the cheapest moment to decide whether it should listen to its own route.</p>
-<h2><small>06 · Limits</small>What this does not show</h2>
-<p>This bounds where the fibre can listen. It does not show that DAS would detect a quiet submersible at 2,000 m; that depends on noise, coupling and the signal, and remains open. The route is the approximate public line scaled to the official segment length, the repeater positions are assumed, and the deepest sampled point (2,375 m) is shallower than the reported 2,700 m because the route is approximate. Nothing here describes how any weapon works.</p>
-<h2><small>Sources</small></h2>
+<h2 id="c1"><small>01 · The link</small>Why this cable matters</h2>
+<p>The Svalbard Undersea Cable System was laid in 2004 as two separate cables from Longyearbyen to the Norwegian mainland, about 2,714 km of cable in total, each segment carrying eight fibre pairs through twenty repeaters.<sup><a href="#n4">4</a></sup> The operator, state-owned Space Norway, built it as a redundant pair: the two cables lie roughly 5 to 10 km apart on the seabed.<sup><a href="#n7">7</a></sup></p>
+<p>Its most demanding user sits on a plateau above Longyearbyen. SvalSat, the ground station run by Kongsberg Satellite Services, is far enough north to see a polar-orbiting satellite on every orbit, about 14 passes a day, which is why meteorological, Earth-observation and navigation programmes put antennas there.<sup><a href="#n8">8</a></sup> NASA, NOAA, ESA and EUMETSAT operate their own installations at the site, and five of its antennas were built for Galileo.<sup><a href="#n8">8</a></sup> The US Geological Survey names the undersea fibre as the data link that lets Landsat imagery downloaded on Svalbard reach its archive in South Dakota “in a matter of hours”.<sup><a href="#n8">8</a></sup></p>
+<p>That makes the cable a single point of national and allied dependence in a place Russia also considers strategically important. It is also, physically, a 1,375 km strand lying across some of the most intensively fished waters in the Arctic.</p>
+
+<h2 id="c2"><small>02 · The incident</small>7 January 2022</h2>
+<p>At 04:10 CET on Friday 7 January 2022, one of the two cables failed. Space Norway later said the analysis showed a shunt fault, a break in the insulation that cut power to some of the repeaters; traffic ran on the second cable, and redundancy was restored on 18 January by feeding power to the damaged cable from the other end.<sup><a href="#n7">7</a></sup> According to Space Norway, as summarised by the Norwegian Institute of International Affairs, the break lay somewhere between 130 and 230 km from Longyearbyen, in an area where the seabed suddenly drops to as deep as 2,700 m.<sup><a href="#n9">9</a></sup> The operator located it the way repeatered cables are always located: by feeding power from the Svalbard end and seeing which repeaters came back, since the repeaters, in its words, are “approximately 100 kilometers apart”.<sup><a href="#n9">9</a></sup></p>
+<p>The cable was only recovered and permanently repaired in June 2023, by the cable ship <i>Cable Vigilance</i>, after a search of about 40 hours for the damaged section.<sup><a href="#n6">6</a></sup> Police photographs published by NRK in May 2024 show the outer jacket peeled away and a gap in the steel armour. Experts interviewed by NRK described “pinching” or crushing damage consistent with an object dragged over or along the cable, such as a trawl door, and the police technical report named pinching damage as a possible cause.<sup><a href="#n6">6</a></sup></p>
+<p>NRK had earlier reported that a Russian trawler crossed the Svalbard cable more than 140 times, more than a dozen of them before the damage; the shipowners denied involvement.<sup><a href="#n6">6</a></sup> Police first said they believed human activity was the cause, then dropped the investigation for lack of evidence.<sup><a href="#n6">6</a></sup> Nine months earlier, on 3 April 2021, the Lofoten-Vesterålen ocean observatory off northern Norway had gone dark when about 4.2 km of its cable was pulled away; researchers later found some 3 km of it up to 11 km from its original position.<sup><a href="#n5">5</a></sup></p>
+<div class="pull">Neither case produced a public attribution. In both, the evidence that did exist came from vessel tracking and from the damaged cable itself, recovered long after the event.</div>
+
+<h2 id="c3"><small>03 · Original data</small>Who crosses the cable</h2>
+<p>Norway's Coastal Administration publishes historical AIS positions for the Norwegian economic zone and the protection zone around Svalbard under an open licence.<sup><a href="#n10">10</a></sup> For this investigation we queried every position along the cable corridor and counted each time a vessel's track crossed the route line (method below). Two samples: the 13 days before the 2022 fault, restricted to route km 80 to 280, and a year-long baseline of 26 days spaced a fortnight apart through 2025, along the full route.</p>
+<div class="fig" style="margin:22px 0 8px"><div class="hd"><span class="mono">Figure 2 · Crossings per 10 km of route, over seabed depth</span>
+ <div class="tabs" role="group" aria-label="Sample"><button data-c="jan2022" aria-pressed="true">Before the 2022 fault</button><button data-c="y2025" aria-pressed="false">2025 baseline</button></div></div>
+ <div id="cross"></div><div class="legend"><span><i style="background:#8A6A1F;border-radius:2px"></i>Russian-flagged</span><span><i style="background:#3E5C76;border-radius:2px"></i>other flags</span><span><i style="background:#E2EEEE;border-radius:2px"></i>heard by shore DAS</span><span><i style="background:#F4EFE2;border-radius:2px"></i>reported fault zone</span></div></div>
+<p class="cap"><b>Figure 2.</b> Kystdatahuset open AIS, positions at 0.3 kn or more. Before-fault sample limited to route km 80 to 280, which is why the rest of the route is empty in that view. Crossings of the approximate route line, not of the surveyed cable.</p>
+<p>In the 13 days before the fault, 33 vessels crossed the route 281 times in that 200 km window. 231 crossings, 82 %, were by Russian-flagged vessels, almost all of them trawlers and fish-factory ships working the shelf edge; the most frequent, the trawler <i>Nothern Eagle</i> (IMO 9128348, spelled so in its AIS record), crossed 37 times, followed by <i>Nord Tral</i> (26) and <i>Barentchevo More</i> (23). 96 crossings fell inside the reported fault zone itself, 75 of them Russian-flagged. In the final 24 hours before the fault there were 26 crossings. The densest traffic sits between km 220 and 250, on the slope where the shelf gives way to deep water, straddling the southern edge of the fault zone.</p>
+<p>These numbers describe exposure, not a culprit. Crossing a cable is legal, trawlers on the shelf edge cross it all the time, and this short window does not show which vessel, if any, caused the damage. What the data shows is the scale of the problem: any system meant to notice interference on this stretch has to separate one deliberate act from hundreds of routine passes.</p>
+<p>Was that winter unusual? To check, the same query was run for the same 13-day window, 25 December to 7 January, in each of the four following winters.</p>
+<div class="tbl"><table><thead><tr><th>Winter</th><th>Crossings, km 80–280</th><th>Russian-flagged</th><th>In fault zone</th><th>Distinct vessels</th></tr></thead><tbody>
+<tr><td>2021/22 (fault)</td><td>281</td><td>231 (82 %)</td><td>96</td><td>33</td></tr>
+<tr><td>2022/23</td><td>273</td><td>255 (93 %)</td><td>61</td><td>15</td></tr>
+<tr><td>2023/24</td><td>62</td><td>35 (56 %)</td><td>12</td><td>5</td></tr>
+<tr><td>2024/25</td><td>73</td><td>63 (86 %)</td><td>8</td><td>6</td></tr>
+<tr><td>2025/26</td><td>6</td><td>0 (0 %)</td><td>2</td><td>2</td></tr>
+</tbody></table></div>
+<p class="cap" style="margin-top:-12px">Same window, same route pieces, same method; 14 days queried per winter, no failed queries. Counts stop at 03:10 UTC on 7 January each year.</p>
+<p>The answer is no, and then something changed. The winter after the fault looked almost the same, with 273 crossings, 255 of them Russian-flagged. From the winter of 2023/24 crossings in this window fall by about three quarters, to a handful of vessels, and in 2025/26 there were six crossings in total, none by a Russian-flagged vessel. This investigation cannot say why. Candidate explanations include where the fish were, reduced quotas, vessels no longer transmitting AIS, and changes in how the data are collected; none has been tested here. What it does show is that January 2022 was ordinary for its time: the cable failed during a normal season of heavy trawling, which is exactly the background against which a deliberate act would be hardest to see.</p>
+<p>The year-round 2025 sample gives the other half of the picture: 758 crossings by 296 distinct vessels on 26 sampled days, only 9 % of them Russian-flagged. 79 % of those crossings happen within the first repeater span at either end, in the approaches to Isfjorden and Andøya, where local ferries, supply ships and coastal fishing concentrate. The traffic that a shore sensor could see is mostly harmless and close to land; the traffic over the slope and deep water, 21 % of the total, is where the cable is deaf.</p>
+
+<h2 id="c4"><small>04 · The physics</small>What the fibre itself could hear</h2>
+<p>A telecom fibre can be turned into a sensor. Distributed acoustic sensing (DAS) sends laser pulses into a fibre and reads the light scattered back by microscopic imperfections; vibration changes that backscatter, so every few metres of glass becomes a microphone. On a 120 km fibre on Svalbard itself, researchers recorded for 44 days in 2020, tracked a ship about 86 km along the fibre and detected whale calls out to 95 km.<sup><a href="#n2">2</a></sup></p>
+<p>Long cables, however, need optical amplifiers every few tens of kilometres, and ordinary repeaters amplify in one direction only. The backscattered light from beyond the first repeater never gets back to shore.<sup><a href="#n3">3</a></sup> Commercial interrogators reach about 171 km on bare fibre; on a repeatered cable the limit is the first span.<sup><a href="#n3">3</a></sup> The repeater spacing on the Svalbard cable is not published. The public system description gives twenty repeaters on the 1,375 km segment, which with even spacing means a span of about 65 km; Space Norway has described the spacing as roughly 100 km.<sup><a href="#n4">4</a>,<a href="#n9">9</a></sup> On the first reading an interrogator at each landing hears about 131 km, 9.5 % of the route; on the second, about 200 km, 14.5 %.</p>
+<div class="fig" style="margin:22px 0 8px"><div class="hd"><span class="mono">Figure 3 · The same 1,375 km, five ways of listening · dashed box: 2022 fault zone</span></div><div id="mult"></div></div>
+<p class="cap"><b>Figure 3.</b> Coverage of the Svalbard segment under each approach. Ticks: repeaters (assumed evenly spaced). Calculation: cable-das-coverage v0.2.</p>
+<p>The fault zone sits entirely in the part no shore interrogator can reach. That conclusion holds under either spacing: even with a first span of 120 km the heard stretch stops short of km 130. Two approaches do reach the whole length. Loopback paths built into the repeaters let DAS be run span by span; a range-scalable system using repeater loopbacks has been demonstrated over 2,227 km, but it is not yet a standard option on commercial cables.<sup><a href="#n3">3</a></sup> Polarisation sensing reads disturbances from the ordinary data signal and has detected earthquakes and ocean swell along a 10,000 km cable between Los Angeles and Chile; in that form it measures the cable end to end, and placing a disturbance along the route remains a research problem.<sup><a href="#n11">11</a></sup></p>
+
+<h2 id="c5"><small>05 · Geometry</small>Depth and access</h2>
+<p>Depth is what separates the two threats. On the shelf, where the route runs at a few hundred metres, trawl gear and anchors reach the seabed routinely. Beyond the slope the route lies at 2,000 m and more; sampled GEBCO depths along the public route put about 94 % of the deep water, everything below 1,000 m, in the stretch no shore interrogator can hear, and that share stays between 89 and 97 % across plausible span layouts.</p>
+<p>At those depths only specialised assets operate. Russia's deep-sea directorate GUGI fields the <i>Rus</i> and <i>Konsul</i> submersibles, rated to 6,000 m and tended by the research ship <i>Yantar</i>; the nuclear-powered <i>Losharik</i>, damaged by fire in 2019, is reported to have resumed sea trials but its status is unclear.<sup><a href="#n12">12</a></sup> The operation disclosed in September 2026, in which British, Norwegian and US forces tracked and confronted GUGI submersibles near Svalbard, is the first public case of those assets rehearsing against these cables.<sup><a href="#n1">1</a></sup> On this route every metre of seabed they could reach unobserved is deaf to the cable.</p>
+
+<h2 id="c6"><small>06 · Context</small>A pattern, not an anomaly</h2>
+<div class="fig" style="margin:14px 0 8px"><div class="hd"><span class="mono">Figure 4 · Subsea infrastructure incidents, Arctic and Baltic, 2021–2026</span></div><div id="tl"></div></div>
+<p class="cap"><b>Figure 4.</b> Incidents with public reporting. Full table with sources: <code>data/incidents.csv</code> in the repository.</p>
+<p>The Baltic cases show how the problem usually ends. The container ship <i>NewNew Polar Bear</i> dragged its anchor across the Balticconnector pipeline in October 2023, and China later acknowledged the ship was at fault. The tanker <i>Eagle S</i> dragged an anchor for around 90 km on 25 December 2024; a Helsinki district court threw the case out in October 2025 for lack of jurisdiction, and the Court of Appeal reversed that ruling in August 2026.<sup><a href="#n13">13</a></sup> In every case, the evidence was vessel tracking plus physical recovery, and attribution took months or never came. The cables themselves reported only that they had stopped working.</p>
+
+<h2 id="c7"><small>07 · The next cable</small>What Norway is building</h2>
+<p>The 2004 system is nearing the end of its design life. Norway has approved Arctic Way, a new 2,350 km system from Bodø with branches to Jan Mayen and Svalbard, built by SubCom for about NOK 2.8 billion and due in service in 2028.<sup><a href="#n14">14</a></sup> The defence estates agency is building the Jan Mayen landing station alongside a new armed forces station on the island.<sup><a href="#n15">15</a></sup> None of the public announcements mentions sensing on the cable itself.<sup><a href="#n14">14</a>,<a href="#n15">15</a></sup> That may simply not be disclosed. It is, however, the decision that matters: loopback paths in the repeaters or a fibre pair reserved for sensing have to be specified before the repeaters are manufactured, not added afterwards.</p>
+
+<h2 id="c8"><small>08 · Assessment</small>What we know, and what we do not</h2>
+<div class="claims">
+ <div><span class="mono">We know</span>One Svalbard cable failed on 7 January 2022 at 130 to 230 km from Longyearbyen; it was repaired in June 2023; the police case was dropped. Russian-flagged vessels, almost all of them fishing, crossed the route around it (km 80 to 280) 231 times in the 13 days before the fault, a level matched the following winter and not since.</div>
+ <div><span class="mono">The evidence indicates</span>The damage is consistent with gear dragged along the seabed. The fault lies beyond the reach of any shore-based acoustic interrogator on this cable design.</div>
+ <div class="as"><span class="mono">We assess</span>With shore-based DAS the existing cables cannot observe their own deep route or the 2022 fault zone. Only sensing designed into the new cable can close that gap, and only if it is specified before manufacture.</div>
+ <div class="un"><span class="mono">Unknown</span>The exact route, the repeater positions, why shelf-edge traffic in the open AIS record collapsed after 2022/23, whether Norway already monitors the cable by other means, and whether DAS could detect a slow submersible at 2,000 m at all.</div>
+</div>
+<div class="tbl"><table><thead><tr><th>Option</th><th>Reach on this route</th><th>Locates</th><th>Maturity</th><th>When it must be decided</th></tr></thead><tbody>
+<tr><td>Shore DAS on the existing cables</td><td>~131–200 km of 1,375</td><td>metres</td><td>commercial</td><td>any time</td></tr>
+<tr><td>Loopback repeaters on Arctic Way</td><td>whole route, span by span</td><td>metres, degrading per span</td><td>demonstrated</td><td>before repeater manufacture</td></tr>
+<tr><td>Polarisation sensing on live traffic</td><td>whole route</td><td>not along the cable yet</td><td>research</td><td>any time (software)</td></tr>
+<tr><td>AIS pattern analysis (this study)</td><td>where AIS is transmitted</td><td>vessel and time</td><td>open data today</td><td>any time</td></tr>
+</tbody></table></div>
+<p>The cheapest of these is also the most neglected. The crossings in Figure 2 took minutes to compute from public data. A standing watch on vessel behaviour over the corridor, slow tracks, repeated passes, AIS gaps, would not prove intent, but it would turn the next fault from a mystery into a short list.</p>
+
+<h2><small>Method</small></h2>
+<p>AIS positions were retrieved from the Norwegian Coastal Administration's Kystdatahuset open API (NLOD licence) in bounding boxes around 28 route segments, per day, at speeds of 0.3 kn or more. For each vessel, consecutive positions less than 30 minutes apart were joined into track segments and tested for intersection with the route line. The route is the approximate public line scaled to the official 1,375 km; the real cables are two lines 5 to 10 km apart, so counts measure crossings of the corridor, not of either cable. Fishing vessels under 15 m and vessels not transmitting AIS are absent. Coverage figures assume evenly spaced repeaters; the sensitivity to that assumption is published with the code. All data and code: <a href="https://github.com/darkanalytica1/cable-das-coverage">cable-das-coverage</a>.</p>
+
+<h2><small>Notes</small></h2>
 <ol class="src">
-<li id="s1">Reuters, via Defense News, “NATO allies foil Russian subsea cable sabotage plot”, 10 September 2026.</li>
-<li id="s2">Landrø M. et al., “Sensing whales, storms, ships and earthquakes using an Arctic fibre optic cable”, Scientific Reports 12, 2022.</li>
-<li id="s3">Xenaki A. et al., “Distributed acoustic sensing for ocean applications”, arXiv:2502.18344, 2025.</li>
-<li id="s4">Svalbard Undersea Cable System, public system description (segment lengths, repeaters, fibre pairs).</li>
-<li id="s5">GEBCO Compilation Group, GEBCO 2020 Grid; sampled via OpenTopoData. Calculation: cable-das-coverage v0.1.</li>
-<li id="s6">NEC Laboratories / OFS, DAS over 200.6 km with enhanced-scattering fibre, SubOptic 2025.</li>
+<li id="n1">Reuters, via Defense News, “NATO allies foil Russian subsea cable sabotage plot”, 10 September 2026.</li>
+<li id="n2">Landrø M. et al., “Sensing whales, storms, ships and earthquakes using an Arctic fibre optic cable”, Scientific Reports 12, 2022.</li>
+<li id="n3">Xenaki A., Gerstoft P., Williams E., Abadi S., “Overview of distributed acoustic sensing: theory and ocean applications”, arXiv:2502.18344v3, 2025 (171 km commercial range; one-way repeaters; multi-span architectures, including Waagaard et al., Optics Letters 2025, 2,227 km).</li>
+<li id="n4">Svalbard Undersea Cable System, public system description (Wikipedia, citing Telektronikk 2003): segment lengths, twenty repeaters per segment, eight fibre pairs.</li>
+<li id="n5">Institute of Marine Research, “Ocean Observatory: The missing cable has been found”, November 2021.</li>
+<li id="n6">NRK, “This is what the damaged Svalbard cable looked like when it came up from the depths”, 26 May 2024.</li>
+<li id="n7">Space Norway, “Redundancy on primary telecom connection to Svalbard restored”, press release, 2022 (dated 1 March 2022 on the Space Norway site).</li>
+<li id="n8">USGS EROS, “SvalSat” (Earthshots); Svalbard Satellite Station, public reference description of users and antennas (Wikipedia).</li>
+<li id="n9">Schia N. N., Gjesvik L., Rødningen I. F., “The subsea cable cut at Svalbard January 2022: what happened, what were the consequences, and how were they managed?”, NUPI Policy Brief 1/2023, citing Space Norway; High North News, “Breach on Svalbard cable”, 19 January 2022 (repeater spacing quote). The fault location is an operator estimate, not a surveyed position.</li>
+<li id="n10">Norwegian Coastal Administration, open AIS access (NLOD licence; excludes fishing vessels under 15 m) and Kystdatahuset historical positions; analysis in cable-das-coverage, calculations/ais_crossings.py. Queried 28 and 29 September 2026.</li>
+<li id="n11">Zhan Z. et al., “Optical polarization-based seismic and water wave sensing on transoceanic cables”, Science 371, 931–936, 2021 (PubMed 33632843).</li>
+<li id="n12">Konsul-class submersible and Losharik, public references (test depth, tender, status); status of Losharik unconfirmed.</li>
+<li id="n13">Baltic incidents: public incident list (Wikipedia); Submarine Networks on the Helsinki District Court ruling, 28 October 2025; The Record, “Finland appeals court revives case against Eagle S officers”, 27 August 2026.</li>
+<li id="n14">Submarine Networks, “Space Norway selects SubCom for the Arctic Way subsea cable project”, 19 February 2025.</li>
+<li id="n15">Submarine Networks, Space Norway and the Norwegian Ministry of Defence on the Jan Mayen landing, 10 February 2026.</li>
 </ol>
 </div></main>
-<footer class="w">Leonard Dumitru · DarkAnalytica · Independent research from public sources. Not affiliated with any employer.</footer>
-<script src="d3.min.js"></script><script src="data.js"></script><script src="figure.js"></script>
+<footer class="w">Leonard Dumitru · DarkAnalytica · Independent research from public sources. Not affiliated with any employer. First version 28 September 2026; expanded 29 September 2026.</footer>
+<script src="d3.min.js"></script><script src="data.js"></script><script src="data2.js"></script><script src="figure.js"></script><script src="fig2.js"></script>
 <script>
-const note={single:["65 km","heard, 4.8 % of the segment","1,310 km","Commercial","one interrogator at Longyearbyen"],
- dual:["131 km","heard, 9.5 % of the segment","1,244 km","Commercial","standard interrogator at each landing"],
- esf:["131 km","heard, 9.5 %: longer reach, same first repeater","1,244 km","No gain","enhanced-scattering fibre, 200.6 km reach"],
- loop:["1,375 km","heard span by span, signal falls with each span","0 km","Not commercial","loopback paths built into the repeaters"],
- sop:["1,375 km","sensed, but events cannot be located along the cable","n/a","Research","polarisation changes on the live data signal"]};
-const mapEl=document.getElementById("map"), profEl=document.getElementById("prof");
-function draw(s){ const W=Math.min(400,mapEl.parentElement.clientWidth);
- drawMap(mapEl,{id:"a",w:W,h:W*1.93,latMax:79.0,scenario:s,rw:4,rr:3.3,fs:12,scaleBar:[16,W*1.93-20],
-  labels:[{t:"Longyearbyen",lon:15.3,lat:78.0,fs:12,w:600,halo:"#E9EDF2"},{t:"Andøya",lon:16.5,lat:69.5,fs:12,w:600,halo:"#E9EDF2"},{t:"NORWEGIAN SEA",lon:5.0,lat:70.4,mono:true,fs:10.5,c:"#fff",ls:".14em"},{t:"GREENLAND SEA",lon:6,lat:76.4,mono:true,fs:10.5,c:"#fff",ls:".14em"},{t:"BARENTS SEA",lon:18.6,lat:73.4,mono:true,fs:10.5,c:"#0B2545",ls:".14em"}]});
- drawProfile(profEl,{id:"b",w:profEl.clientWidth||600,h:170,scenario:s,fs:12,cw:3,m:{l:56,r:8,t:18,b:26},onHover:km=>mapEl._hover&&mapEl._hover(km)});
- const n=note[s]; sH.textContent=n[0]; sHt.textContent=n[1]; sD.textContent=n[2]; sN.textContent=n[3]; sNt.textContent=n[4]; }
-document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-pressed",x===b));draw(b.dataset.s)});
-draw("dual"); let t; addEventListener("resize",()=>{clearTimeout(t);t=setTimeout(()=>draw(document.querySelector('.tabs [aria-pressed=true]').dataset.s),200)});
+const mapEl=document.getElementById("map");
+function draw(s){ const W=Math.min(430,document.querySelector(".wide .fig").clientWidth-40);
+ drawMap(mapEl,{id:"a",w:W,h:W*1.69,lonMin:4.0,lonMax:24.0,latMin:69.42,latMax:78.72,study:false,scenario:s,rw:4,rr:3.2,fs:12,scaleBar:[16,W*1.69-20],
+  labels:[{t:"Longyearbyen",lon:15.1,lat:78.1,fs:12,w:600,halo:"#E9EDF2",a:"end",dx:-4,dy:-8},{t:"Andøya",lon:16.6,lat:69.62,fs:12,w:600,halo:"#E9EDF2",dx:10},{t:"NORWEGIAN SEA",lon:5.0,lat:70.4,mono:true,fs:10.5,c:"#fff",ls:".14em"},{t:"GREENLAND SEA",lon:5.6,lat:76.2,mono:true,fs:10.5,c:"#fff",ls:".14em"},{t:"BARENTS SEA",lon:18.6,lat:73.4,mono:true,fs:10.5,c:"#0B2545",ls:".14em"}]});
+ overlayMap(mapEl,{fs:11,marks:[{t:"SvalSat",lon:15.39,lat:78.23,dx:10,dy:14}]});
+}
+document.querySelectorAll(".hd .tabs [data-s]").forEach(b=>b.onclick=()=>{b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));draw(b.dataset.s)});
+const crossEl=document.getElementById("cross"); let cs="jan2022";
+function drawC(){ drawCrossings(crossEl,{w:crossEl.clientWidth||680,h:300,series:cs}); }
+document.querySelectorAll(".hd .tabs [data-c]").forEach(b=>b.onclick=()=>{b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));cs=b.dataset.c;drawC()});
+function drawAll(){ draw(document.querySelector(".tabs [data-s][aria-pressed=true]").dataset.s); drawC();
+ drawMultiples(document.getElementById("mult"),{w:document.getElementById("mult").clientWidth||680});
+ drawTimeline(document.getElementById("tl"),{w:document.getElementById("tl").clientWidth||680,h:230}); }
+drawAll(); let t; addEventListener("resize",()=>{clearTimeout(t);t=setTimeout(drawAll,200)});
 </script></body></html>

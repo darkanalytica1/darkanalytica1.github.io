@@ -1,422 +1,61 @@
-<!doctype html>
-<html lang="en" class="no-js">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonard Dumitru · Defence and security technology analysis</title>
-<meta name="description" content="Leonard Dumitru: open technical work on counter-UAS and airspace security, navigation without GNSS, RF, UAS cybersecurity, defence capability delivery, and lawful data engineering. Written from public sources.">
-<meta name="author" content="Leonard Dumitru">
-<meta name="theme-color" content="#F5F7FA">
-<link rel="canonical" href="https://darkanalytica1.github.io/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="DarkAnalytica">
-<meta property="og:title" content="Leonard Dumitru · Defence and security technology analysis">
-<meta property="og:description" content="Counter-UAS, autonomy assurance, RF, UAS cybersecurity and capability delivery. Open tools and sourced field notes.">
-<meta property="og:url" content="https://darkanalytica1.github.io/">
-<meta property="og:image" content="https://darkanalytica1.github.io/assets/img/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Leonard Dumitru, DarkAnalytica: a sensor-to-decision chain diagram on a light background.">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Leonard Dumitru · Defence and security technology analysis">
-<meta name="twitter:description" content="Counter-UAS, autonomy assurance, RF, UAS cybersecurity and capability delivery. Open tools and sourced field notes.">
-<meta name="twitter:image" content="https://darkanalytica1.github.io/assets/img/og.png">
-<link rel="icon" href="assets/svg/mark.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css">
-<script>document.documentElement.classList.remove('no-js')</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Leonard Dumitru","url":"https://darkanalytica1.github.io/","homeLocation":{"@type":"Place","name":"Bucharest, Romania"},"sameAs":["https://github.com/darkanalytica1","https://www.linkedin.com/in/wh-systems"]}</script>
-</head>
-<body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DarkAnalytica · Leonard Dumitru · independent technical research</title>
+<meta name="description" content="Independent technical research on defence, dual-use technology and critical infrastructure, answered from primary evidence, with data and code published.">
+<meta property="og:title" content="DarkAnalytica · Leonard Dumitru"><meta property="og:description" content="Defence and infrastructure, taken apart with evidence."><meta property="og:type" content="website"><meta property="og:url" content="https://darkanalytica1.github.io/"><meta property="og:image" content="https://darkanalytica1.github.io/research/black-sea-shadow-fleet/og.png">
+<link rel="icon" href="/assets/svg/mark.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"><style>:root{--page:#F5F7FA;--line:#D8DEE6;--line2:#E7EBF0;--ink:#0E1726;--ink2:#3D4A5C;--ink3:#5F6B7C;--navy:#0B2545;--steel:#3E5C76;--brass:#8A6A1F;--teal:#2F6F73;--tn:#EDF1F6}
+*{box-sizing:border-box}html{scroll-padding-top:70px}body{margin:0;background:var(--page);color:var(--ink);font:400 16px/1.6 'IBM Plex Sans',system-ui,sans-serif}a{color:inherit;text-decoration:none}
+.mono{font:500 11.5px/1.4 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;background:#fff;padding:8px;z-index:9}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 28px;border-bottom:1px solid var(--line);background:rgba(245,247,250,.94);backdrop-filter:blur(6px);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px}.brand b{font:600 15px 'IBM Plex Sans'}.brand span{font:500 12px 'IBM Plex Mono';color:var(--ink3);letter-spacing:.06em}
+.nav nav{display:flex;gap:22px;font:500 13px 'IBM Plex Mono';color:var(--ink2)}.nav nav a{transition:color .2s}.nav nav a:hover{color:var(--navy)}
+.w{max-width:1120px;margin:0 auto;padding:0 28px}
+.mast{padding:52px 0 26px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end;border-bottom:2px solid var(--navy)}
+.mast h1{font:600 50px/1.04 'IBM Plex Sans';letter-spacing:-.02em;margin:10px 0 14px}.mast p{font-size:18.5px;color:var(--ink2);margin:0}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}.kpi div{background:#fff;padding:12px 14px}.kpi b{display:block;font:600 28px/1 'IBM Plex Sans'}.kpi span{font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.atlas{display:grid;grid-template-columns:minmax(0,1fr) 360px;height:520px;margin:28px 0 0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+#map{width:100%;height:100%;min-width:0;background:#E9EEF3}.al{border-left:1px solid var(--line);overflow:auto;padding:14px}.al .mono{display:block;margin-bottom:8px}
+.ai{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;padding:10px 8px;border-bottom:1px solid var(--line2);transition:background .2s}.ai:hover,.ai.on{background:var(--tn)}
+.pn,.mk{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font:500 11.5px 'IBM Plex Mono'}.ai.on .pn{background:var(--brass)}.ai b{display:block;font:600 14.5px/1.3 'IBM Plex Sans'}.ai span{font-size:12.5px;color:var(--ink3)}
+.mk{width:30px;height:30px;border:2px solid #fff;box-shadow:0 1px 4px rgba(11,37,69,.35);cursor:pointer;transition:transform .2s,background .2s}.mk.on{background:var(--brass);transform:scale(1.25)}
+.al .more{font-size:13px;color:var(--ink3);padding:12px 8px;line-height:1.5}
+.cap{display:flex;justify-content:space-between;gap:16px;font:400 12px 'IBM Plex Mono';color:var(--ink3);padding:8px 2px}
+.feat{margin:40px 0 0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;display:block;transition:border-color .2s}.feat:hover{border-color:var(--steel)}.feat img{display:block;width:100%;height:auto}
+h2{font:600 13px 'IBM Plex Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:56px 0 4px}
+.row{display:grid;grid-template-columns:64px 1fr 220px;gap:22px;padding:24px 0;border-bottom:1px solid var(--line);transition:background .2s}.row:hover,.row.on{background:var(--tn)}
+.no{font:500 30px 'IBM Plex Mono';color:var(--brass)}.co{color:var(--steel)}.row h3{font:600 23px/1.25 'IBM Plex Sans';margin:6px 0 6px}.row p{margin:0 0 12px;color:var(--ink2);font-size:15.5px;max-width:640px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2)}.meta em{font:500 10.5px 'IBM Plex Mono';font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-right:6px}
+.th{border:1px solid var(--line);border-radius:4px;overflow:hidden;align-self:start}.th img{display:block;width:100%;height:130px;object-fit:cover;object-position:top}
+.notes{list-style:none;padding:0;margin:8px 0 0;border-top:1px solid var(--line)}.notes a{display:grid;grid-template-columns:70px 200px 1fr;gap:16px;padding:12px 4px;border-bottom:1px solid var(--line2);transition:background .2s}.notes a:hover{background:var(--tn)}.notes .n{font:500 13px 'IBM Plex Mono';color:var(--brass)}.notes .t{font:500 11px 'IBM Plex Mono';letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);padding-top:3px}.notes b{font-weight:500}
+table.it{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px;background:#fff;border:1px solid var(--line)}table.it td{padding:10px 12px;border-bottom:1px solid var(--line2);vertical-align:top}table.it td:first-child a{font:500 13.5px 'IBM Plex Mono';color:var(--navy)}table.it td:nth-child(2){font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:var(--brass);white-space:nowrap}table.it tr:hover td{background:var(--tn)}
+.lv{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:12px}.lv div{background:#fff;border:1px solid var(--line);border-top:2px solid var(--navy);border-radius:6px;padding:12px 14px}.lv b{display:block;font-weight:600;font-size:15px}.lv span{font-size:13.5px;color:var(--ink2)}
+.about{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;margin-top:10px}.about p{color:var(--ink2);margin:0 0 12px}.about dl{display:grid;grid-template-columns:100px 1fr;gap:6px 12px;margin:0;font-size:14px;border-top:1px solid var(--line);padding-top:12px}.about dt{font:500 11px 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}.about dd{margin:0}.about dd a{color:var(--navy);border-bottom:1px solid var(--line)}
+footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:56px;padding:22px 0 40px;font-size:13.5px;color:var(--ink3)}
+@media(max-width:900px){.mast,.atlas,.about{grid-template-columns:1fr}.atlas{height:auto}#map{height:360px}.row{grid-template-columns:44px 1fr}.th{display:none}.mast h1{font-size:36px}.lv{grid-template-columns:1fr 1fr}.notes a{grid-template-columns:56px 1fr}.notes .t{display:none}.nav nav{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}</style></head><body>
 <a class="skip" href="#main">Skip to content</a>
-
-<header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="#top" aria-label="Leonard Dumitru, home">
-      <img src="assets/svg/mark.svg" alt="" width="30" height="30">
-      <span><span class="nm">Leonard Dumitru</span><span class="wm">DarkAnalytica</span></span>
-    </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="#focus">Focus</a>
-      <a href="#work">Work</a>
-      <a href="#notes">Field notes</a>
-      <a href="#method">Method</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a class="gh" href="https://github.com/darkanalytica1" rel="noopener">GitHub</a>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-<section class="hero" id="top">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="label navy">Defence &amp; security technology · Open work</div>
-      <h1>From sensor to decision, written down carefully.</h1>
-      <p class="lede">I work on defence and security technology: counter-UAS and autonomy systems thinking, market intelligence, and the data engineering underneath. Open tools and short field notes, built from public sources, with the assumptions and limits stated.</p>
-      <div class="meta"><span>Counter-UAS</span><span>Autonomy assurance</span><span>RF &amp; EW</span><span>Data engineering</span></div>
-      <div class="cta">
-        <a class="btn primary" href="#work">Selected work
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn ghost" href="https://github.com/darkanalytica1" rel="noopener">github.com/darkanalytica1</a>
-      </div>
-    </div>
-
-    <figure class="fig reveal" aria-labelledby="f1cap">
-      <div class="fig-head"><span class="label">Figure 1 · Sensor-to-decision chain</span><span class="label" id="f1state">Track: searching</span></div>
-      <svg class="dia" id="dia-chain" viewBox="0 0 560 372" role="img" aria-labelledby="f1t f1d">
-        <title id="f1t">Sensor-to-decision chain</title>
-        <desc id="f1d">A small drone crosses the airspace. Radar, passive RF and electro-optical sensors each report a detection, the reports travel to a fusion node, the track is confirmed once two independent sensors agree, and the confirmed track passes to command and control and then to an operator decision. A timeline below accumulates the latency of each stage.</desc>
-      </svg>
-      <figcaption id="f1cap"><b>One track, four stages.</b> No single sensor confirms a small drone. Fusion waits for independent agreement, and every hand-off adds latency before a person can decide.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="sec" id="focus" aria-labelledby="focus-h">
-  <div class="wrap">
-    <header class="sec-head reveal">
-      <div class="sec-num">01</div>
-      <div><h2 id="focus-h">Focus areas</h2>
-      <p>Six areas I keep returning to. Each is a system problem more than a product problem: what the mechanism is, where it fails, and how you would know.</p></div>
-    </header>
-
-    <div class="focus reveal">
-      <article>
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="12" cy="12" r="1"/></svg></div>
-        <h3>Counter-UAS &amp; airspace security</h3>
-        <p>Layered detection, sensor coverage and dead zones, fusion into one picture, and graduated responses chosen under clear authority.</p>
-        <div class="k">detect · track · identify · decide · defeat · assess</div>
-      </article>
-      <article>
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17c4-8 8 2 12-4s4-6 6-7"/><path d="M3 17c4-8 8 4 12 1" stroke-dasharray="2 2.5"/><circle cx="15" cy="13" r="2.5"/></svg></div>
-        <h3>Navigation without GNSS &amp; autonomy assurance</h3>
-        <p>Inertial drift, visual odometry and place recognition, jamming versus spoofing, and the evidence needed to trust an autonomous estimate.</p>
-        <div class="k">INS · VIO · VPR · integrity monitoring</div>
-      </article>
-      <article>
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12h3l2-6 3 12 3-9 2 6 2-3h5"/></svg></div>
-        <h3>RF &amp; electronic warfare fundamentals</h3>
-        <p>Link budgets, path loss and band trade-offs; what a control band reveals about range, data rate and how an emitter is found.</p>
-        <div class="k">FSPL · link margin · passive RF detection</div>
-      </article>
-      <article>
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>UAS cybersecurity</h3>
-        <p>Threat models for aircraft, ground control, links and supply chain. Defensive and educational: each technique paired with its mitigation.</p>
-        <div class="k">threat modelling · secure links · authorised testing</div>
-      </article>
-      <article>
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/><path d="M11 13h6M11 16h4"/></svg></div>
-        <h3>Capability delivery &amp; defence procurement</h3>
-        <p>How capability is specified, tested, bought and sustained; why commercial product assumptions break, and what replaces them.</p>
-        <div class="k">requirements · TEVV · interoperability · through-life</div>
-      </article>
-      <article>
-        <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg></div>
-        <h3>OSINT, data engineering &amp; GDPR</h3>
-        <p>Open registers and signals fused carefully, with provenance recorded, lawful basis documented and erasure that survives re-ingest.</p>
-        <div class="k">provenance · fusion · suppression · retention</div>
-      </article>
-    </div>
-
-    <div class="figs2">
-      <figure class="fig reveal" aria-labelledby="f2cap">
-        <div class="fig-head"><span class="label">Figure 2 · Layered detection and a dead zone</span><span class="label" id="f2state">Sensors: 0</span></div>
-        <svg class="dia" id="dia-rings" viewBox="0 0 520 360" role="img" aria-labelledby="f2t f2d">
-          <title id="f2t">Layered counter-UAS detection with a line-of-sight dead zone</title>
-          <desc id="f2d">A protected site sits inside a long-range radar ring, with a passive RF sector and a short-range electro-optical ring overlapping it. A building casts a line-of-sight shadow that removes radar coverage behind it. A drone track approaches the site; the counter shows how many sensors see it at each point, dropping to zero while it crosses the shadow.</desc>
-        </svg>
-        <figcaption id="f2cap"><b>Rings are not coverage.</b> Obstacles cast shadows inside nominal range. Overlap from a second sensor type is what closes the gap a low, slow drone would use.</figcaption>
-      </figure>
-      <figure class="fig reveal" aria-labelledby="f3cap">
-        <div class="fig-head"><span class="label">Figure 3 · Fused estimate with innovation gate</span><span class="label" id="f3state">GNSS: accepted</span></div>
-        <svg class="dia" id="dia-nav" viewBox="0 0 520 360" role="img" aria-labelledby="f3t f3d">
-          <title id="f3t">GNSS and visual-inertial fusion with an innovation gate</title>
-          <desc id="f3d">A vehicle follows a true path. A fused estimate follows it using visual-inertial odometry. GNSS fixes are compared with the predicted position; while they fall inside the gate they are accepted and the uncertainty ellipse stays small. During a spoofing interval the GNSS fixes are pulled away, fall outside the gate and are rejected, so the estimate continues on visual-inertial odometry with a slowly growing ellipse until consistent fixes return.</desc>
-        </svg>
-        <figcaption id="f3cap"><b>Jamming makes a receiver lost; spoofing makes it lied to.</b> A gate on the innovation, the gap between prediction and measurement, rejects fixes that disagree with the vehicle's own motion.</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="work" aria-labelledby="work-h">
-  <div class="wrap">
-    <header class="sec-head reveal">
-      <div class="sec-num">02</div>
-      <div><h2 id="work-h">Selected work</h2>
-      <p>Public repositories. Tools run without setup where possible; guides state their sources, assumptions and limitations.</p></div>
-    </header>
-
-    <div class="filters" role="group" aria-label="Filter work by area">
-      <button type="button" data-f="all" aria-pressed="true">All</button>
-      <button type="button" data-f="cuas">Counter-UAS &amp; autonomy</button>
-      <button type="button" data-f="rf">RF &amp; cyber</button>
-      <button type="button" data-f="delivery">Delivery &amp; test</button>
-      <button type="button" data-f="data">Data &amp; OSINT</button>
-    </div>
-
-    <ul class="work">
-      <li class="card reveal" data-cat="cuas"><a href="https://github.com/darkanalytica1/drone-detection-eval" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-drone-detection-eval.svg" alt="A drone drawn at shrinking apparent size with recall bars per size bin" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Tool · Python</span><span class="new">New</span></div>
-        <h3>Drone Detection Eval</h3>
-        <p>Scores any detector the way an operator experiences it: recall by apparent target size, false alarms per hour, track hold and time to first detection. No dependencies, synthetic demo included.</p>
-        <div class="tags"><span class="tag">computer vision</span><span class="tag">test &amp; evaluation</span></div>
-        <div class="foot"><span class="repo">drone-detection-eval</span><span class="arr" aria-hidden="true">&rarr;</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="delivery"><a href="https://github.com/darkanalytica1/vision-vendor-checklist" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-vision-vendor-checklist.svg" alt="An evidence ladder from claim to independent verification, with a gate line" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Checklist · Python</span><span class="new">New</span></div>
-        <h3>Vision Vendor Checklist</h3>
-        <p>Twenty-three questions to ask before a computer-vision product is trusted on site, each graded on a five-step evidence ladder, with eight gates that end the assessment when they fail.</p>
-        <div class="tags"><span class="tag">procurement</span><span class="tag">assurance</span></div>
-        <div class="foot"><span class="repo">vision-vendor-checklist</span><span class="arr" aria-hidden="true">&rarr;</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="cuas"><a href="https://github.com/darkanalytica1/c-uas-coverage-planner" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-c-uas-coverage-planner.svg" alt="Sensor coverage rings with a line-of-sight shadow and dead zone" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Tool · Python</span></div>
-        <h3>C-UAS Sensor Coverage Planner</h3>
-        <p>Place counter-drone sensors on a site and compute coverage, overlap and dead zones, with line-of-sight masking from buildings and terrain.</p>
-        <div class="tags"><span class="tag">c-uas</span><span class="tag">geospatial</span></div>
-        <div class="foot"><span class="repo">c-uas-coverage-planner</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="cuas"><a href="https://github.com/darkanalytica1/gnss-denied-navigation-primer" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-gnss-denied-navigation-primer.svg" alt="True path, drifting inertial estimate and a corrected fused estimate" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Primer</span><span class="new">New</span></div>
-        <h3>GNSS-Denied Navigation Primer</h3>
-        <p>Inertial drift, visual-inertial odometry, place recognition and integrity checks: how a vehicle keeps a trustworthy estimate when satellites are denied or spoofed.</p>
-        <div class="tags"><span class="tag">autonomy</span><span class="tag">navigation</span></div>
-        <div class="foot"><span class="repo">gnss-denied-navigation-primer</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="cuas"><a href="https://github.com/darkanalytica1/quadrotor-control-primer" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-quadrotor-control-primer.svg" alt="A vehicle tracking a circular reference while its thrust vector tilts into the turn" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Primer · Python</span><span class="new">New</span></div>
-        <h3>Quadrotor Control Primer</h3>
-        <p>Rotations, rigid-body dynamics and geometric SE(3) control, with experiments on high-speed tracking, rotor-drag identification and recovery from inverted flight.</p>
-        <div class="tags"><span class="tag">autonomy</span><span class="tag">control</span></div>
-        <div class="foot"><span class="repo">quadrotor-control-primer</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="cuas"><a href="https://github.com/darkanalytica1/isr-search-theory" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-isr-search-theory.svg" alt="Probability map and a sweep allocating search effort" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Model</span><span class="new">New</span></div>
-        <h3>ISR Search Theory</h3>
-        <p>Classical search theory for ISR: probability maps, sweep width, detection probability and how to allocate limited sensor effort over an area.</p>
-        <div class="tags"><span class="tag">isr</span><span class="tag">operations research</span></div>
-        <div class="foot"><span class="repo">isr-search-theory</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="rf"><a href="https://github.com/darkanalytica1/rf-link-budget-toolkit" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-rf-link-budget-toolkit.svg" alt="Link budget waterfall from transmit power to margin" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Tool · Python</span><span class="new">New</span></div>
-        <h3>RF Link Budget Toolkit</h3>
-        <p>Transmit power, antenna gains, path loss and receiver sensitivity in one budget, so link margin and the effect of range or band choice are explicit.</p>
-        <div class="tags"><span class="tag">rf</span><span class="tag">ew fundamentals</span></div>
-        <div class="foot"><span class="repo">rf-link-budget-toolkit</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="rf"><a href="https://github.com/darkanalytica1/uas-cyber-threat-model" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-uas-cyber-threat-model.svg" alt="UAS system blocks with links as attack surfaces" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Threat model</span><span class="new">New</span></div>
-        <h3>UAS Cyber Threat Model</h3>
-        <p>A structured threat model for an unmanned system: aircraft, ground control, data links, cloud and supply chain, with mitigations per interface.</p>
-        <div class="tags"><span class="tag">cybersecurity</span><span class="tag">uas</span></div>
-        <div class="foot"><span class="repo">uas-cyber-threat-model</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="rf"><a href="https://github.com/darkanalytica1/ethical-hacking-cheatsheet" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-ethical-hacking-cheatsheet.svg" alt="Each technique paired with the defence that stops it" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Reference</span></div>
-        <h3>Security Testing Reference</h3>
-        <p>Scannable sheets pairing each offensive technique with the defence that stops it. Authorised testing and education only.</p>
-        <div class="tags"><span class="tag">security</span><span class="tag">defensive</span></div>
-        <div class="foot"><span class="repo">ethical-hacking-cheatsheet</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="delivery"><a href="https://github.com/darkanalytica1/tevv-field-trial-statistics" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-tevv-field-trial-statistics.svg" alt="Confidence intervals narrowing as trials accumulate" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Statistics</span><span class="new">New</span></div>
-        <h3>TEVV Field Trial Statistics</h3>
-        <p>How many trials a claim actually needs: detection probabilities with confidence intervals, sample sizes and what a small field test can and cannot show.</p>
-        <div class="tags"><span class="tag">tevv</span><span class="tag">test design</span></div>
-        <div class="foot"><span class="repo">tevv-field-trial-statistics</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="delivery"><a href="https://github.com/darkanalytica1/c2-decision-latency" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-c2-decision-latency.svg" alt="Decision timeline where the C2 queue dominates latency" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Model</span><span class="new">New</span></div>
-        <h3>C2 Decision Latency</h3>
-        <p>Decomposing the time from detection to effect into sensing, fusion, command-and-control queueing and decision, to see which stage really sets the pace.</p>
-        <div class="tags"><span class="tag">c2</span><span class="tag">latency</span></div>
-        <div class="foot"><span class="repo">c2-decision-latency</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="delivery"><a href="https://github.com/darkanalytica1/defence-product-gtm" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-defence-product-gtm.svg" alt="Five-role buyer map around a requirement" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Field guide</span></div>
-        <h3>Defence Tech: Product and Go to Market</h3>
-        <p>Why commercial product assumptions break in defence: the five-role buyer map, C2 and multi-domain literacy, interoperability, trust and assurance.</p>
-        <div class="tags"><span class="tag">procurement</span><span class="tag">capability</span></div>
-        <div class="foot"><span class="repo">defence-product-gtm</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="data"><a href="https://github.com/darkanalytica1/case-studies" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-case-studies.svg" alt="Research note with cited sources" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Research notes</span></div>
-        <h3>Field Research</h3>
-        <p>Short, cited case studies in counter-UAS, adversary drone doctrine, drone RF, GNSS jamming versus spoofing, and maritime OSINT.</p>
-        <div class="tags"><span class="tag">research</span><span class="tag">osint</span></div>
-        <div class="foot"><span class="repo">case-studies</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="data"><a href="https://github.com/darkanalytica1/gdpr-b2b-data-engineering" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-gdpr-b2b-data-engineering.svg" alt="Data pipeline with provenance gate, suppression and erasure" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Reference implementation</span></div>
-        <h3>Lawful Data Engineering</h3>
-        <p>GDPR enforced in code: a worked legitimate interest assessment, provenance gate, hashed suppression and erasure that survives re-ingest.</p>
-        <div class="tags"><span class="tag">gdpr</span><span class="tag">pipelines</span></div>
-        <div class="foot"><span class="repo">gdpr-b2b-data-engineering</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="data"><a href="https://github.com/darkanalytica1/romanian-open-company-data" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-romanian-open-company-data.svg" alt="Register records validated by checksum" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Toolkit · Python</span></div>
-        <h3>Romanian Open Company Data</h3>
-        <p>A field guide and dependency-free toolkit for national company registers: identifier validation, name matching, activity codes, EU VIES and EORI checks.</p>
-        <div class="tags"><span class="tag">osint</span><span class="tag">open data</span></div>
-        <div class="foot"><span class="repo">romanian-open-company-data</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-
-      <li class="card reveal" data-cat="data"><a href="https://github.com/darkanalytica1/icp-scoring-toolkit" rel="noopener">
-        <div class="thumb"><img src="assets/svg/thumb-icp-scoring-toolkit.svg" alt="Fit and intent scored on separate axes" loading="lazy" width="320" height="180"></div>
-        <div class="body"><div class="top"><span class="label">Toolkit · Python</span></div>
-        <h3>ICP Scoring Toolkit</h3>
-        <p>Market intelligence as a testable model: fit and intent on separate axes, data-quality heuristics, and a backtest that exposes survivorship bias. Synthetic data only.</p>
-        <div class="tags"><span class="tag">market intelligence</span><span class="tag">modelling</span></div>
-        <div class="foot"><span class="repo">icp-scoring-toolkit</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-      <li class="card more reveal" data-cat="all"><a href="https://github.com/darkanalytica1?tab=repositories" rel="noopener">
-        <div class="body"><div class="top"><span class="label navy">Index</span></div>
-        <h3>All repositories on GitHub</h3>
-        <p>Every tool and guide above, with source, tests, READMEs, stated limitations and licences. New work is added there first.</p>
-        <div class="foot"><span class="repo">github.com/darkanalytica1</span><span class="arr" aria-hidden="true">→</span></div></div></a></li>
-    </ul>
-  </div>
-</section>
-
-<section class="sec" id="notes" aria-labelledby="notes-h">
-  <div class="wrap">
-    <header class="sec-head reveal">
-      <div class="sec-num">03</div>
-      <div><h2 id="notes-h">Field notes</h2>
-      <p>Short explainers, each built from open sources and ending in a one-line takeaway. Full text and sources in the case-studies repository.</p></div>
-    </header>
-    <ol class="notes" style="list-style:none;margin:0;padding:0">
-      <li class="note reveal"><a href="https://github.com/darkanalytica1/case-studies/blob/main/01-c-uas-layered-defence.md" rel="noopener">
-        <div class="n">N-01</div><div>
-        <span class="label">Counter-UAS</span>
-        <h3>Reading a small-drone threat, and why layered defence beats a jammer</h3>
-        <p>Counter-drone response is a loop, not a gadget: detect, track, identify, decide, defeat, assess. A jammer is one option in one stage.</p>
-        <blockquote>Buy the loop: detection and fusion first, decision and authority in the middle, effectors last.</blockquote>
-        <span class="label src" style="display:block">Source: JIATF-401 C-sUAS quick reference guide (public release)</span></div></a></li>
-      <li class="note reveal"><a href="https://github.com/darkanalytica1/case-studies/blob/main/02-rf-control-band.md" rel="noopener">
-        <div class="n">N-02</div><div>
-        <span class="label">RF engineering</span>
-        <h3>Frequency is destiny: reading a drone from its control band</h3>
-        <p>433 MHz to 5.8 GHz sit at different points on one trade-off: lower bands reach further, higher bands carry more data and fade faster.</p>
-        <blockquote>A drone's frequency tells you most of its range, its data rate, and how you would find it.</blockquote>
-        <span class="label src" style="display:block">Sources: JIATF-401 guide; free-space path loss</span></div></a></li>
-      <li class="note reveal"><a href="https://github.com/darkanalytica1/case-studies/blob/main/03-gnss-jamming-vs-spoofing.md" rel="noopener">
-        <div class="n">N-03</div><div>
-        <span class="label">Navigation security</span>
-        <h3>Attacking navigation: GNSS jamming versus spoofing</h3>
-        <p>Jamming is denial and the receiver knows. Spoofing is deception and it usually does not. Anti-jam protection is not anti-spoof protection.</p>
-        <blockquote>Jamming makes the drone lost; spoofing makes it lied to. Defend accordingly.</blockquote>
-        <span class="label src" style="display:block">Conceptual and defensive; public principles only</span></div></a></li>
-      <li class="note reveal"><a href="https://github.com/darkanalytica1/case-studies/blob/main/04-osint-ais-dark-vessel.md" rel="noopener">
-        <div class="n">N-04</div><div>
-        <span class="label">OSINT · maritime</span>
-        <h3>Finding the ship running dark: fusing AIS with other open signals</h3>
-        <p>AIS shows the cooperative traffic. The analytical value is in the gaps and contradictions against imagery and radar layers.</p>
-        <blockquote>On the sea, the signal is often the silence. AIS finds the honest traffic; fusion finds the rest.</blockquote>
-        <span class="label src" style="display:block">Sources: IMO, ITU-R M.1371; open maritime literature</span></div></a></li>
-      <li class="note reveal"><a href="https://github.com/darkanalytica1/case-studies/blob/main/05-reading-adversary-drone-doctrine.md" rel="noopener">
-        <div class="n">N-05</div><div>
-        <span class="label">Counter-UAS · doctrine</span>
-        <h3>Reading an adversary's drone textbook: defend the loop's clock, not the airframe</h3>
-        <p>A published Russian cadet textbook treats the drone as the observer in a reconnaissance-fire loop built to close fast. Every stage of that loop is a place for the defender to act.</p>
-        <blockquote>Keep the observer's undetected dwell time shorter than the time the other side needs to act on it.</blockquote>
-        <span class="label src" style="display:block">Source: Litvinenko, drone reconnaissance textbook (KNORUS), in paraphrase</span></div></a></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec" id="method" aria-labelledby="method-h">
-  <div class="wrap">
-    <header class="sec-head reveal">
-      <div class="sec-num">04</div>
-      <div><h2 id="method-h">Method</h2>
-      <p>How the work is done. The aim is an assessment someone else can check, challenge and reuse.</p></div>
-    </header>
-    <div class="method">
-      <div class="reveal">
-        <ol class="steps">
-          <li><div><h3>Sources first</h3><p>Primary and official documents before commentary. Every figure is traceable to where it came from.</p></div></li>
-          <li><div><h3>Grade the evidence</h3><p>Reliability of the source and credibility of the claim are judged separately. A single uncorroborated claim does not move the assessment.</p></div></li>
-          <li><div><h3>State the assumptions</h3><p>What has to be true for the conclusion to hold is written down, so it can be tested or broken.</p></div></li>
-          <li><div><h3>Give a confidence, and the limits</h3><p>Each assessment carries a confidence level and what would change it: what is not known, and what was not tested.</p></div></li>
-        </ol>
-        <div class="conf" aria-label="Confidence levels used"><span class="chip lo">Confidence: low</span><span class="chip mo">Confidence: moderate</span><span class="chip hi">Confidence: high</span></div>
-      </div>
-      <figure class="fig reveal" aria-labelledby="f4cap">
-        <div class="fig-head"><span class="label">Figure 4 · Evidence to assessment</span><span class="label" id="f4state">Confidence: low</span></div>
-        <svg class="dia" id="dia-method" viewBox="0 0 560 340" role="img" aria-labelledby="f4t f4d">
-          <title id="f4t">From graded evidence to an assessment with a confidence level</title>
-          <desc id="f4d">Four pieces of evidence, each graded for source reliability, flow into an analysis step that lists assumptions. An official document, open data and imagery corroborate one another and raise confidence step by step. An unsourced press claim conflicts, is flagged as not corroborated and does not raise confidence. The output is an assessment with moderate confidence and its limits stated.</desc>
-        </svg>
-        <figcaption id="f4cap"><b>Confidence is earned by independent corroboration.</b> The conflicting claim is kept and flagged, not silently dropped, and the limits travel with the conclusion.</figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="about" aria-labelledby="about-h">
-  <div class="wrap">
-    <header class="sec-head reveal">
-      <div class="sec-num">05</div>
-      <div><h2 id="about-h">About</h2></div>
-    </header>
-    <div class="about">
-      <div class="prose reveal">
-        <p>I am Leonard Dumitru, based in Bucharest. I write about unmanned and counter-unmanned systems, the radio spectrum, and the intelligence and data work around them.</p>
-        <p>My interest is the space between a capability on paper and a capability that holds up in the field: where a sensor's datasheet range meets terrain, where a navigation estimate meets interference, where a requirement meets a procurement process, and where a data pipeline meets the law.</p>
-        <p>Everything published here is open-source synthesis from public material. Security content is defensive and educational. Where a number matters, the source is next to it; where I am unsure, I say so.</p>
-      </div>
-      <aside class="panel reveal" aria-label="Summary">
-        <dl>
-          <dt>Name</dt><dd>Leonard Dumitru</dd>
-          <dt>Location</dt><dd>Bucharest, Romania</dd>
-          <dt>Areas</dt><dd>Counter-UAS · autonomy assurance · RF &amp; EW · UAS cyber · capability delivery · OSINT &amp; data</dd>
-          <dt>Handle</dt><dd>DarkAnalytica</dd>
-        </dl>
-      </aside>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="contact" aria-labelledby="contact-h">
-  <div class="wrap">
-    <header class="sec-head reveal">
-      <div class="sec-num">06</div>
-      <div><h2 id="contact-h">Contact</h2>
-      <p>For questions about the work, corrections to a source, or a conversation.</p></div>
-    </header>
-    <ul class="contact-list reveal">
-      <li><a href="mailto:darkanalytica@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span><span class="label" style="display:block">Email</span><span class="v">darkanalytica@gmail.com</span></span></a></li>
-      <li><a href="https://github.com/darkanalytica1" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.5-4-2-6-2.5M15 21v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg><span><span class="label" style="display:block">GitHub</span><span class="v">github.com/darkanalytica1</span></span></a></li>
-      <li><a href="https://www.linkedin.com/in/wh-systems" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg><span><span class="label" style="display:block">LinkedIn</span><span class="v">linkedin.com/in/wh-systems</span></span></a></li>
-    </ul>
-  </div>
-</section>
-</main>
-
-<footer class="site-foot">
-  <div class="wrap"><span>© 2026 Leonard Dumitru · DarkAnalytica</span><span>Open-source synthesis from public material · Bucharest, Romania</span></div>
-</footer>
-
-<script src="assets/js/site.js" defer></script>
-</body>
-</html>
+<header class="nav"><a href="/" class="brand"><img src="/assets/svg/mark.svg" alt="" width="22" height="22"><b>DarkAnalytica</b><span>Leonard Dumitru</span></a><nav><a href="#investigations">Investigations</a><a href="#notes">Field notes</a><a href="#tools">Tools &amp; data</a><a href="#method">Method</a><a href="#about">About</a><a href="https://github.com/darkanalytica1">GitHub</a></nav></header>
+<main id="main" class="w">
+<section class="mast"><div><div class="mono">Independent technical research · Bucharest</div><h1>Defence and infrastructure, taken apart with evidence.</h1><p>Each investigation asks one question, answers it from primary documents, data and calculation, and publishes the method, the data and the code so anyone can check it.</p></div>
+<div class="kpi"><div><b>02</b><span>Investigations</span></div><div><b>05</b><span>Field notes</span></div><div><b>16</b><span>Open tools &amp; data</span></div><div><b>5</b><span>Claim levels</span></div></div></section>
+<section class="atlas" aria-label="Atlas of investigations"><div id="map"></div><div class="al"><span class="mono">Atlas · where each investigation sits</span><a class="ai" href="/research/black-sea-shadow-fleet/" data-i="0"><span class="pn">02</span><div><b>The Black Sea&#x27;s false ship positions are written on the Russian coast</b><span>Taman peninsula and Romanian EEZ, Black Sea</span></div></a><a class="ai" href="/research/subsea-cable-das/" data-i="1"><span class="pn">01</span><div><b>The Svalbard cable failed on the stretch it cannot hear</b><span>Svalbard link, Norwegian Arctic</span></div></a><p class="more">Each new investigation adds a pin: the place where its evidence sits.</p></div></section>
+<div class="cap"><span>Select an investigation to fly to its evidence location</span><span>Base map © OpenFreeMap / OpenStreetMap contributors</span></div>
+<a class="feat" href="/research/black-sea-shadow-fleet/"><img src="/research/black-sea-shadow-fleet/og.png" alt="Black Sea map: clusters of impossible on-land ship positions near Kerch and Novorossiysk, none in the Romanian EEZ"></a><div class="cap" style="padding:10px 2px"><span><b style="color:var(--ink)">No. 02 · latest</b> · The Black Sea&#x27;s false ship positions are written on the Russian coast</span><span>Source: Kystverket open AIS (NLOD), OpenSanctions, Black Sea MoU, own calculation</span></div>
+<h2 id="investigations">Investigations</h2><a class="row" href="/research/black-sea-shadow-fleet/" data-i="0"><span class="no">02</span><div><span class="mono">Maritime · Black Sea · <span class="co">45.12°N 37.02°E</span></span><h3>The Black Sea&#x27;s false ship positions are written on the Russian coast</h3><p>Shadow-fleet tankers are said to fake where they are. Six months of open vessel tracking for the whole Black Sea, 6.1 million positions from 5,904 vessels, checked against physics, land and each other: hundreds of ships, sanctioned or not, report the same points on land near Kerch and Novorossiysk. Off Romania, the tracks hold.</p><div class="meta"><span><em>Method</em>Open AIS physics and land checks, sanctions-list join</span><span><em>Evidence</em>Kystverket AIS, six sanctions lists, Black Sea MoU</span><span><em>Published</em>29 Sep 2026</span></div></div><div class="th"><img src="/research/black-sea-shadow-fleet/og.png" alt="" loading="lazy"></div></a><a class="row" href="/research/subsea-cable-das/" data-i="1"><span class="no">01</span><div><span class="mono">Subsea infrastructure · Arctic · <span class="co">76.50°N 12.00°E</span></span><h3>The Svalbard cable failed on the stretch it cannot hear</h3><p>Two fibre cables carry almost all of Svalbard&#x27;s data to the mainland, including SvalSat&#x27;s satellite downlinks. One failed in January 2022 on the edge of the continental shelf. Open vessel tracking, the published fault record and the physics of repeatered cables show who crosses that route, and what the cable itself could have noticed.</p><div class="meta"><span><em>Method</em>Open AIS crossing counts, cable sensing physics</span><span><em>Evidence</em>Kystverket AIS, fault record, open code</span><span><em>Published</em>28 Sep 2026</span></div></div><div class="th"><img src="/research/subsea-cable-das/og.png" alt="" loading="lazy"></div></a>
+<h2 id="notes">Field notes</h2><ul class="notes"><li><a href="https://github.com/darkanalytica1/case-studies/blob/main/05-reading-adversary-drone-doctrine.md"><span class="n">N-05</span><span class="t">Counter-UAS · doctrine</span><b>Reading an adversary&#x27;s drone textbook: defend the loop&#x27;s clock, not the airframe</b></a></li><li><a href="https://github.com/darkanalytica1/case-studies/blob/main/04-osint-ais-dark-vessel.md"><span class="n">N-04</span><span class="t">OSINT · maritime</span><b>Finding the ship running dark: fusing AIS with other open signals</b></a></li><li><a href="https://github.com/darkanalytica1/case-studies/blob/main/03-gnss-jamming-vs-spoofing.md"><span class="n">N-03</span><span class="t">Navigation security</span><b>Attacking navigation: GNSS jamming versus spoofing</b></a></li><li><a href="https://github.com/darkanalytica1/case-studies/blob/main/02-rf-control-band.md"><span class="n">N-02</span><span class="t">RF engineering</span><b>Frequency is destiny: reading a drone from its control band</b></a></li><li><a href="https://github.com/darkanalytica1/case-studies/blob/main/01-c-uas-layered-defence.md"><span class="n">N-01</span><span class="t">Counter-UAS</span><b>Reading a small-drone threat, and why layered defence beats a jammer</b></a></li></ul>
+<h2 id="tools">Instruments · code and data</h2><table class="it"><tr><td><a href="https://github.com/darkanalytica1/drone-detection-eval">drone-detection-eval</a></td><td>Tool</td><td>Scores a detector the way an operator experiences it: recall by target size, false alarms per hour.</td></tr><tr><td><a href="https://github.com/darkanalytica1/vision-vendor-checklist">vision-vendor-checklist</a></td><td>Checklist</td><td>23 questions before a computer-vision product is trusted on site.</td></tr><tr><td><a href="https://github.com/darkanalytica1/c-uas-coverage-planner">c-uas-coverage-planner</a></td><td>Tool</td><td>Sensor coverage, overlap and dead zones on a real site, with line of sight.</td></tr><tr><td><a href="https://github.com/darkanalytica1/rf-link-budget-toolkit">rf-link-budget-toolkit</a></td><td>Tool</td><td>Link margin from transmit power, gains, path loss and sensitivity.</td></tr><tr><td><a href="https://github.com/darkanalytica1/gnss-auth-bounds">gnss-auth-bounds</a></td><td>Tool</td><td>How much spoofing a receiver clock can hide under authenticated GNSS.</td></tr><tr><td><a href="https://github.com/darkanalytica1/gnss-denied-navigation-primer">gnss-denied-navigation-primer</a></td><td>Primer</td><td>How a vehicle keeps its position without GNSS.</td></tr><tr><td><a href="https://github.com/darkanalytica1/quadrotor-control-primer">quadrotor-control-primer</a></td><td>Primer</td><td>Geometric SE(3) control with high-speed experiments.</td></tr><tr><td><a href="https://github.com/darkanalytica1/isr-search-theory">isr-search-theory</a></td><td>Model</td><td>Probability maps, sweep width and allocation for ISR search.</td></tr><tr><td><a href="https://github.com/darkanalytica1/tevv-field-trial-statistics">tevv-field-trial-statistics</a></td><td>Statistics</td><td>How many trials a claim actually needs.</td></tr><tr><td><a href="https://github.com/darkanalytica1/c2-decision-latency">c2-decision-latency</a></td><td>Model</td><td>Detection-to-effect time, decomposed.</td></tr><tr><td><a href="https://github.com/darkanalytica1/uas-cyber-threat-model">uas-cyber-threat-model</a></td><td>Threat model</td><td>Aircraft, ground control, links, cloud and supply chain.</td></tr><tr><td><a href="https://github.com/darkanalytica1/ethical-hacking-cheatsheet">ethical-hacking-cheatsheet</a></td><td>Reference</td><td>Each offensive technique paired with the defence that stops it.</td></tr><tr><td><a href="https://github.com/darkanalytica1/defence-product-gtm">defence-product-gtm</a></td><td>Field guide</td><td>Why commercial product assumptions break in defence.</td></tr><tr><td><a href="https://github.com/darkanalytica1/romanian-open-company-data">romanian-open-company-data</a></td><td>Toolkit</td><td>Identifier validation for national company registers.</td></tr><tr><td><a href="https://github.com/darkanalytica1/gdpr-b2b-data-engineering">gdpr-b2b-data-engineering</a></td><td>Reference</td><td>GDPR enforced in code: provenance gate, hashed suppression.</td></tr><tr><td><a href="https://github.com/darkanalytica1/icp-scoring-toolkit">icp-scoring-toolkit</a></td><td>Toolkit</td><td>Market intelligence as a testable model.</td></tr></table>
+<h2 id="method">Method · every claim is labelled</h2><div class="lv"><div><b>Verified fact</b><span>Primary document, dataset or measurement.</span></div><div><b>Official / vendor claim</b><span>Attributed, never upgraded to fact.</span></div><div><b>Calculated</b><span>Reproducible, code on GitHub.</span></div><div><b>Assessment</b><span>Calibrated language, confidence stated.</span></div><div><b>Unknown</b><span>Said out loud, not filled in.</span></div></div>
+<h2 id="about">About</h2><div class="about"><div><p>I am Leonard Dumitru, based in Bucharest. I research defence and dual-use technology, critical infrastructure, the radio spectrum, and the intelligence and data work around them.</p><p>My interest is the space between a capability on paper and a capability that holds up in the field: where a datasheet meets terrain, where a requirement meets a procurement process, where a public record meets what actually happened.</p><p>Everything here is built from public sources. Security content is defensive and educational. Where a number matters, its source is next to it; where I am unsure, I say so. Not affiliated with any employer.</p></div>
+<dl><dt>Name</dt><dd>Leonard Dumitru</dd><dt>Based</dt><dd>Bucharest, Romania</dd><dt>Email</dt><dd><a href="mailto:darkanalytica@gmail.com">darkanalytica@gmail.com</a></dd><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/wh-systems">linkedin.com/in/wh-systems</a></dd><dt>GitHub</dt><dd><a href="https://github.com/darkanalytica1">github.com/darkanalytica1</a></dd></dl></div>
+<footer><span>© Leonard Dumitru · DarkAnalytica · independent research from public sources</span><span class="mono">darkanalytica1.github.io</span></footer></main>
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script>(function(){const INV=[{"lat": 45.12, "lon": 37.02, "n": "02", "zoom": 5.2}, {"lat": 76.5, "lon": 12.0, "n": "01", "zoom": 4.2}];if(!window.maplibregl||!INV.length)return;
+const map=new maplibregl.Map({container:"map",style:"https://tiles.openfreemap.org/styles/positron",center:[22, 64],zoom:innerWidth<900?1.1:1.85,attributionControl:false,cooperativeGestures:true});
+map.on("load",()=>map.resize());addEventListener("resize",()=>map.resize());map.addControl(new maplibregl.NavigationControl({showCompass:false}),"top-left");
+const L=[...document.querySelectorAll(".ai")],R=[...document.querySelectorAll(".row")],P=[];
+INV.forEach((p,k)=>{const el=document.createElement("button");el.className="mk";el.textContent=p.n;el.setAttribute("aria-label","Investigation "+p.n);el.addEventListener("click",()=>sel(k));P.push(el);new maplibregl.Marker({element:el}).setLngLat([p.lon,p.lat]).addTo(map);});
+function hi(k){[L,R,P].forEach(a=>a.forEach((e,j)=>e.classList.toggle("on",j===k)));}
+function sel(k){hi(k);map.flyTo({center:[INV[k].lon,INV[k].lat],zoom:INV[k].zoom,speed:.8});}
+[L,R].forEach(a=>a.forEach((e,k)=>e.addEventListener("mouseenter",()=>{hi(k);})));
+})();</script></body></html>
