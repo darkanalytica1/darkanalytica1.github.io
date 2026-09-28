@@ -1,0 +1,110 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A subsea cable can hear only its first span · DarkAnalytica</title>
+<meta name="description" content="Russia rehearsed cable sabotage off Svalbard. With distributed acoustic sensing, the 1,375 km Svalbard segment can hear only about 131 km from its two landings; the deep middle stays deaf.">
+<meta name="author" content="Leonard Dumitru">
+<link rel="canonical" href="https://darkanalytica1.github.io/research/subsea-cable-das/">
+<meta property="og:type" content="article"><meta property="og:title" content="Russia rehearsed cable sabotage off Svalbard. The cable can hear only 131 of its 1,375 km.">
+<meta property="og:description" content="Where a repeatered subsea cable can listen to itself with DAS, and why the deep middle stays deaf.">
+<meta property="og:image" content="https://darkanalytica1.github.io/research/subsea-cable-das/og.png"><meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"A subsea cable can hear only its first span","author":{"@type":"Person","name":"Leonard Dumitru"},"datePublished":"2026-09-28","image":"https://darkanalytica1.github.io/research/subsea-cable-das/og.png"}</script>
+<style>
+@font-face{font-family:"IBM Plex Sans";src:url(fonts/plex-sans-400.woff2);font-weight:400}
+@font-face{font-family:"IBM Plex Sans";src:url(fonts/plex-sans-500.woff2);font-weight:500}
+@font-face{font-family:"IBM Plex Sans";src:url(fonts/plex-sans-600.woff2);font-weight:600 700}
+@font-face{font-family:"IBM Plex Mono";src:url(fonts/plex-mono-400.woff2);font-weight:400}
+@font-face{font-family:"IBM Plex Mono";src:url(fonts/plex-mono-500.woff2);font-weight:500 600}
+:root{--page:#F5F7FA;--line:#D8DEE6;--ink:#0E1726;--ink2:#3D4A5C;--ink3:#5F6B7C;--navy:#0B2545;--steel:#3E5C76;--brass:#8A6A1F;--teal:#2F6F73}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);font:400 17px/1.65 "IBM Plex Sans",system-ui,sans-serif}
+a{color:var(--navy)}
+.w{max-width:720px;margin:0 auto;padding:0 20px}.wide{max-width:1120px;margin:0 auto;padding:0 20px}
+.mono{font:500 12px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+header{padding:28px 0 8px}header .bar{display:flex;justify-content:space-between}header .bar a{text-decoration:none;color:var(--navy)}
+h1{font:600 clamp(28px,4.2vw,42px)/1.12 "IBM Plex Sans";letter-spacing:-.015em;margin:26px 0 12px}h1 span{display:block;color:var(--ink3)}
+.dek{font-size:19px;color:var(--ink2);margin:0 0 10px}.by{margin:14px 0 28px}
+h2{font:600 24px/1.25 "IBM Plex Sans";margin:44px 0 10px}h2 small{display:block;font:500 12px "IBM Plex Mono";letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;margin-bottom:6px}
+p{margin:0 0 16px}sup a{font:500 11px "IBM Plex Mono";text-decoration:none;color:var(--brass)}
+.fig{background:#fff;border:1px solid var(--line);border-top:2px solid var(--navy);border-radius:6px;padding:14px;margin:26px 0 8px}
+.fig .hd{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}.tabs button{all:unset;cursor:pointer;font:500 12px "IBM Plex Mono";padding:6px 10px;border:1px solid var(--line);border-radius:4px;color:var(--ink2);transition:border-color .2s,background .2s}
+.tabs button:hover{border-color:var(--steel)}.tabs button[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tabs button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.grid{display:grid;grid-template-columns:400px 1fr;gap:18px}
+.stat{border-top:1px solid var(--line);padding:10px 0}.stat b{display:block;font:600 34px/1.05 "IBM Plex Sans"}.stat span{font-size:14px;color:var(--ink2)}
+.cap{font-size:13.5px;color:var(--ink3);margin:8px 0 24px}.cap b{color:var(--ink2)}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0 24px}th{font:500 11.5px "IBM Plex Mono";letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);text-align:left;border-bottom:2px solid var(--navy);padding:6px 8px}
+td{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top}
+.box{background:#fff;border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:6px;padding:14px 16px;margin:18px 0}
+.box .mono{display:block;margin-bottom:4px}
+ol.src{font-size:14px;color:var(--ink2);padding-left:22px}ol.src li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:48px;padding:20px 0 40px;font-size:13px;color:var(--ink3)}
+@media(max-width:900px){.grid{grid-template-columns:1fr}#map{margin:0 auto}}
+</style></head><body>
+<header class="wide"><div class="bar mono"><a href="/">DarkAnalytica</a><span>Investigation 01 · Subsea infrastructure</span></div></header>
+<main>
+<div class="w">
+<h1>Russia rehearsed cable sabotage off Svalbard.<span>The cable can hear only 131 of its 1,375&nbsp;km.</span></h1>
+<p class="dek">A telecom fibre can work as a long chain of microphones. On a repeatered subsea cable, that only works up to the first repeater from each shore. The deep middle, where an attacker would work, stays deaf.</p>
+<div class="by mono">Leonard Dumitru · 28 September 2026 · 7 min · calculations and data: <a href="https://github.com/darkanalytica1/cable-das-coverage">cable-das-coverage</a></div>
+</div>
+<div class="wide"><div class="fig">
+ <div class="hd"><span class="mono">Where shore-based DAS can listen · select a configuration</span>
+  <div class="tabs" role="group" aria-label="Configuration">
+   <button data-s="single" aria-pressed="false">One landing</button><button data-s="dual" aria-pressed="true">Both landings</button><button data-s="esf" aria-pressed="false">Enhanced fibre</button><button data-s="loop" aria-pressed="false">Loopback repeaters</button><button data-s="sop" aria-pressed="false">Polarisation</button></div></div>
+ <div class="grid"><div id="map"><noscript><img src="static.png" alt="Map and profile of the Svalbard cable with heard and deaf stretches" style="width:100%"></noscript></div>
+  <div><div class="stat"><b id="sH" style="color:var(--teal)">131 km</b><span id="sHt">heard, 9.5 % of the segment</span></div>
+   <div class="stat"><b id="sD" style="color:var(--brass)">1,244 km</b><span id="sDt">longest deaf stretch</span></div>
+   <div class="stat"><b id="sN">Commercial</b><span id="sNt">standard interrogator at each landing</span></div>
+   <div class="mono" style="margin-top:16px">Depth along the segment · hover to locate</div><div id="prof"></div></div></div>
+</div>
+<p class="cap w" style="padding:0"><b>Figure 1.</b> GEBCO 2020 bathymetry. Cable drawn along the approximate public route; 20 repeaters assumed evenly spaced (about 65.5 km). Coverage shows where the fibre can listen, not what it would detect.</p></div>
+<div class="w">
+<h2><small>01 · The signal</small>A rehearsal near the Arctic cables</h2>
+<p>On 10 September, Reuters reported that a joint British, Norwegian and US operation tracked and confronted Russian deep-sea submersibles from the GUGI directorate near Svalbard, during what officials described as a test of a capability to disable undersea cables covertly.<sup><a href="#s1">1</a></sup> Two fibre cables of about 1,400 km link Svalbard to the Norwegian mainland and lie as deep as 2,700 m.<sup><a href="#s1">1</a></sup></p>
+<p>The question here is narrow and defensive: could a cable like this at least hear something happening along its own route?</p>
+<h2><small>02 · What a fibre can hear</small>The cable as a sensor</h2>
+<p>Distributed acoustic sensing (DAS) sends laser pulses into a fibre and reads the light scattered back by tiny imperfections in the glass. Vibrations change that backscatter, so each few metres of fibre becomes a sensor. On a 120 km fibre between Longyearbyen and Ny-Ålesund, researchers recorded for 44 days in 2020, tracked a ship about 86 km along the fibre and detected whale calls out to 95 km.<sup><a href="#s2">2</a></sup></p>
+<h2><small>03 · The constraint</small>The first repeater is a one-way gate</h2>
+<p>Long cables need optical amplifiers (repeaters) every few tens of kilometres. Ordinary repeaters amplify in one direction only, so the backscatter from beyond the first repeater never reaches the interrogator on shore.<sup><a href="#s3">3</a></sup> Commercial DAS units reach up to about 171 km without amplification,<sup><a href="#s3">3</a></sup> but on a repeatered cable the limit is the first span, not the instrument.</p>
+<p>Each of the two Svalbard segments is about 1,375 km and 1,339 km long, with twenty repeaters each.<sup><a href="#s4">4</a></sup> The span plan is not public. Assuming even spacing, each span is about 65.5 km.</p>
+<div class="box"><span class="mono">Calculated · both landings</span>An interrogator at each end hears about 131 km of the 1,375 km segment, 9.5 %. The longest stretch no shore interrogator can hear is about 1,244 km. From one landing only, coverage falls to 65 km, 4.8 %.</div>
+<h2><small>04 · The finding</small>The ears are in shallow water</h2>
+<p>The heard stretches sit next to the landings. On the Svalbard side the first 250 km run over the shelf at a few hundred metres; the route then drops past 2,000 m. Sampling GEBCO 2020 depths along the public route, about 94 % of the route deeper than 1,000 m falls in the deaf stretch.<sup><a href="#s5">5</a></sup> The share stays between 89 % and 97 % if the shore spans are anywhere between 30 and 120 km, so the conclusion does not depend on the even-spacing assumption.</p>
+<p>A better interrogator does not change this. Enhanced-scattering fibre has pushed DAS to 200.6 km on unrepeatered systems,<sup><a href="#s6">6</a></sup> which is useful on short links, but the first repeater still stops the returning light.</p>
+<table><thead><tr><th>Approach</th><th>Hears on this segment</th><th>Locates events</th><th>Status</th></tr></thead><tbody>
+<tr><td>DAS, one landing</td><td>65 km · 4.8 %</td><td>to metres</td><td>commercial</td></tr>
+<tr><td>DAS, both landings</td><td>131 km · 9.5 %</td><td>to metres</td><td>commercial</td></tr>
+<tr><td>Enhanced-scattering fibre</td><td>131 km · 9.5 %</td><td>to metres</td><td>no gain past a repeater</td></tr>
+<tr><td>Loopback repeaters (multi-span DAS)</td><td>up to the whole cable</td><td>to metres, signal falls span by span</td><td>demonstrated, not commercial<sup><a href="#s3">3</a></sup></td></tr>
+<tr><td>Polarisation on live traffic</td><td>the whole cable</td><td>not along the cable yet</td><td>research<sup><a href="#s2">2</a></sup></td></tr>
+</tbody></table>
+<h2><small>05 · Assessment</small>Decided at specification</h2>
+<p>We assess that a repeatered cable like this cannot guard its own deep route with shore-based DAS today. The options that reach the deep middle, loopback paths in the repeaters or a reserved fibre pair designed for sensing, have to be chosen before the repeaters are built. Norway plans a new cable to Svalbard and Jan Mayen by 2028;<sup><a href="#s1">1</a></sup> that is the cheapest moment to decide whether it should listen to its own route.</p>
+<h2><small>06 · Limits</small>What this does not show</h2>
+<p>This bounds where the fibre can listen. It does not show that DAS would detect a quiet submersible at 2,000 m; that depends on noise, coupling and the signal, and remains open. The route is the approximate public line scaled to the official segment length, the repeater positions are assumed, and the deepest sampled point (2,375 m) is shallower than the reported 2,700 m because the route is approximate. Nothing here describes how any weapon works.</p>
+<h2><small>Sources</small></h2>
+<ol class="src">
+<li id="s1">Reuters, via Defense News, “NATO allies foil Russian subsea cable sabotage plot”, 10 September 2026.</li>
+<li id="s2">Landrø M. et al., “Sensing whales, storms, ships and earthquakes using an Arctic fibre optic cable”, Scientific Reports 12, 2022.</li>
+<li id="s3">Xenaki A. et al., “Distributed acoustic sensing for ocean applications”, arXiv:2502.18344, 2025.</li>
+<li id="s4">Svalbard Undersea Cable System, public system description (segment lengths, repeaters, fibre pairs).</li>
+<li id="s5">GEBCO Compilation Group, GEBCO 2020 Grid; sampled via OpenTopoData. Calculation: cable-das-coverage v0.1.</li>
+<li id="s6">NEC Laboratories / OFS, DAS over 200.6 km with enhanced-scattering fibre, SubOptic 2025.</li>
+</ol>
+</div></main>
+<footer class="w">Leonard Dumitru · DarkAnalytica · Independent research from public sources. Not affiliated with any employer.</footer>
+<script src="d3.min.js"></script><script src="data.js"></script><script src="figure.js"></script>
+<script>
+const note={single:["65 km","heard, 4.8 % of the segment","1,310 km","Commercial","one interrogator at Longyearbyen"],
+ dual:["131 km","heard, 9.5 % of the segment","1,244 km","Commercial","standard interrogator at each landing"],
+ esf:["131 km","heard, 9.5 %: longer reach, same first repeater","1,244 km","No gain","enhanced-scattering fibre, 200.6 km reach"],
+ loop:["1,375 km","heard span by span, signal falls with each span","0 km","Not commercial","loopback paths built into the repeaters"],
+ sop:["1,375 km","sensed, but events cannot be located along the cable","n/a","Research","polarisation changes on the live data signal"]};
+const mapEl=document.getElementById("map"), profEl=document.getElementById("prof");
+function draw(s){ const W=Math.min(400,mapEl.parentElement.clientWidth);
+ drawMap(mapEl,{id:"a",w:W,h:W*1.93,latMax:79.0,scenario:s,rw:4,rr:3.3,fs:12,scaleBar:[16,W*1.93-20],
+  labels:[{t:"Longyearbyen",lon:15.3,lat:78.0,fs:12,w:600,halo:"#E9EDF2"},{t:"Andøya",lon:16.5,lat:69.5,fs:12,w:600,halo:"#E9EDF2"},{t:"NORWEGIAN SEA",lon:5.0,lat:70.4,mono:true,fs:10.5,c:"#fff",ls:".14em"},{t:"GREENLAND SEA",lon:6,lat:76.4,mono:true,fs:10.5,c:"#fff",ls:".14em"},{t:"BARENTS SEA",lon:18.6,lat:73.4,mono:true,fs:10.5,c:"#0B2545",ls:".14em"}]});
+ drawProfile(profEl,{id:"b",w:profEl.clientWidth||600,h:170,scenario:s,fs:12,cw:3,m:{l:56,r:8,t:18,b:26},onHover:km=>mapEl._hover&&mapEl._hover(km)});
+ const n=note[s]; sH.textContent=n[0]; sHt.textContent=n[1]; sD.textContent=n[2]; sN.textContent=n[3]; sNt.textContent=n[4]; }
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-pressed",x===b));draw(b.dataset.s)});
+draw("dual"); let t; addEventListener("resize",()=>{clearTimeout(t);t=setTimeout(()=>draw(document.querySelector('.tabs [aria-pressed=true]').dataset.s),200)});
+</script></body></html>
